@@ -1,0 +1,26 @@
+# Virtual environment
+Lib/
+Scripts/
+Include/
+pyvenv.cfg
+
+# Secrets
+.env
+.env.bak
+*.env.bak
+
+# Backups / scratch copies
+*.bak
+* - Copy.py
+* - Copy.*
+
+# Media assets (logos/music kept local, not committed)
+media/
+
+# Python
+__pycache__/
+*.pyc
+
+# OS
+Thumbs.db
+.DS_Store

@@ -1,0 +1,6 @@
+pygame>=2.5
+requests>=2.32
+python-dotenv>=1.0
+# Optional (enable later):
+# spotipy>=2.24
+# Pillow>=10.4
