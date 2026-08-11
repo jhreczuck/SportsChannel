@@ -39,11 +39,13 @@ const BODY_FONT_PX = 36;
 const HEADER_FONT_PX = 32;
 const SMALL_FONT_PX = 22;
 const TICKER_FONT_PX = 32;
+const BOARD_TITLE_FONT_PX = 44; // board titles like "LATEST LINE" -- same pixel font, bigger
 
 const BODY_FONT = `${BODY_FONT_PX}px PxPlusIBMVGA8, monospace`;
 const HEADER_FONT = `bold ${HEADER_FONT_PX}px Consolas, monospace`;
 const SMALL_FONT = `${SMALL_FONT_PX}px PxPlusIBMVGA8, monospace`;
 const TICKER_FONT = `${TICKER_FONT_PX}px PxPlusIBMVGA8, monospace`;
+const BOARD_TITLE_FONT = `${BOARD_TITLE_FONT_PX}px PxPlusIBMVGA8, monospace`;
 
 // ---------------------------
 // Canvas setup
@@ -250,7 +252,7 @@ function buildStandingsPages(standingsData) {
 // ---------------------------
 // Latest Line board builder (NFL betting lines)
 // ---------------------------
-const LATEST_LINE_GAMES_PER_SCREEN = 5;
+const LATEST_LINE_GAMES_PER_SCREEN = 4; // 5 overflowed past the panel with the taller title/logo layout
 
 function buildLatestLinePages(latestLineData) {
   const pages = [];
@@ -555,7 +557,7 @@ function drawStandingsBoard(page, logos) {
 function drawLatestLineBoard(page, nflLogo) {
   const titleY = inner.y + TEXT_PADDING;
 
-  ctx.font = HEADER_FONT;
+  ctx.font = BOARD_TITLE_FONT;
   ctx.fillStyle = "rgb(235,150,60)"; // same warm accent as the headlines title
   ctx.textBaseline = "top";
   ctx.textAlign = "left";
@@ -563,22 +565,25 @@ function drawLatestLineBoard(page, nflLogo) {
 
   ctx.font = BODY_FONT;
   ctx.fillStyle = TEXT_COLOR;
-  let subY = titleY + HEADER_FONT_PX + 16;
-  ctx.fillText("NFL GAMES", inner.x + TEXT_PADDING, subY);
+  ctx.fillText("NFL GAMES", inner.x + TEXT_PADDING, titleY + BOARD_TITLE_FONT_PX + 16);
+
+  // Everything below here (headers, day label, rows) starts below the
+  // logo's bottom edge and uses the full panel width -- no need to stay
+  // narrow once past the image, same as story-slide wrapping.
+  let subY = Math.max(rightRect.y + rightRect.h + 20, titleY + BOARD_TITLE_FONT_PX + 16 + BODY_FONT_PX + 20);
 
   let dayLabel = `(${page.day})`;
   if (page.totalPages > 1) dayLabel += ` ${page.page}/${page.totalPages}`;
-  subY += BODY_FONT_PX + 10;
 
   const nameX = inner.x + TEXT_PADDING;
-  const colW = Math.max(100, leftRect.w - TEXT_PADDING * 2);
+  const colW = inner.w - TEXT_PADDING * 2; // full panel width
   const colPointsX = nameX + colW * 0.5;
-  const colUnderdogX = nameX + colW * 0.72;
+  const colUnderdogX = nameX + colW * 0.65;
 
   // Column headers
   ctx.fillStyle = "rgb(200,180,120)";
   ctx.fillText("FAVORITE", nameX, subY);
-  ctx.fillText("POINTS", colPointsX, subY);
+  ctx.fillText("Pts", colPointsX, subY);
   ctx.fillText("UNDERDOG", colUnderdogX, subY);
   subY += BODY_FONT_PX + 8;
 
@@ -661,6 +666,7 @@ async function main() {
     document.fonts.load(HEADER_FONT),
     document.fonts.load(SMALL_FONT),
     document.fonts.load(TICKER_FONT),
+    document.fonts.load(BOARD_TITLE_FONT),
   ]);
 
   let storySlides = [{ title: "", body: "Loading stories...", logo: null }];

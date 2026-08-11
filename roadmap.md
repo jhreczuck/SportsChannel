@@ -224,9 +224,14 @@ start of the whole rotation.
 - [x] **Latest Line**: NFL betting lines (favorite/spread/underdog), shown at the start of the
       NFL section, before NFL stories — mirrors the original broadcast's board. Sourced from
       ESPN's scoreboard `odds` field (favorite team, spread, moneyline provider), grouped by game
-      day, paginated at 5 games/screen. No byline/copyright line, per request.
-      `src/refresh_latest_line.py` → `data/latest_line.json`; `buildLatestLinePages` /
-      `drawLatestLineBoard` in `app.js`.
+      day, paginated at 4 games/screen (was 5 — overflowed the panel once the title got bigger).
+      No byline/copyright line, per request. `src/refresh_latest_line.py` → `data/latest_line.json`;
+      `buildLatestLinePages` / `drawLatestLineBoard` in `app.js`.
+- [x] Follow-up: rows now start below the logo's bottom edge and use the full panel width there
+      (same two-zone pattern as story-slide wrapping), instead of staying narrow the whole board
+      and cramping longer team names. "LATEST LINE" title switched from Consolas to the same
+      pixel font as everything else (`PxPlusIBMVGA8`) and bumped to a dedicated 44px
+      `BOARD_TITLE_FONT`. "POINTS" column header abbreviated to "Pts".
 - [x] **NFL Standings**: replicates the MLB standings board for NFL's 8 divisions (AFC/NFC ×
       East/North/South/West), including a Ties column MLB doesn't have. Defaults to the generic
       `nfl.png` badge (no AFC/NFC-specific art yet, unlike MLB's AL/NL split).
