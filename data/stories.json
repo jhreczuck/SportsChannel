@@ -1,8 +1,32 @@
 {
-  "generated_at": "2026-08-11T23:06:27.552900Z",
+  "generated_at": "2026-08-11T23:18:20.343989Z",
   "source": "yahoo_news_via_news_feed",
   "max_per_sport": 25,
   "slides": [
+    {
+      "title": "Chicago Bears Make Roster Moves",
+      "body": "<<<INDENT>>>The Colts beat the Buccaneers 27-20. In the corresponding transaction, they have waived defensive back Brandon Hill, who was just signed on Sunday. The 29-year-old French (6’4”, 307) was part of a three-man tryout today, along with Tremayne Anchrum and Lecitus Smith, and according to the Chicago Tribune’s Brad Biggs, the Bears need an extra center because second-year interior offensive lineman Luke Newman is sidelined for an undisclosed reason.",
+      "logo": "bears.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) Briggs speculated that French could see some action in Saturday’s preseason game against the Browns. The top two centers on the Bears’ roster are starter Garrett Bradbury and rookie second-round pick Logan Jones. Undrafted free agent Jaren Kump was listed as the number three on today’s unofficial depth chart. In 2023 with the Colts, French appeared in all 17 games, making three starts.",
+      "logo": "bears.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "Day 10 News and Notes from Broncos Camp",
+      "body": "<<<INDENT>>>the Falcons on Friday Night. Wednesday’s practice was open to fans initially, but the team announced last week that it will be a closed practice, so offseason rules will be in effect for tomorrow’s practice. Today’s practice was another padded practice and one that featured second-year wide receiver Pat Bryant. He had a nice touchdown today and earned some praise from Nik Bonitto after practice. Unfortunately, the Broncos are getting a bit thin at center, <<<INDENT>>>(cont) and we heard from team owner Greg Penner today.",
+      "logo": "broncos.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
     {
       "title": "Dallas Cowboys release first unofficial depth chart of season",
       "body": "<<<INDENT>>>These are, as noted, unofficial and should not be treated with any high level of seriousness. Here is what the Cowboys have offered. To be honest, there aren’t any real strong takeaways to have. Everything is pretty chalk. Offensively the Cowboys look exactly how they did last year from a starters standpoint. It is mildly interesting that rookie Drew Shelton is listed at backup right tackle, but Nate Thomas is the swing. On the defensive side of the ball we see the new-",
@@ -30,7 +54,7 @@
     {
       "title": "Update on former Cardinals QB Kyler Murray’s status with the Vikings",
       "body": "<<<INDENT>>>He is a former first overall pick and played seven seasons with the Cardinals. After Mike LaFleur was hired as the new head coach of the Cardinals after a historical 14 loss season, there were discussions immediately about the quarterback room. RELATED: BRISSETT HAS NEW DEAL. CAN HE NOW FOCUS ON THE JOB?Who to keep? Did they want a QB competition between Murray and Jacoby Brissett? Cut bait? Trade one?",
-      "logo": "cardinals.png",
+      "logo": "nfl_cardinals.png",
       "league": "nfl",
       "logo_recommended": "nfl.png",
       "category": null
@@ -156,27 +180,51 @@
       "category": null
     },
     {
-      "title": "Jets CB Qwan'tez Stiggers transported to the hospital after passing out at practice",
-      "body": "<<<INDENT>>>Jets cornerback Qwan'tez Stiggers was transported in an ambulance to a local hospital after losing consciousness during a joint practice with the Buccaneers. Jets coach Aaron Glenn said after practice that Stiggers was conscious and talking on the field. Stiggers also received an IV before being taken by stretcher to the waiting ambulance. The Jets have not updated Stiggers' condition. Glenn said Stiggers \"came to the sideline, and he just passed out. \" \"For the most part,",
-      "logo": "jets.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
+      "title": "Game Thread: Reds (56-61) at White Sox (61-56)",
+      "body": "<<<INDENT>>>Sean Burke holds a 1.74 ERA in his last seven starts, with 144 strikeouts on the season. (Matt Dirksen/Getty Images) After squeaking out an important series win against the Cleveland Guardians this past weekend, the South Siders look to carry that momentum into a new three-game set against the Cincinnati Reds. Ideally, the Sox can take care of business while holding down first place as the Detroit Tigers and the Guardians bat each other up over the next few days.",
+      "logo": "reds.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
       "category": null
     },
     {
       "title": "",
-      "body": "<<<INDENT>>>(cont) he was good,\" Glenn said, via Rich Cimini of ESPN. The incident stopped the joint practice for 10 minutes. Stiggers, 24, entered the NFL as a fifth-round pick of the Jets in 2024 after not playing college football. He played one season for the Toronto Argonauts of the CFL. Stiggers has appeared in 29 games for the Jets, seeing action on 503 special teams snaps and 297 on defense.",
-      "logo": "jets.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
+      "body": "<<<INDENT>>>(cont) The good news is that on top of the wizardry that Mike Vasil contributes to the team, the Good Guys can channel the Pope and those powers-that-be, as 38,000 fans in attendance on the South Side will be sporting a “Pope hat” from tonight’s giveaway. Standing room only at Sox Park? All for this glorious hat:The South Siders have their ace on the mound, as righthander Sean Burke makes his 20th start of the season.",
+      "logo": "reds.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
       "category": null
     },
     {
-      "title": "Matthew Stafford doesn't think Puka Nacua's injury was \"anything too major\"",
-      "body": "<<<INDENT>>>Matthew Stafford is neither a trainer nor a doctor. But as a quarterback entering his 18th pro season, he has an idea of what a serious injury looks like. Head coach Sean McVay did not have a real update on why Puka Nacua left Tuesday’s joint practice with the Cowboys, and Stafford didn't know much about it either. But he also did not get any indication that Nacua's injury was significant. \"I did not [see what happened],\" Stafford said, via Lindsey Thiry of ESPN.",
-      "logo": "cowboys.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
+      "title": "Braves vs Mets chat and discussion: Martín Pérez vs Nolan McLean",
+      "body": "<<<INDENT>>>After a few rough games that have drawn some eyes to umpires, the Atlanta Braves are looking to bounce back and take game two against the New York Mets. The game will feature Martín Pérez for the Braves as he continues his second best season of his fifteen year career against Nolan McLean a player emerging as a staff ace for the Mets. Pérez gave up four earned runs against the Mets in early July and in the same game McLean had a much better performance only giving up two.",
+      "logo": "braves.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) A rematch is in place tonight, and hopefully Pérez and the Braves come out on top this time. Follow along in the comments. First pitch was scheduled for 7:15 p. m. ET but the tarp went on the field around a half hour before first pitch. The tarp is now off but in case there are any more updates, the rain delay thread is the place to go to.",
+      "logo": "braves.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "Nick Swisher relives best Yankees memories at Old-Timers’ Day",
+      "body": "<<<INDENT>>>As a key member of the 2009 World Series-winning team, Nick Swisher couldn’t ask for more. Before the Yankees faced the Braves on Saturday, Michael Kay made introductions for all the former players participating in the Old-Timers’ Day game. Swisher, whose spirit and enthusiasm were never dimmed by his retirement, was introduced as “Swishalicious,” the nickname famously coined by former Yankees broadcaster John Sterling, who sadly passed away in May 2026.",
+      "logo": "yankees.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) Hearing that name brought back a massive wave of memories for the MLB All-Star. Sterling originally used another nickname when Swisher first joined the organization, but it never really sat right with him. “I remember the first time I met John Sterling,” Swisher commented during an interview after Old-Timers’ Day. “The first home run call when I first showed up was ‘Jolly Ol’ St.",
+      "logo": "yankees.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
       "category": null
     },
     {
@@ -214,7 +262,7 @@
     {
       "title": "Giants sign Andrew Knizner, activate Victor Bericoto",
       "body": "<<<INDENT>>>The Diamondbacks defeated the Giants 6-5. As expected, the team found a veteran catcher to back up Drew Cavanaugh, and it’s a familiar face: Andrew Knizner. Knizner had been playing for the Boston Red Sox AAA affiliate until last week, but exercised an opt-out clause. The 31-year old had posted a 141 wRC with two home runs in 21 games for Boston’s Minor League team (which came after a 123 wRC with 10 homers in 33 games with Colorado’s AAA affiliate),",
-      "logo": "giants.png",
+      "logo": "mlb_giants.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
@@ -222,7 +270,7 @@
     {
       "title": "",
       "body": "<<<INDENT>>>(cont) and was hopeful that he could parlay that performance into another Major League opportunity. That opportunity came calling quickly, as the Giants announced on Monday that catcher Daniel Susac had a fractured left knee patellar, which almost certainly ends his debut season. San Francisco had added Zach Morgan to the roster to back up Cavanaugh, with Morgan arriving in San Francisco during the third inning of the game.",
-      "logo": "giants.png",
+      "logo": "mlb_giants.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
@@ -230,7 +278,7 @@
     {
       "title": "Red Sox @ Blue Jays Game Thread",
       "body": "<<<INDENT>>>Louis Cardinals and the Toronto Blue Jays on Saturday, August 1, 2026 in Toronto, Ontario, Canada. Maybe an Act of God, or Act of Manfred? Oh well, the fun of playing in the AL East. If we played in the AL Central, the umpires couldn’t care enough about any of the teams to give them free runs. I’m not bitter…. . no no no.",
-      "logo": "cardinals.png",
+      "logo": "mlb_cardinals.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
@@ -399,38 +447,6 @@
       "title": "",
       "body": "<<<INDENT>>>(cont) who has won the Pacific Coast League’s “Player of the Week” honors for two consecutive weeks has been on an absolute tear. The 2020 first-round draft pick is currently slashing .327/.402/.635 and leads the Pacific Coast League in both slugging percentage and OPS (1.037) in 100 games with just under 400 at-bats. As for Julien, in January, the Rockies acquired him and pitcher Pierson Ohl from the Minnesota Twins for cash considerations. The Rockies hoped Julien could bring versatility and a lefty bat to their lineup.",
       "logo": "rockies.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "Cincinnati Reds activate Nick Lodolo, select contract of Michael Toglia",
-      "body": "<<<INDENT>>>The Cincinnati Reds made official the optioning of IF/OF Ivan Johnson on Monday despite it being an off-day for the club ahead of their series in Chicago against the White Sox. They then gave us a full day to speculate on just what other roster moves lay in store as lefty Nick Lodolo was also expected to make his return to the roster for the series opener. Lodolo is officially back as of Tuesday afternoon. The Reds made room on the pitcher-",
-      "logo": "reds.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) half of the roster by optioning Zach McCambley back to AAA Louisville. For the position-player half of the ledger, though, the Reds selected the contract of former Colorado Rockies slugger Michael Toglia, doing so by moving Hunter Greene to the 60-day IL as the latter gets prepped for another season-ending elbow surgery. That said, he's much more of a 1B/DH kind of guy and only got 2 appearances in the outfield with AAA Louisville.",
-      "logo": "reds.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "Yankees’ ABS challengers to watch down the stretch",
-      "body": "<<<INDENT>>>#13 of the New York Yankees reacts after hitting a solo home run during the second inning against the St. Louis Cardinals at Yankee Stadium on August 04, 2026 in the Bronx borough of New York City. For the Yankees, the goal is not just to catch the Tampa Bay Rays, who sit six games above them in first place, but also to fend off the Boston Red Sox, who have surged back into the American League East race.",
-      "logo": "yankees.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) The Yankees’ archrivals are two games back for second place in the AL East, and every game from now until the final day of the regular season matters for potential postseason positioning. With how important every game is, it also stands that every pitch is extremely important. MLB’s Automated Balls and Strikes system has allowed the players to take some power into their own hands and challenge pitches they believe were called wrong.",
-      "logo": "yankees.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null

@@ -73,13 +73,19 @@ MERGE_CONTINUATION_MAX_LEN = 200
 EXCLUDED_CATEGORIES = {"fantasyfootball"}
 
 
-def infer_logo_from_text(text: str) -> str | None:
+def infer_logo_from_text(text: str, league: str | None = None) -> str | None:
     """
     Infer a team logo filename from the first team name that actually
     appears in the text (by position, not by which regex found it), e.g.
     'Cowboys' -> 'cowboys.png'. Also matches digit-prefixed nicknames like
     '49ers', which have no uppercase letter at all ("49ers", not "49Ers")
     and would otherwise never match the capitalized-word pattern.
+
+    A few nicknames exist in both NFL and MLB (currently "Giants" and
+    "Cardinals" -- see fetch_team_logos.py), so if `league` is known, the
+    league-prefixed filename ("mlb_giants.png") is checked before the bare
+    one, to avoid an MLB story showing the NFL team's logo or vice versa.
+
     Returns None if no matching logo file exists.
     """
     if not text:
@@ -88,13 +94,16 @@ def infer_logo_from_text(text: str) -> str | None:
     matches = list(re.finditer(r"\b[A-Z][a-z]+\b", text)) + list(re.finditer(r"\b\d+[a-z]+\b", text))
     matches.sort(key=lambda m: m.start())
     for m in matches:
-        logo_name = f"{m.group().lower()}.png"
+        word = m.group().lower()
+        if league and (MEDIA_LOGOS_DIR / f"{league}_{word}.png").exists():
+            return f"{league}_{word}.png"
+        logo_name = f"{word}.png"
         if (MEDIA_LOGOS_DIR / logo_name).exists():
             return logo_name
     return None
 
 
-def infer_logo(title: str, body: str) -> str | None:
+def infer_logo(title: str, body: str, league: str | None = None) -> str | None:
     """
     Prefer the article's title for logo inference -- Yahoo's RSS feed has no
     team-specific metadata (categories are generic: "sports", "nfl"; source
@@ -103,7 +112,7 @@ def infer_logo(title: str, body: str) -> str | None:
     mention several teams in passing (opponents, comparisons) and pick the
     wrong one. Falls back to scanning the body if the title has no match.
     """
-    return infer_logo_from_text(title) or infer_logo_from_text(body)
+    return infer_logo_from_text(title, league) or infer_logo_from_text(body, league)
 
 def indent_paragraphs(text: str) -> str:
     """
@@ -256,7 +265,7 @@ def build_slides_from_news(max_per_sport: int = 40) -> Dict[str, Any]:
         league = (getattr(item, "sport", None) or "").lower() or None
         logo_recommended = f"{league}.png" if league else None
         item_title = getattr(item, "title", "") or ""
-        inferred_logo = infer_logo(item_title, text)
+        inferred_logo = infer_logo(item_title, text, league)
         category = getattr(item, "category", None) or None
 
         # Normalize category for exclusion checks

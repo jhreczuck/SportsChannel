@@ -209,6 +209,16 @@ start of the whole rotation.
 - [x] Clarified: logo lookup is local-file-only, no live ESPN fallback — reasonable now that
       `fetch_team_logos.py` pre-downloads all 62 team logos locally ahead of time.
 - [x] Header title ("SportsChannel") and clock font bumped 26px/18px → 32px/22px.
+- [x] Fixed a real cross-league logo bug: "Giants" and "Cardinals" are nicknames shared by both
+      NFL and MLB teams, but logo filenames weren't namespaced by league, so a bare
+      `giants.png`/`cardinals.png` silently meant whichever league's download happened to win --
+      an MLB Giants story was showing the NFL Giants logo, and same for Cardinals.
+      `fetch_team_logos.py` now detects nickname collisions across leagues automatically and
+      saves those specific teams as `{league}_{nickname}.png` (e.g. `mlb_giants.png`,
+      `nfl_giants.png`); `infer_logo()` checks the league-prefixed filename first, falling back
+      to the bare one for everything else. Verified against live data: NFL Cardinals story →
+      `nfl_cardinals.png`, MLB Giants/Cardinals stories → `mlb_giants.png`/`mlb_cardinals.png`.
+- [x] Replaced a low-quality hand-picked `yankees.png` with a fresh ESPN download.
 
 ## Feature: Latest Line + NFL Standings (new)
 - [x] **Latest Line**: NFL betting lines (favorite/spread/underdog), shown at the start of the
