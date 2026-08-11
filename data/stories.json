@@ -1,8 +1,56 @@
 {
-  "generated_at": "2026-08-11T21:28:15.101224Z",
+  "generated_at": "2026-08-11T21:55:57.344998Z",
   "source": "yahoo_news_via_news_feed",
   "max_per_sport": 25,
   "slides": [
+    {
+      "title": "Sleeper starting candidate for each position battle during Las Vegas Raiders’ training camp",
+      "body": "<<<INDENT>>>The team’s “position battle” at quarterback is really centered more around when the coaching staff feels Fernando Mendoza is ready for NFL action, rather than a true competition between Mendoza and Kirk Cousins. So, even if O’Connell is sharp this summer, that probably just makes him more likely to get traded. But, by process of elimination in this exercise, there is a sliver of hope that he could be behind center against the Miami Dolphins. WR: Malik BensonThe Silver and Black have a wide-open competition for their third wide receiver spot, <<<INDENT>>>(cont) with second-year pros Jack Bech and Dont’e Thornton Jr. being the early favorites.",
+      "logo": "dolphins.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "Myles Garrett injury update: Rams star misses practice with knee swelling, says he's '85%'",
+      "body": "<<<INDENT>>>Myles Garrett missed his second consecutive practice with swelling in his knee on Tuesday, Aug. 11, Los Angeles Rams head coach Sean McVay told reporters. Garrett was present for the Rams' joint practice with the Dallas Cowboys, but reportedly stood and watched on the sideline with a sleeve on his left leg. The reigning NFL Defensive Player of the Year also missed four practices last week with what McVay called lower body soreness, though he maintained that there's no cause for concern and that Garrett told him he was at \"85% percent.",
+      "logo": "rams.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": "sports"
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) \" McVay also told reporters he wasn't sure which knee is bothering Garrett. \"I don't know what 100 percent is going to look like, but it must be pretty good if that's 85 percent,\" McVay said. \". . . We're getting to learn him.",
+      "logo": "rams.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": "sports"
+    },
+    {
+      "title": "Cowboys countdown to kickoff: Top 100 iconic games – Day 33",
+      "body": "<<<INDENT>>>DALLAS, TX - CIRCA 1978: Defensive end, Ed Too Tall Jones #72 of the Dallas Cowboys in action against the Atlanta Falcons during an NFL football game circa 1978 at Texas Stadium in Dallas, Texas. Jones played for the Cowboys from 1974-78 and 1980-89. We are looking back at the 100 most iconic games in Dallas Cowboys history. The countdown will leads us right up to the opening game of 2026. Our look back doesn’t depend on just one criteria for our rankings.",
+      "logo": "cowboys.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "Drew Brees to join Saints Ring of Honor during halftime ceremony against Vikings",
+      "body": "<<<INDENT>>>“We are thrilled to welcome Drew into this distinguished group in October. His extraordinary accomplishments on the field, his leadership, and his lasting contributions to the New Orleans community make this honor so well deserved. We look forward to celebrating Drew with our fans and honoring the extraordinary legacy he built with the Saints and throughout the New Orleans community. ”Drew Brees signed with the New Orleans Saints in 2006 and spent 15 seasons in New Orleans before retiring in 2021. During his time with the Saints,",
+      "logo": "saints.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) he led the team to its first Super Bowl victory in the 2009 season, defeating the Indianapolis Colts 31–17 and earning Super Bowl MVP honors. Brees also helped the Saints win seven NFC South division titles and reach three NFC Championship Games.",
+      "logo": "saints.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
     {
       "title": "Ravens CB Nate Wiggins carted off at practice with lower-body injury",
       "body": "<<<INDENT>>>Baltimore Ravens cornerback Nate Wiggins was carted off at practice Tuesday. Reports indicated he suffered a lower-body injury, either to his left leg or knee. ESPN's Jamison Hensley reported that Wiggins was unable to put any weight on his leg when he entered the team facility and had to be assisted by athletic trainers. After the injury, head coach Jesse Minter said he had no further information to add. He did say, \"I think there's optimism. \"While the nature of the injury is still unknown, <<<INDENT>>>(cont) ESPN’s Ian Rapoport reported that Wiggins did not suffer any structural damage.",
@@ -21,7 +69,7 @@
     },
     {
       "title": "49ers All-Pro Nick Bosa dealing with tendinitis in surgically repaired right knee; Christian McCaffrey misses another practice",
-      "body": "<<<INDENT>>>All-Pro San Francisco 49ers edge rusher Nick Bosa is dealing with tendinitis in his surgically repaired right knee and remains absent from practice at training camp. Head coach Kyle Shanahan discussed Bosa’s condition with reporters on Tuesday and downplayed concern that it could linger. He described the tendinitis as “normal” for Bosa coming off surgery to repair an ACL tear and described him as “week-to-week. ”“Just soreness, tendinitis,” Shanahan said. “It’s a pretty normal thing with ACLs. Just talking to our guys, <<<INDENT>>>(cont) they say it happens to about 90% of the guys we’ve had. It’s a normal thing, so we’ve got to be smart here, week-to-week.",
+      "body": "<<<INDENT>>>All-Pro San Francisco 49ers edge rusher Nick Bosa is dealing with tendinitis in his surgically repaired right knee and remains absent from practice at training camp. Head coach Kyle Shanahan discussed Bosa's condition with reporters on Tuesday and downplayed concern that it could linger. He said the tendinitis was \"normal\" for Bosa coming off surgery to repair an ACL tear and described him as \"week-to-week. \"\"Just soreness, tendinitis,\" Shanahan said. \"It's a pretty normal thing with ACLs. Just talking to our guys, <<<INDENT>>>(cont) they say it happens to about 90% of the guys we've had. It's a normal thing, so we've got to be smart here, week-to-week.",
       "logo": "49ers.png",
       "league": "nfl",
       "logo_recommended": "nfl.png",
@@ -46,7 +94,7 @@
     {
       "title": "Matthew Stafford doesn't think Puka Nacua's injury was \"anything too major\"",
       "body": "<<<INDENT>>>Matthew Stafford is neither a trainer nor a doctor. But as a quarterback entering his 18th pro season, he has an idea of what a serious injury looks like. Head coach Sean McVay did not have a real update on why Puka Nacua left Tuesday’s joint practice with the Cowboys, and Stafford didn't know much about it either. But he also did not get any indication that Nacua's injury was significant. \"I did not [see what happened],\" Stafford said, via Lindsey Thiry of ESPN.",
-      "logo": null,
+      "logo": "cowboys.png",
       "league": "nfl",
       "logo_recommended": "nfl.png",
       "category": null
@@ -94,7 +142,7 @@
     {
       "title": "Klint Kubiak: Fernando Mendoza will get \"plenty of experience\" on Thursday vs. Cardinals",
       "body": "<<<INDENT>>>No. 1 overall pick Fernando Mendoza is officially set to make his preseason debut on Thursday night. Raiders head coach Klint Kubiak told reporters in his Tuesday press conference that Las Vegas' starters will play in this week's matchup against the Cardinals, which means Kirk Cousins is set to be the first QB on the field. But Mendoza, Kubiak said, will get \"plenty of experience in the game. \" \"Look forward to seeing him out there with his teammates,\" Kubiak said. \"A lot of guys we need to evaluate — he’ll get plenty of reps. <<<INDENT>>>(cont) \" Kubiak did not disclose his exact plans for playing time this week, but there is a chance Mendoza will take some snaps with the first-team offensive line.",
-      "logo": null,
+      "logo": "raiders.png",
       "league": "nfl",
       "logo_recommended": "nfl.png",
       "category": null
@@ -116,7 +164,7 @@
       "category": null
     },
     {
-      "title": "Could Steelers keep four QBs on opening roster? Pros, cons for every likely scenario",
+      "title": "Could Steelers keep 4 QBs on opening roster? Pros, cons for every likely scenario",
       "body": "<<<INDENT>>>Could the Pittsburgh Steelers really keep four quarterbacks on the opening 53-man roster?That's how many they have on the roster now — Aaron Rodgers, Mason Rudolph, Drew Allar and Will Howard — and there's a chance all of them remain on the roster when final cutdowns happen on Aug. 30. But there's also a possible workaround the Steelers could employ if they feel keeping four is too restrictive. Rodgers is the starter. He's set for his swan-song season, back together again with Mike McCarthy after years apart,",
       "logo": "steelers.png",
       "league": "nfl",
@@ -140,33 +188,25 @@
       "category": null
     },
     {
-      "title": "49ers won't play many starters on Thursday night",
-      "body": "<<<INDENT>>>The Titans plan to play their starters in Thursday's preseason opener against the 49ers, but they won't have many first-stringers lined up against them. 49ers head coach Kyle Shanahan said at a press conference on Tuesday that the team will be sitting most of its starters. \"There won't be many starters playing,\" Shanahan said. \"We'll see, with injuries today and stuff — and that doesn't mean none. But we've got to balance that out.",
-      "logo": "49ers.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "Chargers OT Rashawn Slater dealing with flare-up in his knee",
-      "body": "<<<INDENT>>>Chargers left tackle Rashawn Slater missed his fourth straight practice on Tuesday and the reason for it involves his surgically repaired left knee. Slater tore his patellar tendon in practice a little over a year ago and he told reporters on Tuesday that he has been out since last week because of a flare-up in the same knee. Trey Pipkins and Branson Taylor have seen increased reps at left tackle with Slater out of practice.",
-      "logo": null,
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
+      "title": "Pittsburgh Pirates vs. Miami Marlins: Paul Skenes vs. Eury Pérez",
+      "body": "<<<INDENT>>>Miami Marlins, August 11, 2026, 6:40 p. m. ETThe Pittsburgh Pirates are taking their talents to South Beach as they take on the Miami Marlins in the first game of a three-game set this week at loanDepot Park. Paul Skenes is on the mound for the Pirates, and he’s coming off a loss in his last start against the Milwaukee Brewers on August 5. Skenes pitched five innings, giving up two hits and three earned runs, as the Bucs lost 4-2 against the first-place team in the NL Central at American Family Field.",
+      "logo": "marlins.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
       "category": null
     },
     {
       "title": "",
-      "body": "<<<INDENT>>>(cont) Slater said he doesn't know when he'll be back on the field and called the absence part of the process of getting where he needs to be for the start of the regular season“Nothing crazy,” Slater said, via Kris Rhim of ESPN. com. “Nothing that’s concerning. ”The longer it takes before Slater's back on the field, the likelier it is that others will start to have some concern about his availability in September.",
-      "logo": null,
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
+      "body": "<<<INDENT>>>(cont) Skenes started against the Marlins when they visited PNC Park back in June. He went six innings, giving up four hits and two earned runs, in an identical 4-2 loss. The hope is that fortunes turn around for Skenes as he looks for his first win since July 19. Eury Pérez is drawing the start for the Marlins.",
+      "logo": "marlins.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
       "category": null
     },
     {
       "title": "Chicago Cubs vs. Washington Nationals preview, Tuesday 8/11, 5:45 CT",
       "body": "<<<INDENT>>>Tuesday notes…ROAD WARRIORS: The Cubs are 20-7 in their last 27 road games, making their season record 34-26, for a winning percentage of .567. In the past 80 seasons, the Cubs have finished better than .567 on the road only twice: .593 in 2015 (48-33) and .575 in 2016 (46-34-1). From 2017-25, they were .480 (324-351), including .519 last year (42-39). (Courtesy BCB’s JohnW53)WINNING BIG: In 41 of the Cubs’ 69 wins, 59.4 percent, their final margin of victory was their largest lead of the game. <<<INDENT>>>(cont) Twenty of the 41 have come during their current 35-16 surge.",
-      "logo": null,
+      "logo": "cubs.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
@@ -174,23 +214,7 @@
     {
       "title": "AZ Snake Pit Reacts Survey: A farewell to Sewald",
       "body": "<<<INDENT>>>Throughout the year we ask questions of the most plugged-in Diamondbacks fans and fans across the country. Paul Sewald was designated for assignment by the Arizona Diamondbacks yesterday, likely ending the reliever’s tenure with the team. On the broadest level, his time here was nothing special. He pitched 107 times in the regular season for Arizona, posting an underwhelming 4.95 ERA. The resulting 86 ERA is more or less the same as the likes of Mark Melancon or Matt Peacock, players who are probably no more than footnotes in franchise history. <<<INDENT>>>(cont) Sewald is certainly not going to see his number retired by Arizona.",
-      "logo": null,
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "According to reports, Rockies recall Zac Veen, DFA Edouard Julien",
-      "body": "<<<INDENT>>>9 PuRP) and will designate for assignment infielder Edouard Julien. Breaking: #Rockies recall Zac Veen as 2020 first-round pick returns to majors. In corresponding move, Colorado designates Edouard Julien for assignment https://t. co/jnl9Wz3QQy#MLB— Kyle Newman (@KyleNewmanDP) August 11, 2026This comes on the heels of the news from yesterday that Connor Norby was recalled after Tyler Freeman went to the IL with lumbar pain. Veen,",
-      "logo": null,
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) who has won the Pacific Coast League’s “Player of the Week” honors for two consecutive weeks has been on an absolute tear. The 2020 first-round draft pick is currently slashing .327/.402/.635 and leads the Pacific Coast League in both slugging percentage and OPS (1.037) in 100 games with just under 400 at-bats. As for Julien, in January, the Rockies acquired him and pitcher Pierson Ohl from the Minnesota Twins for cash considerations. The Rockies hoped Julien could bring versatility and a lefty bat to their lineup.",
-      "logo": null,
+      "logo": "diamondbacks.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
@@ -198,7 +222,7 @@
     {
       "title": "Cincinnati Reds activate Nick Lodolo, select contract of Michael Toglia",
       "body": "<<<INDENT>>>The Cincinnati Reds made official the optioning of IF/OF Ivan Johnson on Monday despite it being an off-day for the club ahead of their series in Chicago against the White Sox. They then gave us a full day to speculate on just what other roster moves lay in store as lefty Nick Lodolo was also expected to make his return to the roster for the series opener. Lodolo is officially back as of Tuesday afternoon. The Reds made room on the pitcher-half of the roster by optioning Zach McCambley back to AAA Louisville. For the position-",
-      "logo": null,
+      "logo": "reds.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
@@ -206,7 +230,7 @@
     {
       "title": "",
       "body": "<<<INDENT>>>(cont) player half of the ledger, though, the Reds selected the contract of former Colorado Rockies slugger Michael Toglia, doing so by moving Hunter Greene to the 60-day IL as the latter gets prepped for another season-ending elbow surgery. That said, he's much more of a 1B/DH kind of guy and only got 2 appearances in the outfield with AAA Louisville.",
-      "logo": null,
+      "logo": "reds.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
@@ -230,7 +254,7 @@
     {
       "title": "Ronald Acuña to DH, Mike Yastrzemski in RF as Braves face Mets",
       "body": "<<<INDENT>>>The Atlanta Braves are looking to rebound a tough loss last night against the New York Mets as a clash between two top ten offenses since the All-Star break meet in game two at Truist Park. The Braves have scored the seventh most runs in MLB since the All-Star break, and the Mets have scored the tenth most. That being said, the rankings are a bit skewed. The gap between the two teams is sixteen runs. If the Braves had sixteen more runs since the break, they would only be two runs behind the MLB leader.",
-      "logo": null,
+      "logo": "braves.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
@@ -238,7 +262,7 @@
     {
       "title": "",
       "body": "<<<INDENT>>>(cont) The Mets seem to be getting it together offensively, even without Juan Soto, which means Martín Pérez and crew will need to be on their game tonight to ensure a victory against the Nolan McLean. McLean is having a solid year but has shown some weakness as of late. McLean was able to hold the Braves to just two earned runs over six innings in early July when he faced off against Pérez the first time.",
-      "logo": null,
+      "logo": "braves.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
@@ -246,7 +270,7 @@
     {
       "title": "Angels fire pitching coaches, including Maddux",
       "body": "<<<INDENT>>>Minasian hired first-time manager Kurt Suzuki on just a one year deal. Maddux, Scott and Chiti were all in their first season with the Angels in 2026, and it is believed that they were all working on one year deals, as well. Speculation was that owner Arte Moreno did not want to have folks under contract past 2026 that he would have to pay during a potential work stoppage. Minasian was fired by the Angels six weeks ago, and was replaced by John Mozeliak, the former St. Louis Cardinals head guy who was eased out of St. <<<INDENT>>>(cont) Louis after almost two decades because of concerns that he was behind the times, particularly in the player development arena.",
-      "logo": null,
+      "logo": "angels.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
@@ -254,7 +278,7 @@
     {
       "title": "The Phillies are both mediocre and World Series contenders",
       "body": "<<<INDENT>>>The Phillies are both mediocre and the National League’s biggest threat to upset the Los Angeles Dodgers in this year’s playoffs. How can both be true?The 2026 Phillies enter Tuesday night’s game in St. Louis at 64-56, a .533 winning percentage, 7.5 games behind the Braves in the NL East and tied with the Arizona Diamondbacks for the 2nd wild card, both of whom are just one game up on the San Diego Padres for the NL’s final playoff spot. Since the Phillies reached their high-water mark of 11 games over .500 on July 1 (49-38), they have gone 15-",
-      "logo": null,
+      "logo": "phillies.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
@@ -262,7 +286,7 @@
     {
       "title": "",
       "body": "<<<INDENT>>>(cont) 18 in their last 33 games. Over that stretch they are 15th in runs scored, 18th in OPS, 19th in batting average, and 22nd in home runs. Their 4.45 staff ERA is 22nd and their tied for 20th in walk rate, 22nd in home runs per nine innings, and 16th in batting average allowed.",
-      "logo": null,
+      "logo": "phillies.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
@@ -270,7 +294,7 @@
     {
       "title": "Weekly Pebble Report: Starting Lanes: Jake Brooks on learning to pitch in Albuquerque",
       "body": "<<<INDENT>>>Jake Brooks was a couple of weeks from leaving for Marlins camp in Florida, and the name on the screen was John Savage, his head coach at UCLA. “He gave me a ring and was like, ‘Hey man, how you feeling?’” Brooks said. “I was like, ‘What do you mean?’ And he’s like, ‘Come on, man, how you feeling?’ And I was like, ‘Dude, what are you talking about?’ And he’s like, ‘I think you’re getting traded to the Rockies. ’”Brooks had never been traded before. He didn’t know how any of it was supposed to work — who calls, in what order,",
-      "logo": null,
+      "logo": "marlins.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
@@ -278,7 +302,7 @@
     {
       "title": "",
       "body": "<<<INDENT>>>(cont) how long you sit with it before anyone official confirms anything. “I was shocked, obviously,” he said. “And I was like, ‘Dude, I’ve got to start calling some people. I’ve got to figure this out. ’”He called his parents first.",
-      "logo": null,
+      "logo": "marlins.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
@@ -286,7 +310,7 @@
     {
       "title": "Red Sox News & Links: Alex Cora speaks",
       "body": "<<<INDENT>>>Boston, MA - April 19: Boston Red Sox manager Alex Cora in the sixth inning. The Red Sox played the Detroit Tigers at Fenway Park on April 19, 2026. Lee/The Boston Globe via Getty Images) Boston Globe via Getty Images We talk a lot about the supposed value of GMs being able to hire their own manager. Neither Chaim Bloom, nor Craig Breslow got that opportunity, as Alex Cora was seemingly foisted upon both by ownership. And even as he’s fired Cora, Breslow still hasn’t really gotten that opportunity, as Chad Tracy predates his Red Sox tenure.",
-      "logo": null,
+      "logo": "tigers.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
@@ -294,7 +318,7 @@
     {
       "title": "Angels reportedly fire pitching coach Mike Maddux, two others on his staff a few months after joining team",
       "body": "<<<INDENT>>>Mike Maddux has experienced a lot of success as a pitching coach over his career. But even his advice couldn't save the Los Angeles Angels. The Angels reportedly fired Maddux — along with assistant pitching coach Darryl Scott and bullpen coach Dom Chiti — on Tuesday, according to ESPN's Jeff Passan. The Los Angeles Angels fired pitched coach Mike Maddux, assistant pitching coach Darryl Scott and bullpen coach Dom Chiti, sources tell ESPN. Maddux joined them in the offseason and was working on a one-year contract.",
-      "logo": null,
+      "logo": "angels.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
@@ -310,7 +334,7 @@
     {
       "title": "Amid Mets' feel-good post-deadline run, main needs for 2027 are starting to crystallize",
       "body": "<<<INDENT>>>The Mets emerged from the Aug. 3 trade deadline having dealt roughly one-third of their active roster. Since then, they have looked and played like a new team, which is not a surprise since they basically are a new team. In the week-plus since trading four key members of their bullpen, two starting pitchers, and a valuable outfielder, the Mets have gone 6-1. Along the way, they have swept a road series from one playoff contender (the Guardians),",
-      "logo": null,
+      "logo": "mets.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
@@ -318,7 +342,7 @@
     {
       "title": "",
       "body": "<<<INDENT>>>(cont) took a road series from a fringe contender (the Pirates) and then snagged the opening game at Truist Park from a Braves team that is leading the NL East -- clinching the season series over Atlanta in the process. While scoring 50 runs during this seven-game stretch, the Mets have looked looser on the field and tighter with each other, which could simply be the result of all the pressure now being off -- as if some kind of dam broke and all the bad vibes floated away.",
-      "logo": null,
+      "logo": "mets.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
@@ -326,7 +350,7 @@
     {
       "title": "On The Horizon: Cubs vs. Nationals series preview",
       "body": "<<<INDENT>>>The Nationals were the Cubs’ first regular season opponent this year, way back in March. The Nats took two of three at Wrigley Field. Much has changed for both teams since then. The Cubs have solidified their claim on a postseason spot and could still win a division title. After playing over .500 for quite some time, the Nats had a selloff at the Trade Deadline. For more on the Nationals, here’s Sam Sallick, manager of our SB Nation Nationals site Federal Baseball. <<<INDENT>>>(cont) The Nats are a very different team to the one that played the Cubs on Opening Day. Only two members of the bullpen remain and many fixtures of the lineup are now gone.",
-      "logo": null,
+      "logo": "nationals.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
@@ -334,7 +358,7 @@
     {
       "title": "Braves fans sound off on the current roster, rotation, and more",
       "body": "<<<INDENT>>>(Kevin D. Liles/Atlanta Braves/Getty Images) Getty Images Hello, any new Battery Power readers retained from the Great Trade Deadline Site Surge of 2026! We hope you enjoy(ed) your time with this great community as we wind down on a memorable regular reason and that you stick around. Our regulars are some of the best baseball fans in the league. The week following the trade deadline had some highs (back-to-back sweeps,",
-      "logo": null,
+      "logo": "braves.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
@@ -342,31 +366,7 @@
     {
       "title": "",
       "body": "<<<INDENT>>>(cont) an eight game winning streak) and lows (stumbling against both teams from New York) that have prompted some interesting discussion in our Feed. Here’s a sampling of what y’all have been cooking:October surprise(s)?Barring any waiver wire moves, the Braves are basically set with who they’re rolling with to hopefully make a deep postseason run.",
-      "logo": null,
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "Series Preview: Guardians at Tigers",
-      "body": "<<<INDENT>>>Anderson, RHP 0.82 ERA (2.09 FIP) – Anderson averages under 4 innings an outing. Wednesday, 6:40PM ET: Griffin, LHP 3.31 ERA (4.21 FIP) vs. Valdez, LHP 4.17 ERA (4.04 FIP)Thursday, 1:10PM ET: Messick, LHP 2.87 ERA (3.19 FIP) vs. Montero, RHP 3.50 ERA (4.14 FIP)The Tigers are led by Max Clark 145 wRC, Dillon Dingler 139 wRC, Kevin McGonigle 135 wRC, Riley Green 129 wRC, Gleyber Torres 119 wRC, Spencer Torkelson 107 wRC and Colt Keith 107 wRC. The Guardians are led by Angel Genao 175 wRC, Nathaniel Lowe 135 wRC, Chase DeLauter 124 wRC,",
-      "logo": null,
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) Travis Bazzana 107 wRC, Austin Hedges 106 wRC, Steven Kwan 104 wRC and Jose Ramirez 103 wRC. This is now the biggest series of the year. It would be great to see the Guardians play their best baseball.",
-      "logo": null,
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "Happy Birthday Colby Rasmus And Melky Cabrera",
-      "body": "<<<INDENT>>>ST. Petersburg, Florida. The Blue Jays chose Ricky Romero with the 6th pick that year. He appeared on Baseball America’s Top 100 Prospects list for three consecutive years: ranked #29 in 2007, #5 in 2008, and #3 in 2009. In 2009, Colby made it to the majors, hitting .251/.307/.407 with 16 home runs, picking up a few Rookie of the Year votes along the way. Then, Colby had an excellent 2010 season, hitting. 276/.361/.498 with 23 home runs and posting a 4.3 bWAR.",
-      "logo": null,
+      "logo": "braves.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null

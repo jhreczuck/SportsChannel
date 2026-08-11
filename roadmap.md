@@ -182,6 +182,13 @@ start of the whole rotation.
 - [x] Follow-up: `media/logos/AL.png` and `media/logos/NL.png` now used as the standings badge
       for American/National League divisions respectively, instead of the generic `mlb.png` for
       all 6. All 6 division badges are now league-specific.
+- [x] Fixed team-logo inference for digit-prefixed nicknames (e.g. "49ers" has no uppercase
+      letter at all -- `infer_logo_from_text` only matched capitalized words, so it always fell
+      back to the generic `nfl.png`).
+- [x] Added `src/fetch_team_logos.py`: downloads every NFL/MLB team logo from ESPN's team-list
+      API (same naming convention `infer_logo_from_text` expects, e.g. `cowboys.png`,
+      `redsox.png`) so hand-collecting 62 team logos isn't manual work. Won't overwrite existing
+      files. Confirmed the downloaded PNGs are true RGBA with alpha (not a solid-background box).
 
 ## Feature: Title Card + Headlines Board (new)
 - [x] **Title card**: `media/logos/titlecard.png` shown full-canvas (covers header/panel/ticker
