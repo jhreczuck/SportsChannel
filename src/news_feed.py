@@ -34,19 +34,40 @@ from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import List, Optional, Dict
 
+import codecs
+
 import requests
 import xml.etree.ElementTree as ET
+
+# Yahoo's RSS is UTF-8 but occasionally has raw cp1252 smart-quote/dash bytes
+# (0x80-0x9F) leaked in, which aren't valid UTF-8 continuation bytes on their
+# own and would otherwise decode to "�". Register a codec error handler that
+# falls back to cp1252 only for the exact invalid byte(s), leaving the rest of
+# the (valid) UTF-8 document untouched.
+def _cp1252_leak_fallback(err: UnicodeDecodeError):
+    bad = err.object[err.start:err.end]
+    try:
+        return bad.decode("cp1252"), err.end
+    except Exception:
+        return "�", err.end
+
+
+codecs.register_error("cp1252_leak_fallback", _cp1252_leak_fallback)
 
 
 # ---------------------------
 # Config
 # ---------------------------
 
+# How many (non-caption) sentences to pull per article snippet. Sized to
+# roughly fill one slide panel (~550 chars) rather than leaving it half full.
+SNIPPET_SENTENCE_CAP = 5
+
 # Yahoo Sports RSS feeds for the four major US leagues
 SPORT_FEEDS: Dict[str, str] = {
     "nfl": "https://sports.yahoo.com/nfl/rss.xml",
+    "mlb": "https://sports.yahoo.com/mlb/rss.xml",
     #"nba": "https://sports.yahoo.com/nba/rss.xml",
-    #"mlb": "https://sports.yahoo.com/mlb/rss.xml",
     #"nhl": "https://sports.yahoo.com/nhl/rss.xml",
 }
 
@@ -107,7 +128,7 @@ def _parse_pubdate(pubdate: Optional[str]) -> Optional[datetime]:
 def _fetch_rss(url: str, timeout: float = 10.0) -> str:
     resp = requests.get(url, timeout=timeout)
     resp.raise_for_status()
-    return resp.text
+    return resp.content.decode("utf-8", errors="cp1252_leak_fallback")
 
 
 def _get_logo_for_sport(sport: str) -> Optional[Path]:
@@ -124,6 +145,91 @@ def _get_logo_for_sport(sport: str) -> Optional[Path]:
     return None
 
 
+# Photo captions from wire services typically open with an ALL-CAPS dateline
+# like "INGLEWOOD, CALIFORNIA - FEBRUARY 13: ...". Match that shape specifically
+# so we don't accidentally eat real sentences that merely contain a colon.
+_DATELINE_RE = re.compile(
+    r"^[A-Z][A-Z0-9 ,.'\-]{2,60}[-–]\s*[A-Z]{3,}\.?\s+\d{1,2}\s*:\s*"
+)
+
+# A second wire-caption style used by USA TODAY/Imagn photos, e.g.
+# "Jul 30, 2026; Latrobe, PA, USA; Pittsburgh Steelers Roman Wilson (14)
+# participates in training camp drills...". Semicolon-separated date/place
+# prefix, distinct enough from normal prose to match safely.
+_WIRE_DATELINE_RE = re.compile(
+    r"^[A-Z][a-z]{2,8}\.?\s+\d{1,2},\s*\d{4};\s*[A-Z][A-Za-z .'\-]*,\s*[A-Za-z .]+,?\s*USA;\s*"
+)
+
+# A third dateline style, e.g. "Westchester, - July 26: Wide receiver Puka
+# Nacua #12 of the Los Angeles Rams after signing autographs..." -- city name,
+# comma, dash, month/day, colon.
+_DATELINE3_RE = re.compile(
+    r"^[A-Z][A-Za-z .'\-]{1,40},\s*[-–]\s*[A-Z][a-z]+\s+\d{1,2}:\s*"
+)
+
+# Wire-photo ID/caption tags like "Mjs Uwgrid21 10 Hoffman Jpg Uwgrid21 | USA
+# TODAY Sports via Reuters Connect" or a bare "| IMAGN IMAGES via Reuters
+# Connect" -- a different credit format than "Mandatory Credit:". Removes the
+# local fragment up to (but not past) the nearest sentence boundary, since
+# these are usually glued directly onto the next real sentence.
+_REUTERS_WIRE_TAG_RE = re.compile(
+    r"[^.!?]*\|\s*(?:USA TODAY (?:Sports|Network)|IMAGN IMAGES|Imagn Images)"
+    r"\s+via\s+Reuters\s+Co(?:nnect)?\.?",
+    re.IGNORECASE,
+)
+
+# "Mandatory Credit: Charles LeClaire-Imagn Images IMAGN IMAGES via Reuters
+# Connect" style credit blocks -- like _PHOTO_CREDIT_RE but for the wire-photo
+# byline style, and often glued directly onto the next real sentence.
+_MANDATORY_CREDIT_RE = re.compile(
+    r"Mandatory Credit:.*?"
+    r"(?:Imagn Images(?:\s+IMAGN IMAGES)?(?:\s+via\s+Reuters\s+Connect)?"
+    r"|USA TODAY Sports|Getty Images|AP Photo|Icon Sportswire|NurPhoto|Reuters)",
+    re.IGNORECASE,
+)
+
+# Photo-credit blocks like "(Photo by Cooper Neill/Getty Images) Getty Images"
+# that get glued onto the start of real sentences.
+_PHOTO_CREDIT_RE = re.compile(
+    r"\(Photo(?:graph)? by[^)]*\)\s*"
+    r"(Getty Images|AP Photo|USA TODAY Sports|Icon Sportswire|NurPhoto|AFP via Getty Images|Imagn Images)?",
+    re.IGNORECASE,
+)
+
+# Yahoo's own in-article fantasy-sports promo, e.g. "Play Yahoo's new College
+# Fantasy Football game: Create or join a league now!". It's frequently glued
+# directly onto real sentences with no separating whitespace (e.g.
+# "...trainers.Play Yahoo's new...league now!After spending..."), so it has to
+# be stripped from the raw text before sentence-splitting even runs, not
+# filtered sentence-by-sentence afterward.
+_FANTASY_PROMO_RE = re.compile(
+    r"Play Yahoo.s new [^:.!?]{0,80}Fantasy[^:.!?]{0,80}:\s*Create or join a league now!?",
+    re.IGNORECASE,
+)
+
+
+def _is_caption_sentence(sentence: str) -> bool:
+    """
+    Heuristic: does this sentence look like a photo caption/dateline rather
+    than actual article text? These describe the accompanying image, not news.
+    """
+    if _DATELINE_RE.match(sentence):
+        return True
+    if _WIRE_DATELINE_RE.match(sentence):
+        return True
+    if _DATELINE3_RE.match(sentence):
+        return True
+    if "(Photo by" in sentence or "(Photograph by" in sentence:
+        return True
+    return False
+
+
+def _strip_credit_noise(sentence: str) -> str:
+    """Remove inline photo-credit substrings without dropping the whole sentence."""
+    cleaned = _PHOTO_CREDIT_RE.sub("", sentence)
+    return re.sub(r"\s{2,}", " ", cleaned).strip()
+
+
 def _extract_snippet_from_item(item: ET.Element) -> str:
     """
     Build a multi-sentence text snippet from an <item> element:
@@ -131,7 +237,9 @@ def _extract_snippet_from_item(item: ET.Element) -> str:
     1) Prefer <content:encoded> (fuller HTML article teaser)
     2) Fallback to <description>
     3) Strip HTML, unescape entities
-    4) Take the first 2–3 sentences for a concise summary
+    4) Drop photo-caption/dateline sentences and inline photo-credit noise
+    5) Take the first several remaining (real) sentences for a concise summary
+       (capped by SNIPPET_SENTENCE_CAP, sized to roughly fill one slide panel)
     """
     description_raw = item.findtext("description") or ""
 
@@ -144,12 +252,30 @@ def _extract_snippet_from_item(item: ET.Element) -> str:
 
     cleaned = _clean_html(raw_text)
 
+    # Strip inline fantasy-sports ad copy and "Mandatory Credit: ..." photo
+    # bylines before sentence-splitting, since both are often glued onto real
+    # sentences with no whitespace to split on.
+    cleaned = _FANTASY_PROMO_RE.sub(" ", cleaned)
+    cleaned = _MANDATORY_CREDIT_RE.sub(" ", cleaned)
+    cleaned = _REUTERS_WIRE_TAG_RE.sub(" ", cleaned)
+    cleaned = re.sub(r"\s{2,}", " ", cleaned).strip()
+
     # Split into sentences; this is heuristic but fine for display
     sentences = re.split(r'(?<=[.!?])\s+', cleaned)
-    # Choose up to 3 sentences
-    snippet = " ".join(s for s in sentences[:3] if s).strip()
 
-    return snippet
+    good_sentences: List[str] = []
+    for s in sentences:
+        if not s.strip():
+            continue
+        if _is_caption_sentence(s):
+            continue  # whole sentence is just an image description; skip it
+        s = _strip_credit_noise(s)
+        if s:
+            good_sentences.append(s)
+        if len(good_sentences) >= SNIPPET_SENTENCE_CAP:
+            break
+
+    return " ".join(good_sentences).strip()
 
 
 def _parse_rss_items(sport: str, xml_text: str) -> List[NewsItem]:

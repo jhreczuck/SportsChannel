@@ -96,15 +96,16 @@ def indent_paragraphs(text: str) -> str:
 
 def pick_trim_length(raw_len: int) -> int:
     """
-    Cleaning length rules:
+    Cleaning length rules (target sized to the web panel's ~550-char capacity
+    at the current 32px body font):
     - >1000 chars -> 1000
-    - 500-750 chars -> 500
+    - 550-750 chars -> 550
     - otherwise -> keep as-is (GPT still cleans)
     """
     if raw_len > 1000:
         return 1000
-    if 500 <= raw_len <= 750:
-        return 500
+    if 550 <= raw_len <= 750:
+        return 550
     return raw_len
 
 
@@ -206,7 +207,7 @@ def build_slides_from_news(max_per_sport: int = 40) -> Dict[str, Any]:
     stories.json structure your main app expects, with extra metadata.
     """
     slides: List[Dict[str, Any]] = []
-    per_sport_order = ["nfl"]
+    per_sport_order = ["nfl", "mlb"]
     items: List[Any] = []
 
     for s in per_sport_order:
@@ -217,7 +218,7 @@ def build_slides_from_news(max_per_sport: int = 40) -> Dict[str, Any]:
             print(f"[refresh_stories] Warning: failed to fetch {s}: {e}")
             continue
 
-    MAX_LEN = 500
+    MAX_LEN = 550  # matches the web panel's ~550-char capacity at the current 32px body font
     MAX_EXCLUDE_LEN = 1000
 
     for item in items:
@@ -341,7 +342,7 @@ def clean_slides_with_gpt(wrapper: Dict[str, Any]) -> Dict[str, Any]:
             cleaned_body = collapse_newlines(cleaned_body)
             print(
                 f"[refresh_stories] GPT cleaned slide {idx + 1}: "
-                f"{raw_len} → {len(cleaned_body)} (limit {target_len})"
+                f"{raw_len} -> {len(cleaned_body)} (limit {target_len})"
             )
         except Exception as e:
             print(f"[refresh_stories] GPT failed on slide {idx + 1}: {e}")

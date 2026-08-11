@@ -1,0 +1,246 @@
+{
+  "generated_at": "2026-08-11T20:48:59.451783+00:00",
+  "in_season": true,
+  "divisions": [
+    {
+      "name": "American League East",
+      "teams": [
+        {
+          "name": "Rays",
+          "w": "72",
+          "l": "46",
+          "pct": ".610",
+          "gb": "-"
+        },
+        {
+          "name": "Yankees",
+          "w": "66",
+          "l": "52",
+          "pct": ".559",
+          "gb": "6"
+        },
+        {
+          "name": "Red Sox",
+          "w": "64",
+          "l": "54",
+          "pct": ".542",
+          "gb": "8"
+        },
+        {
+          "name": "Orioles",
+          "w": "57",
+          "l": "62",
+          "pct": ".479",
+          "gb": "15.5"
+        },
+        {
+          "name": "Blue Jays",
+          "w": "57",
+          "l": "63",
+          "pct": ".475",
+          "gb": "16"
+        }
+      ]
+    },
+    {
+      "name": "American League Central",
+      "teams": [
+        {
+          "name": "White Sox",
+          "w": "61",
+          "l": "56",
+          "pct": ".521",
+          "gb": "-"
+        },
+        {
+          "name": "Twins",
+          "w": "59",
+          "l": "61",
+          "pct": ".492",
+          "gb": "3.5"
+        },
+        {
+          "name": "Tigers",
+          "w": "58",
+          "l": "60",
+          "pct": ".492",
+          "gb": "3.5"
+        },
+        {
+          "name": "Guardians",
+          "w": "58",
+          "l": "61",
+          "pct": ".487",
+          "gb": "4"
+        },
+        {
+          "name": "Royals",
+          "w": "49",
+          "l": "71",
+          "pct": ".408",
+          "gb": "13.5"
+        }
+      ]
+    },
+    {
+      "name": "American League West",
+      "teams": [
+        {
+          "name": "Astros",
+          "w": "61",
+          "l": "59",
+          "pct": ".508",
+          "gb": "-"
+        },
+        {
+          "name": "Rangers",
+          "w": "60",
+          "l": "59",
+          "pct": ".504",
+          "gb": "0.5"
+        },
+        {
+          "name": "Mariners",
+          "w": "56",
+          "l": "63",
+          "pct": ".471",
+          "gb": "4.5"
+        },
+        {
+          "name": "Athletics",
+          "w": "47",
+          "l": "72",
+          "pct": ".395",
+          "gb": "13.5"
+        },
+        {
+          "name": "Angels",
+          "w": "45",
+          "l": "74",
+          "pct": ".378",
+          "gb": "15.5"
+        }
+      ]
+    },
+    {
+      "name": "National League East",
+      "teams": [
+        {
+          "name": "Braves",
+          "w": "71",
+          "l": "48",
+          "pct": ".597",
+          "gb": "-"
+        },
+        {
+          "name": "Phillies",
+          "w": "64",
+          "l": "56",
+          "pct": ".533",
+          "gb": "7.5"
+        },
+        {
+          "name": "Marlins",
+          "w": "60",
+          "l": "59",
+          "pct": ".504",
+          "gb": "11"
+        },
+        {
+          "name": "Nationals",
+          "w": "59",
+          "l": "61",
+          "pct": ".492",
+          "gb": "12.5"
+        },
+        {
+          "name": "Mets",
+          "w": "53",
+          "l": "67",
+          "pct": ".442",
+          "gb": "18.5"
+        }
+      ]
+    },
+    {
+      "name": "National League Central",
+      "teams": [
+        {
+          "name": "Brewers",
+          "w": "74",
+          "l": "45",
+          "pct": ".622",
+          "gb": "-"
+        },
+        {
+          "name": "Cubs",
+          "w": "69",
+          "l": "50",
+          "pct": ".580",
+          "gb": "5"
+        },
+        {
+          "name": "Cardinals",
+          "w": "59",
+          "l": "60",
+          "pct": ".496",
+          "gb": "15"
+        },
+        {
+          "name": "Pirates",
+          "w": "58",
+          "l": "62",
+          "pct": ".483",
+          "gb": "16.5"
+        },
+        {
+          "name": "Reds",
+          "w": "56",
+          "l": "61",
+          "pct": ".479",
+          "gb": "17"
+        }
+      ]
+    },
+    {
+      "name": "National League West",
+      "teams": [
+        {
+          "name": "Dodgers",
+          "w": "71",
+          "l": "48",
+          "pct": ".597",
+          "gb": "-"
+        },
+        {
+          "name": "Diamondbacks",
+          "w": "64",
+          "l": "56",
+          "pct": ".533",
+          "gb": "7.5"
+        },
+        {
+          "name": "Padres",
+          "w": "63",
+          "l": "57",
+          "pct": ".525",
+          "gb": "8.5"
+        },
+        {
+          "name": "Giants",
+          "w": "49",
+          "l": "70",
+          "pct": ".412",
+          "gb": "22"
+        },
+        {
+          "name": "Rockies",
+          "w": "46",
+          "l": "73",
+          "pct": ".387",
+          "gb": "25"
+        }
+      ]
+    }
+  ]
+}
