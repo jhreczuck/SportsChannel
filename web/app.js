@@ -469,7 +469,7 @@ function drawTitleCard(image) {
 // ---------------------------
 // Standings board
 // ---------------------------
-function drawStandingsBoard(page, mlbLogo) {
+function drawStandingsBoard(page, mlbLogo, alLogo) {
   const division = page.division;
   const titleY = inner.y + TEXT_PADDING;
 
@@ -510,7 +510,10 @@ function drawStandingsBoard(page, mlbLogo) {
     rowY += rowHeight;
   }
 
-  if (mlbLogo) drawLogoInBox(mlbLogo, rightRect);
+  // American League divisions get the AL badge; everything else (NL, and a
+  // fallback if AL.png fails to load) uses the generic MLB logo.
+  const badgeLogo = (division.name.startsWith("American League") && alLogo) ? alLogo : mlbLogo;
+  if (badgeLogo) drawLogoInBox(badgeLogo, rightRect);
 }
 
 // ---------------------------
@@ -630,6 +633,7 @@ async function main() {
 
   const headerLogo = await loadImage("../media/logos/sportschannel.png");
   const mlbLogo = await getLogo("mlb.png");
+  const alLogo = await getLogo("AL.png");
   const probableLogo = await getLogo("probable.png");
   const titleCardImage = await loadImage("../media/logos/titlecard.png");
 
@@ -723,7 +727,7 @@ async function main() {
     } else if (item.type === "probables") {
       drawProbablesBoard(item, probableLogo);
     } else if (item.type === "standings") {
-      drawStandingsBoard(item, mlbLogo);
+      drawStandingsBoard(item, mlbLogo, alLogo);
     }
 
     drawTicker(tickerText, tickerWidth, tickerX);
