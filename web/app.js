@@ -36,8 +36,8 @@ const TICKER_SCROLL_ON_SECONDS = 10.0;
 const TICKER_SCROLL_PAUSE_SECONDS = 3.0;
 
 const BODY_FONT_PX = 36;
-const HEADER_FONT_PX = 26;
-const SMALL_FONT_PX = 18;
+const HEADER_FONT_PX = 32;
+const SMALL_FONT_PX = 22;
 const TICKER_FONT_PX = 32;
 
 const BODY_FONT = `${BODY_FONT_PX}px PxPlusIBMVGA8, monospace`;
@@ -236,13 +236,39 @@ function buildProbablesPages(probablesData) {
   return pages;
 }
 
-// One screen per division, in the order ESPN returns them (AL East, AL
-// Central, AL West, NL East, NL Central, NL West).
+// One screen per division, in the order ESPN returns them (e.g. AL East, AL
+// Central, AL West, NL East, NL Central, NL West for MLB; AFC/NFC x
+// East/North/South/West for NFL).
 function buildStandingsPages(standingsData) {
   if (!standingsData || !standingsData.in_season) return [];
+  const sport = standingsData.sport || "mlb";
   return (standingsData.divisions || [])
     .filter((d) => d.teams && d.teams.length)
-    .map((d) => ({ type: "standings", division: d }));
+    .map((d) => ({ type: "standings", division: d, sport }));
+}
+
+// ---------------------------
+// Latest Line board builder (NFL betting lines)
+// ---------------------------
+const LATEST_LINE_GAMES_PER_SCREEN = 5;
+
+function buildLatestLinePages(latestLineData) {
+  const pages = [];
+  for (const day of (latestLineData && latestLineData.days) || []) {
+    const games = day.games || [];
+    if (!games.length) continue;
+    const totalPages = Math.ceil(games.length / LATEST_LINE_GAMES_PER_SCREEN);
+    for (let p = 0; p < totalPages; p++) {
+      pages.push({
+        type: "latest_line",
+        day: day.day,
+        games: games.slice(p * LATEST_LINE_GAMES_PER_SCREEN, (p + 1) * LATEST_LINE_GAMES_PER_SCREEN),
+        page: p + 1,
+        totalPages,
+      });
+    }
+  }
+  return pages;
 }
 
 // ---------------------------
@@ -469,8 +495,9 @@ function drawTitleCard(image) {
 // ---------------------------
 // Standings board
 // ---------------------------
-function drawStandingsBoard(page, mlbLogo, alLogo, nlLogo) {
+function drawStandingsBoard(page, logos) {
   const division = page.division;
+  const isNFL = page.sport === "nfl";
   const titleY = inner.y + TEXT_PADDING;
 
   ctx.font = BODY_FONT;
@@ -485,14 +512,16 @@ function drawStandingsBoard(page, mlbLogo, alLogo, nlLogo) {
   const nameX = inner.x + TEXT_PADDING;
   const colW = Math.max(100, leftRect.w - TEXT_PADDING * 2);
   const colWX = nameX + colW * 0.50;
-  const colLX = nameX + colW * 0.62;
-  const colPctX = nameX + colW * 0.74;
+  const colLX = nameX + colW * 0.60;
+  const colTX = nameX + colW * 0.68; // NFL only
+  const colPctX = nameX + colW * (isNFL ? 0.78 : 0.74);
   const colGbX = nameX + colW * 0.90;
 
   // Column headers
   ctx.fillStyle = "rgb(200,180,120)";
   ctx.fillText("W", colWX, rowY);
   ctx.fillText("L", colLX, rowY);
+  if (isNFL) ctx.fillText("T", colTX, rowY);
   ctx.fillText("PCT", colPctX, rowY);
   ctx.fillText("GB", colGbX, rowY);
   rowY += rowHeight;
@@ -505,18 +534,79 @@ function drawStandingsBoard(page, mlbLogo, alLogo, nlLogo) {
     ctx.fillText(team.name, nameX, rowY);
     ctx.fillText(team.w, colWX, rowY);
     ctx.fillText(team.l, colLX, rowY);
+    if (isNFL) ctx.fillText(team.t || "0", colTX, rowY);
     ctx.fillText(team.pct, colPctX, rowY);
     ctx.fillText(team.gb || "--", colGbX, rowY);
     rowY += rowHeight;
   }
 
-  // American League divisions get the AL badge, National League gets the NL
-  // badge; anything else (or a failed image load) falls back to the generic
-  // MLB logo.
-  let badgeLogo = mlbLogo;
-  if (division.name.startsWith("American League") && alLogo) badgeLogo = alLogo;
-  else if (division.name.startsWith("National League") && nlLogo) badgeLogo = nlLogo;
+  // AL/NL divisions get their league badge; NFL divisions get the generic
+  // NFL logo (no AFC/NFC-specific art yet); anything else (or a failed image
+  // load) falls back to the sport's generic logo.
+  let badgeLogo = isNFL ? logos.nfl : logos.mlb;
+  if (division.name.startsWith("American League") && logos.al) badgeLogo = logos.al;
+  else if (division.name.startsWith("National League") && logos.nl) badgeLogo = logos.nl;
   if (badgeLogo) drawLogoInBox(badgeLogo, rightRect);
+}
+
+// ---------------------------
+// Latest Line board (NFL betting lines)
+// ---------------------------
+function drawLatestLineBoard(page, nflLogo) {
+  const titleY = inner.y + TEXT_PADDING;
+
+  ctx.font = HEADER_FONT;
+  ctx.fillStyle = "rgb(235,150,60)"; // same warm accent as the headlines title
+  ctx.textBaseline = "top";
+  ctx.textAlign = "left";
+  ctx.fillText("LATEST LINE", inner.x + TEXT_PADDING, titleY);
+
+  ctx.font = BODY_FONT;
+  ctx.fillStyle = TEXT_COLOR;
+  let subY = titleY + HEADER_FONT_PX + 16;
+  ctx.fillText("NFL GAMES", inner.x + TEXT_PADDING, subY);
+
+  let dayLabel = `(${page.day})`;
+  if (page.totalPages > 1) dayLabel += ` ${page.page}/${page.totalPages}`;
+  subY += BODY_FONT_PX + 10;
+
+  const nameX = inner.x + TEXT_PADDING;
+  const colW = Math.max(100, leftRect.w - TEXT_PADDING * 2);
+  const colPointsX = nameX + colW * 0.5;
+  const colUnderdogX = nameX + colW * 0.72;
+
+  // Column headers
+  ctx.fillStyle = "rgb(200,180,120)";
+  ctx.fillText("FAVORITE", nameX, subY);
+  ctx.fillText("POINTS", colPointsX, subY);
+  ctx.fillText("UNDERDOG", colUnderdogX, subY);
+  subY += BODY_FONT_PX + 8;
+
+  ctx.fillStyle = TEXT_COLOR;
+  ctx.fillText(dayLabel, nameX, subY);
+  subY += BODY_FONT_PX + 12;
+
+  const rowHeight = BODY_FONT_PX + 12;
+  for (const game of page.games) {
+    const favoriteIsHome = game.favorite === "home";
+    const favoriteLabel = favoriteIsHome ? game.home.toUpperCase() : game.away;
+    const underdogLabel = favoriteIsHome ? game.away : game.home.toUpperCase();
+
+    ctx.fillStyle = BOARD_ROW_BG;
+    ctx.fillRect(nameX - 8, subY - 4, colW, rowHeight - 6);
+    ctx.fillStyle = TEXT_COLOR;
+    ctx.fillText(favoriteLabel, nameX, subY);
+    ctx.fillText(String(game.points), colPointsX, subY);
+    ctx.fillText(underdogLabel, colUnderdogX, subY);
+    subY += rowHeight;
+  }
+
+  subY += 10;
+  ctx.font = SMALL_FONT;
+  ctx.fillStyle = "rgb(180,180,200)";
+  ctx.fillText("Home Team in CAPS", nameX, subY);
+
+  if (nflLogo) drawLogoInBox(nflLogo, rightRect);
 }
 
 // ---------------------------
@@ -589,11 +679,25 @@ async function main() {
     console.warn("[probables] load failed:", e);
   }
 
-  let standingsPages = [];
+  let mlbStandingsPages = [];
   try {
-    standingsPages = buildStandingsPages(await loadJSON("../data/standings.json"));
+    mlbStandingsPages = buildStandingsPages(await loadJSON("../data/standings.json"));
   } catch (e) {
     console.warn("[standings] load failed:", e);
+  }
+
+  let nflStandingsPages = [];
+  try {
+    nflStandingsPages = buildStandingsPages(await loadJSON("../data/nfl_standings.json"));
+  } catch (e) {
+    console.warn("[nfl standings] load failed:", e);
+  }
+
+  let latestLinePages = [];
+  try {
+    latestLinePages = buildLatestLinePages(await loadJSON("../data/latest_line.json"));
+  } catch (e) {
+    console.warn("[latest line] load failed:", e);
   }
 
   let headlinesPages = [];
@@ -604,9 +708,10 @@ async function main() {
   }
 
   // Rotation order: title card -> today's headlines -> MLB block (AL/NL
-  // probables -> MLB stories -> 6 division standings) -> NFL stories -> loop.
-  // MLB is the priority league (shows first); probables/standings are simply
-  // absent if it's the off-season (both builders return [] then).
+  // probables -> MLB stories -> 6 division standings) -> NFL block (latest
+  // line -> NFL stories -> 8 division standings) -> loop. MLB is the
+  // priority league (shows first); any of the MLB/NFL board types are simply
+  // absent if it's that sport's off-season (each builder returns [] then).
   const nflSlides = storySlides.filter((s) => (s.league || "").toLowerCase() === "nfl")
     .map((s) => ({ type: "story", slide: s }));
   const mlbSlides = storySlides.filter((s) => (s.league || "").toLowerCase() === "mlb")
@@ -617,8 +722,9 @@ async function main() {
   const items = [
     { type: "titlecard" },
     ...headlinesPages,
-    ...probablesPages, ...mlbSlides, ...standingsPages,
-    ...nflSlides, ...otherSlides,
+    ...probablesPages, ...mlbSlides, ...mlbStandingsPages,
+    ...latestLinePages, ...nflSlides, ...nflStandingsPages,
+    ...otherSlides,
   ];
   if (items.length === 1) items.push({ type: "story", slide: { title: "", body: "No content available.", logo: null } });
 
@@ -638,8 +744,10 @@ async function main() {
   const mlbLogo = await getLogo("mlb.png");
   const alLogo = await getLogo("AL.png");
   const nlLogo = await getLogo("NL.png");
+  const nflLogo = await getLogo("nfl.png");
   const probableLogo = await getLogo("probable.png");
   const titleCardImage = await loadImage("../media/logos/titlecard.png");
+  const standingsLogos = { mlb: mlbLogo, al: alLogo, nl: nlLogo, nfl: nflLogo };
 
   await setupMusic();
   playCurrentTrack();
@@ -731,7 +839,9 @@ async function main() {
     } else if (item.type === "probables") {
       drawProbablesBoard(item, probableLogo);
     } else if (item.type === "standings") {
-      drawStandingsBoard(item, mlbLogo, alLogo, nlLogo);
+      drawStandingsBoard(item, standingsLogos);
+    } else if (item.type === "latest_line") {
+      drawLatestLineBoard(item, nflLogo);
     }
 
     drawTicker(tickerText, tickerWidth, tickerX);

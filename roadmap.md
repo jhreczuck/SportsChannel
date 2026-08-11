@@ -208,6 +208,24 @@ start of the whole rotation.
       `cowboys.png` (from the title) instead of `eagles.png` (old body-only behavior).
 - [x] Clarified: logo lookup is local-file-only, no live ESPN fallback — reasonable now that
       `fetch_team_logos.py` pre-downloads all 62 team logos locally ahead of time.
+- [x] Header title ("SportsChannel") and clock font bumped 26px/18px → 32px/22px.
+
+## Feature: Latest Line + NFL Standings (new)
+- [x] **Latest Line**: NFL betting lines (favorite/spread/underdog), shown at the start of the
+      NFL section, before NFL stories — mirrors the original broadcast's board. Sourced from
+      ESPN's scoreboard `odds` field (favorite team, spread, moneyline provider), grouped by game
+      day, paginated at 5 games/screen. No byline/copyright line, per request.
+      `src/refresh_latest_line.py` → `data/latest_line.json`; `buildLatestLinePages` /
+      `drawLatestLineBoard` in `app.js`.
+- [x] **NFL Standings**: replicates the MLB standings board for NFL's 8 divisions (AFC/NFC ×
+      East/North/South/West), including a Ties column MLB doesn't have. Defaults to the generic
+      `nfl.png` badge (no AFC/NFC-specific art yet, unlike MLB's AL/NL split).
+      `src/refresh_nfl_standings.py` → `data/nfl_standings.json`. `drawStandingsBoard` reworked
+      to take a single `logos` object (`{mlb, al, nl, nfl}`) instead of positional args, and
+      switches its column layout/badge based on `page.sport`.
+- [x] Rotation updated to a full NFL block mirroring the MLB block: title card → headlines →
+      [MLB: probables → stories → standings] → [NFL: latest line → stories → standings] → loop.
+      Both NFL board types share the existing `"nfl"` seasonal gate from `league_seasons.py`.
 
 ## Feature: Title Card + Headlines Board (new)
 - [x] **Title card**: `media/logos/titlecard.png` shown full-canvas (covers header/panel/ticker
