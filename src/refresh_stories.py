@@ -104,16 +104,16 @@ def indent_paragraphs(text: str) -> str:
 
 def pick_trim_length(raw_len: int) -> int:
     """
-    Cleaning length rules (target sized to the web panel's ~550-char capacity
-    at the current 32px body font):
+    Cleaning length rules (target sized to the web panel's ~480-char capacity
+    at the current 36px body font):
     - >1000 chars -> 1000
-    - 550-750 chars -> 550
+    - 480-750 chars -> 480
     - otherwise -> keep as-is (GPT still cleans)
     """
     if raw_len > 1000:
         return 1000
-    if 550 <= raw_len <= 750:
-        return 550
+    if 480 <= raw_len <= 750:
+        return 480
     return raw_len
 
 
@@ -226,7 +226,7 @@ def build_slides_from_news(max_per_sport: int = 40) -> Dict[str, Any]:
             print(f"[refresh_stories] Warning: failed to fetch {s}: {e}")
             continue
 
-    MAX_LEN = 550  # matches the web panel's ~550-char capacity at the current 32px body font
+    MAX_LEN = 480  # matches the web panel's ~480-char capacity at the current 36px body font
     MAX_EXCLUDE_LEN = 1000
 
     for item in items:

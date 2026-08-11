@@ -189,6 +189,10 @@ start of the whole rotation.
       API (same naming convention `infer_logo_from_text` expects, e.g. `cowboys.png`,
       `redsox.png`) so hand-collecting 62 team logos isn't manual work. Won't overwrite existing
       files. Confirmed the downloaded PNGs are true RGBA with alpha (not a solid-background box).
+- [x] Body font bumped again 32px → 36px (still room at the bottom of the panel). This *lowers*
+      character capacity per slide (~546 → ~482 chars, fewer/narrower lines fit), so
+      `refresh_stories.py`'s MAX_LEN and `pick_trim_length` targets were dropped 550 → 480 to
+      match — verified zero of 51 slides overflow the 13-line panel limit after refresh.
 
 ## Feature: Title Card + Headlines Board (new)
 - [x] **Title card**: `media/logos/titlecard.png` shown full-canvas (covers header/panel/ticker

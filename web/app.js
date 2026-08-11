@@ -35,7 +35,7 @@ const TICKER_SCROLL_PX_PER_SEC = 240; // == 4px/frame @ 60fps in the pygame vers
 const TICKER_SCROLL_ON_SECONDS = 10.0;
 const TICKER_SCROLL_PAUSE_SECONDS = 3.0;
 
-const BODY_FONT_PX = 32;
+const BODY_FONT_PX = 36;
 const HEADER_FONT_PX = 26;
 const SMALL_FONT_PX = 18;
 const TICKER_FONT_PX = 32;
