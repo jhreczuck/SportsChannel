@@ -726,6 +726,7 @@ function leftColumnTextStartX(hasLogo) {
 // On This Day (sports history fact)
 // ---------------------------
 const HISTORY_LOGO_PIXELATE_RESOLUTION = 200; // higher than PIXELATE_RESOLUTION -- only slightly blocky
+const BIRTHDAY_LOGO_PIXELATE_RESOLUTION = 160; // double the default -- ~50% less blocky
 
 function drawHistoryBoard(page, historyLogo) {
   const titleY = inner.y + TEXT_PADDING;
@@ -790,7 +791,7 @@ function drawBirthdaysBoard(page, birthdayLogo) {
     y += 20;
   }
 
-  drawLeftColumnLogo(birthdayLogo);
+  drawLeftColumnLogo(birthdayLogo, BIRTHDAY_LOGO_PIXELATE_RESOLUTION);
 }
 
 // ---------------------------
