@@ -193,6 +193,21 @@ start of the whole rotation.
       character capacity per slide (~546 → ~482 chars, fewer/narrower lines fit), so
       `refresh_stories.py`'s MAX_LEN and `pick_trim_length` targets were dropped 550 → 480 to
       match — verified zero of 51 slides overflow the 13-line panel limit after refresh.
+- [x] Fixed a second logo-inference bug: `infer_logo_from_text` ran two separate regex passes
+      (capitalized words, then digit-prefixed) and concatenated the results, so a later-appearing
+      capitalized team name could win over an earlier digit-prefixed one (e.g. "49ers") purely
+      because of regex ordering, not actual text position. Matches are now merged and sorted by
+      position so the first team name that actually appears wins.
+- [x] Checked the RSS feed for team-specific metadata to use instead of text-scanning — there
+      isn't any (`<category>` is generic: "sports", "nfl"; `<source>` is just the publisher, e.g.
+      "SB Nation"). The best available signal turned out to be the article title, which reliably
+      names the subject team explicitly while the body can mention several teams in passing
+      (opponents, comparisons) and pick the wrong one. Added `infer_logo(title, body)`, which
+      checks the title first and only falls back to the body if the title has no match.
+      Confirmed: a body mentioning "Eagles" before "Cowboys" now correctly resolves to
+      `cowboys.png` (from the title) instead of `eagles.png` (old body-only behavior).
+- [x] Clarified: logo lookup is local-file-only, no live ESPN fallback — reasonable now that
+      `fetch_team_logos.py` pre-downloads all 62 team logos locally ahead of time.
 
 ## Feature: Title Card + Headlines Board (new)
 - [x] **Title card**: `media/logos/titlecard.png` shown full-canvas (covers header/panel/ticker
