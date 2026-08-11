@@ -517,7 +517,7 @@ function drawStandingsBoard(page, logos) {
   const colLX = nameX + colW * 0.60;
   const colTX = nameX + colW * 0.68; // NFL only
   const colPctX = nameX + colW * (isNFL ? 0.78 : 0.74);
-  const colGbX = nameX + colW * 0.90;
+  const colGbX = nameX + colW * 0.90; // MLB only -- NFL has no games-behind column
 
   // Column headers
   ctx.fillStyle = "rgb(200,180,120)";
@@ -525,7 +525,7 @@ function drawStandingsBoard(page, logos) {
   ctx.fillText("L", colLX, rowY);
   if (isNFL) ctx.fillText("T", colTX, rowY);
   ctx.fillText("PCT", colPctX, rowY);
-  ctx.fillText("GB", colGbX, rowY);
+  if (!isNFL) ctx.fillText("GB", colGbX, rowY);
   rowY += rowHeight;
 
   ctx.fillStyle = TEXT_COLOR;
@@ -538,7 +538,7 @@ function drawStandingsBoard(page, logos) {
     ctx.fillText(team.l, colLX, rowY);
     if (isNFL) ctx.fillText(team.t || "0", colTX, rowY);
     ctx.fillText(team.pct, colPctX, rowY);
-    ctx.fillText(team.gb || "--", colGbX, rowY);
+    if (!isNFL) ctx.fillText(team.gb || "--", colGbX, rowY);
     rowY += rowHeight;
   }
 

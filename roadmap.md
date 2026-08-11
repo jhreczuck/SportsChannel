@@ -238,6 +238,7 @@ start of the whole rotation.
       `src/refresh_nfl_standings.py` → `data/nfl_standings.json`. `drawStandingsBoard` reworked
       to take a single `logos` object (`{mlb, al, nl, nfl}`) instead of positional args, and
       switches its column layout/badge based on `page.sport`.
+- [x] Follow-up: NFL standings columns changed to W, L, T, PCT — GB dropped (MLB keeps it).
 - [x] Rotation updated to a full NFL block mirroring the MLB block: title card → headlines →
       [MLB: probables → stories → standings] → [NFL: latest line → stories → standings] → loop.
       Both NFL board types share the existing `"nfl"` seasonal gate from `league_seasons.py`.
