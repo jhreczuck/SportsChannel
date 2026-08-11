@@ -698,7 +698,7 @@ function drawLatestLineBoard(page, nflLogo) {
 // Used by boards styled with a big character graphic on the left (On This
 // Day, Today's Sports Birthdays) instead of the standard right-side logo
 // column. Returns the x where text content should start.
-const LEFT_LOGO_BOX = { w: 260, h: 320 }; // bigger than the standard 200x200 logo box
+const LEFT_LOGO_BOX = { w: 338, h: 416 }; // bigger than the standard 200x200 logo box (~30% bigger than the first pass)
 
 function drawLeftColumnLogo(logo, resolution = PIXELATE_RESOLUTION) {
   if (!logo) return;
