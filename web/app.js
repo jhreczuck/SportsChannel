@@ -26,6 +26,7 @@ const TICKER_SEPARATOR_COLOR = `rgba(25,25,112,${SEPARATOR_ALPHA})`;
 const LINE_DELAY = 0.2;       // seconds between each revealed line
 const SLIDE_DURATION = 18.0;  // seconds per story slide
 const BOARD_DURATION = 12.0;  // seconds per probables/standings board screen
+const TITLECARD_DURATION = 6.0; // seconds the title card shows at the start of each loop
 
 const PROBABLES_GAMES_PER_SCREEN = 5; // full-width rows, no reserved logo column
 const BOARD_ROW_BG = "rgba(25,25,112,0.55)"; // navy row highlight, matches ticker separator color
@@ -166,6 +167,49 @@ function wrapTextAroundOverlay(bodyText, ctxRef, hasLogo) {
 }
 
 // ---------------------------
+// Headlines board builder
+// ---------------------------
+const HEADLINES_MAX_PAGES = 2;
+const HEADLINES_MAX_PER_PAGE = 7;
+
+// Fits as many headlines as actually fit vertically (up to
+// HEADLINES_MAX_PER_PAGE), across at most HEADLINES_MAX_PAGES screens --
+// remaining headlines beyond that are simply not shown, rather than
+// paginating through the full list.
+function buildHeadlinesPages(headlinesData, ctxRef) {
+  const items = (headlinesData && headlinesData.headlines) || [];
+  if (!items.length) return [];
+
+  ctxRef.font = BODY_FONT;
+  const titleY = inner.y + TEXT_PADDING;
+  const boxY = titleY + BODY_FONT_PX + 20;
+  const boxW = inner.w - TEXT_PADDING * 2;
+  const boxH = inner.bottom - TEXT_PADDING - boxY;
+  const textMaxWidth = boxW - 28;
+  const lineHeight = BODY_FONT_PX + 4;
+
+  const pages = [];
+  let idx = 0;
+  for (let p = 0; p < HEADLINES_MAX_PAGES && idx < items.length; p++) {
+    const pageHeadlines = [];
+    let usedHeight = 14; // matches drawHeadlinesBoard's top inset inside the box
+    while (idx < items.length && pageHeadlines.length < HEADLINES_MAX_PER_PAGE) {
+      const lines = wrapHeadline(items[idx].title, "..", "  ", textMaxWidth, ctxRef);
+      const entryHeight = lines.length * lineHeight + 10;
+      if (pageHeadlines.length > 0 && usedHeight + entryHeight > boxH) break;
+      pageHeadlines.push(items[idx]);
+      usedHeight += entryHeight;
+      idx++;
+    }
+    if (!pageHeadlines.length) break;
+    pages.push({ type: "headlines", headlines: pageHeadlines, page: p + 1 });
+  }
+
+  for (const page of pages) page.totalPages = pages.length;
+  return pages;
+}
+
+// ---------------------------
 // Probables / standings board builders
 // ---------------------------
 // Paginate one league's games into screens of PROBABLES_GAMES_PER_SCREEN,
@@ -299,9 +343,73 @@ function drawLogoInBox(logo, box) {
 }
 
 // ---------------------------
+// Headlines board
+// ---------------------------
+// Greedy word-wrap for a single headline: first line gets `prefix` ("..  "),
+// any wrapped continuation lines get `contIndent` instead, so long headlines
+// visually align under the first line rather than restarting at the margin.
+function wrapHeadline(text, prefix, contIndent, maxWidth, ctxRef) {
+  const words = text.split(/\s+/);
+  const lines = [];
+  let first = true;
+  while (words.length) {
+    const label = first ? prefix : contIndent;
+    const avail = maxWidth - ctxRef.measureText(label).width;
+    const line = [];
+    while (words.length) {
+      const test = [...line, words[0]].join(" ");
+      if (ctxRef.measureText(test).width <= avail) {
+        line.push(words.shift());
+      } else {
+        if (line.length === 0) line.push(words.shift());
+        break;
+      }
+    }
+    lines.push(label + line.join(" "));
+    first = false;
+  }
+  return lines;
+}
+
+function drawHeadlinesBoard(page) {
+  const titleY = inner.y + TEXT_PADDING;
+
+  ctx.font = BODY_FONT;
+  ctx.fillStyle = "rgb(235,150,60)"; // warm accent for the headlines title
+  ctx.textBaseline = "top";
+  ctx.textAlign = "left";
+  let title = "TODAY'S HEADLINES";
+  if (page.totalPages > 1) title += ` (${page.page}/${page.totalPages})`;
+  ctx.fillText(title, inner.x + TEXT_PADDING, titleY);
+
+  const boxX = inner.x + TEXT_PADDING;
+  const boxY = titleY + BODY_FONT_PX + 20;
+  const boxW = inner.w - TEXT_PADDING * 2;
+  const boxH = inner.bottom - TEXT_PADDING - boxY;
+  ctx.strokeStyle = "rgb(200,180,80)";
+  ctx.lineWidth = 2;
+  ctx.strokeRect(boxX, boxY, boxW, boxH);
+
+  ctx.font = BODY_FONT;
+  ctx.fillStyle = TEXT_COLOR;
+  const lineHeight = BODY_FONT_PX + 4;
+  const textMaxWidth = boxW - 28;
+  let y = boxY + 14;
+
+  for (const headline of page.headlines) {
+    const lines = wrapHeadline(headline.title, "..", "  ", textMaxWidth, ctx);
+    for (const line of lines) {
+      ctx.fillText(line, boxX + 14, y);
+      y += lineHeight;
+    }
+    y += 10; // gap between headlines
+  }
+}
+
+// ---------------------------
 // Probables board
 // ---------------------------
-function drawProbablesBoard(page, mlbLogo) {
+function drawProbablesBoard(page, probableLogo) {
   const titleY = inner.y + TEXT_PADDING;
   const rowHeight = BODY_FONT_PX + 4;
   const rowBlockHeight = rowHeight * 2 + 18; // two lines per game + gap
@@ -314,16 +422,13 @@ function drawProbablesBoard(page, mlbLogo) {
   if (page.totalPages > 1) title += ` (${page.page}/${page.totalPages})`;
   ctx.fillText(title, inner.x + TEXT_PADDING, titleY);
 
-  // Small MLB logo beside the title, out of the way of the full-width rows below.
-  if (mlbLogo) {
-    const badgeSize = 56;
-    drawLogoInBox(mlbLogo, { x: inner.right - TEXT_PADDING - badgeSize, y: titleY - 8, w: badgeSize, h: badgeSize });
-  }
+  // Full-size badge in the standard logo column, same as story slides.
+  if (probableLogo) drawLogoInBox(probableLogo, rightRect);
 
   ctx.font = BODY_FONT;
   let rowY = titleY + BODY_FONT_PX + 24;
   const rowX = inner.x + TEXT_PADDING;
-  const rowW = inner.w - TEXT_PADDING * 2; // full panel width -- no logo column reserved here
+  const rowW = leftRect.w - TEXT_PADDING * 2; // leave the logo column clear
 
   for (const game of page.games) {
     ctx.fillStyle = BOARD_ROW_BG;
@@ -335,6 +440,21 @@ function drawProbablesBoard(page, mlbLogo) {
 
     rowY += rowBlockHeight;
   }
+}
+
+// ---------------------------
+// Title card
+// ---------------------------
+// Full-canvas image, covering the header/panel/ticker entirely -- a bumper
+// shown once at the start of every rotation loop.
+function drawTitleCard(image) {
+  if (!image) return;
+  const scale = Math.max(WIDTH / image.width, HEIGHT / image.height);
+  const w = image.width * scale;
+  const h = image.height * scale;
+  const x = (WIDTH - w) / 2;
+  const y = (HEIGHT - h) / 2;
+  ctx.drawImage(image, x, y, w, h);
 }
 
 // ---------------------------
@@ -461,9 +581,17 @@ async function main() {
     console.warn("[standings] load failed:", e);
   }
 
-  // Rotation order: NFL stories -> AL/NL probables -> MLB stories -> 6 division
-  // standings boards -> loop. Probables/standings are simply absent if it's
-  // the off-season (both builders return [] then).
+  let headlinesPages = [];
+  try {
+    headlinesPages = buildHeadlinesPages(await loadJSON("../data/headlines.json"), ctx);
+  } catch (e) {
+    console.warn("[headlines] load failed:", e);
+  }
+
+  // Rotation order: title card -> today's headlines -> MLB block (AL/NL
+  // probables -> MLB stories -> 6 division standings) -> NFL stories -> loop.
+  // MLB is the priority league (shows first); probables/standings are simply
+  // absent if it's the off-season (both builders return [] then).
   const nflSlides = storySlides.filter((s) => (s.league || "").toLowerCase() === "nfl")
     .map((s) => ({ type: "story", slide: s }));
   const mlbSlides = storySlides.filter((s) => (s.league || "").toLowerCase() === "mlb")
@@ -471,8 +599,13 @@ async function main() {
   const otherSlides = storySlides.filter((s) => !["nfl", "mlb"].includes((s.league || "").toLowerCase()))
     .map((s) => ({ type: "story", slide: s }));
 
-  const items = [...nflSlides, ...otherSlides, ...probablesPages, ...mlbSlides, ...standingsPages];
-  if (!items.length) items.push({ type: "story", slide: { title: "", body: "No content available.", logo: null } });
+  const items = [
+    { type: "titlecard" },
+    ...headlinesPages,
+    ...probablesPages, ...mlbSlides, ...standingsPages,
+    ...nflSlides, ...otherSlides,
+  ];
+  if (items.length === 1) items.push({ type: "story", slide: { title: "", body: "No content available.", logo: null } });
 
   let tickerText = "SPORTS PLUS NETWORK • AUTOMATED SPORTS NEWS FEED •";
   try {
@@ -488,6 +621,8 @@ async function main() {
 
   const headerLogo = await loadImage("../media/logos/sportschannel.png");
   const mlbLogo = await getLogo("mlb.png");
+  const probableLogo = await getLogo("probable.png");
+  const titleCardImage = await loadImage("../media/logos/titlecard.png");
 
   await setupMusic();
   playCurrentTrack();
@@ -532,7 +667,9 @@ async function main() {
     lastFrameTime = now;
     const elapsed = now - slideStartTime;
     const item = items[currentIndex];
-    const duration = item.type === "story" ? SLIDE_DURATION : BOARD_DURATION;
+    const duration = item.type === "story" ? SLIDE_DURATION
+      : item.type === "titlecard" ? TITLECARD_DURATION
+      : BOARD_DURATION;
 
     if (elapsed >= duration) {
       currentIndex = (currentIndex + 1) % items.length;
@@ -555,6 +692,13 @@ async function main() {
     ctx.fillStyle = BG;
     ctx.fillRect(0, 0, WIDTH, HEIGHT);
 
+    if (item.type === "titlecard") {
+      // Full-canvas bumper -- no header/panel/ticker chrome over it.
+      drawTitleCard(titleCardImage);
+      requestAnimationFrame(frame);
+      return;
+    }
+
     drawHeader(headerLogo);
 
     ctx.fillStyle = PANEL_BG;
@@ -565,8 +709,10 @@ async function main() {
     if (item.type === "story") {
       const linesToShow = Math.min(wrappedLines.length, Math.floor(elapsed / LINE_DELAY));
       drawSlideText(wrappedLines, linesToShow, currentLogo);
+    } else if (item.type === "headlines") {
+      drawHeadlinesBoard(item);
     } else if (item.type === "probables") {
-      drawProbablesBoard(item, mlbLogo);
+      drawProbablesBoard(item, probableLogo);
     } else if (item.type === "standings") {
       drawStandingsBoard(item, mlbLogo);
     }

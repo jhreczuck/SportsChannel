@@ -27,7 +27,7 @@ Optional env:
 What we store per slide:
 
     {
-      "title": "",
+      "title": "<original article headline, empty for (cont) continuation slides>",
       "body": "<multi-sentence text>",
       "logo": "cowboys.png" | null,
       "league": "nfl" | "nba" | ...,
@@ -56,6 +56,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE_DIR / "data"
 STORIES_PATH = DATA_DIR / "stories.json"
 CLEANED_STORIES_PATH = DATA_DIR / "stories_cleaned.json"
+HEADLINES_PATH = DATA_DIR / "headlines.json"
+
+# Which league's content shows first in the web rotation (stories, headlines).
+LEAGUE_PRIORITY = ["mlb", "nfl"]
 
 # Logos live here (used to validate inferred logo filenames)
 MEDIA_LOGOS_DIR = BASE_DIR / "media" / "logos"
@@ -236,6 +240,7 @@ def build_slides_from_news(max_per_sport: int = 40) -> Dict[str, Any]:
         league = (getattr(item, "sport", None) or "").lower() or None
         logo_recommended = f"{league}.png" if league else None
         inferred_logo = infer_logo_from_text(text)
+        item_title = getattr(item, "title", "") or ""
         category = getattr(item, "category", None) or None
 
         # Normalize category for exclusion checks
@@ -283,7 +288,7 @@ def build_slides_from_news(max_per_sport: int = 40) -> Dict[str, Any]:
             # DON'T call style_body_text again - it's already styled!
             # Mark only the first visible line with <<<INDENT>>> and append slides.
             first_slide = {
-                "title": "",
+                "title": item_title,
                 "body": mark_first_line(first_part),
                 "logo": inferred_logo,
                 "league": league,
@@ -295,7 +300,7 @@ def build_slides_from_news(max_per_sport: int = 40) -> Dict[str, Any]:
             if rest:
                 cont_body = mark_first_line("(cont) " + rest)
                 second_slide = {
-                    "title": "",
+                    "title": "",  # continuation of the slide above; headline already shown there
                     "body": cont_body,
                     "logo": inferred_logo,
                     "league": league,
@@ -307,7 +312,7 @@ def build_slides_from_news(max_per_sport: int = 40) -> Dict[str, Any]:
             # Collapse multiple consecutive newlines to a single newline
             text = collapse_newlines(text)
             slide = {
-                "title": "",
+                "title": item_title,
                 "body": mark_first_line(text),
                 "logo": inferred_logo,
                 "league": league,
@@ -317,6 +322,25 @@ def build_slides_from_news(max_per_sport: int = 40) -> Dict[str, Any]:
             _maybe_merge_or_append(slides, slide)
 
     return {"slides": slides}
+
+
+def build_headlines(wrapper: Dict[str, Any]) -> List[Dict[str, str]]:
+    """
+    Pull one-line headlines straight from the RSS article titles already
+    captured on each slide (see news_feed.NewsItem.title) -- no separate
+    fetch or GPT cleaning needed, since these are already short. Ordered by
+    LEAGUE_PRIORITY, de-duplicated (continuation slides have an empty title).
+    """
+    seen = set()
+    headlines: List[Dict[str, str]] = []
+    for league in LEAGUE_PRIORITY:
+        for slide in wrapper.get("slides", []):
+            title = (slide.get("title") or "").strip()
+            if not title or slide.get("league") != league or title in seen:
+                continue
+            seen.add(title)
+            headlines.append({"title": title, "league": league})
+    return headlines
 
 
 def clean_slides_with_gpt(wrapper: Dict[str, Any]) -> Dict[str, Any]:
@@ -375,6 +399,16 @@ def main() -> None:
         json.dumps(wrapper, indent=2, ensure_ascii=False), encoding="utf-8"
     )
     print(f"[refresh_stories] Wrote {len(wrapper['slides'])} slides to {STORIES_PATH}")
+
+    headlines = build_headlines(wrapper)
+    headlines_wrapper = {
+        "generated_at": datetime.utcnow().isoformat() + "Z",
+        "headlines": headlines,
+    }
+    HEADLINES_PATH.write_text(
+        json.dumps(headlines_wrapper, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
+    print(f"[refresh_stories] Wrote {len(headlines)} headlines to {HEADLINES_PATH}")
 
     cleaned_wrapper = clean_slides_with_gpt(wrapper)
     CLEANED_STORIES_PATH.write_text(

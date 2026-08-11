@@ -170,6 +170,31 @@ start of the whole rotation.
 - [x] Reintroduced two-zone text wrapping for story slides with a logo: narrow width for lines
       beside the image, full panel width for lines below its bottom edge (previously flattened
       to one width throughout, wasting the space under shorter logos).
+- [x] Probables board updated: full panel width (no reserved logo column), up to 5 games per
+      screen, badge swapped to `media/logos/probable.png`.
+- [x] Follow-up: probables board reverted to a reserved right-hand logo column (rows use
+      `leftRect.w`, not full width) so the `probable.png` badge can render at full standard
+      logo-box size instead of a small 56px corner icon.
+
+## Feature: Title Card + Headlines Board (new)
+- [x] **Title card**: `media/logos/titlecard.png` shown full-canvas (covers header/panel/ticker
+      entirely) as the very first item every time the rotation loops, for `TITLECARD_DURATION`
+      (6s). `drawTitleCard` in `app.js`.
+- [x] **Headlines board**: card two, right after the title card. Sourced for free from data
+      already being parsed — `news_feed.NewsItem` now captures each RSS item's `<title>`
+      (previously only used for the fantasy-football filter, then discarded), which
+      `refresh_stories.py`'s `build_headlines()` collects into `data/headlines.json`
+      (de-duplicated, ordered by `LEAGUE_PRIORITY`). Rendered as a bordered box of
+      `".. <headline>"` lines with wrapped continuations indented to align.
+- [x] Follow-up: capped to exactly 2 headline cards (`HEADLINES_MAX_PAGES`), fitting up to 7
+      headlines per card (`HEADLINES_MAX_PER_PAGE`) based on actual wrapped-line height rather
+      than a flat count — remaining headlines beyond what fits in 2 cards are simply not shown,
+      not paginated through in full.
+- [x] **League priority reorder**: MLB is now the priority league. Full rotation order is
+      title card → headlines → AL probables → NL probables → MLB stories → 6 division
+      standings → NFL stories → (loop). `LEAGUE_PRIORITY = ["mlb", "nfl"]` in
+      `refresh_stories.py` drives the headlines ordering; `app.js`'s `items` array construction
+      mirrors the same MLB-block-then-NFL-block order.
 
 ## Phase 4 — Static asset pipeline
 - [ ] Pre-normalized `.mp3`s committed/synced to the server (not regenerated per request).

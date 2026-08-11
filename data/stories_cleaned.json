@@ -1,35 +1,139 @@
 {
-  "generated_at": "2026-08-11T20:46:55.039426Z",
+  "generated_at": "2026-08-11T21:10:58.563808Z",
   "source": "yahoo_news_via_news_feed",
   "max_per_sport": 25,
   "slides": [
     {
-      "title": "",
-      "body": "<<<INDENT>>>Could the Pittsburgh Steelers really keep four quarterbacks on the opening 53-man roster? That’s how many they have on the roster now – Aaron Rodgers, Mason Rudolph, Drew Allar and Will Howard – and there’s a chance all of them remain on the roster when final cutdowns happen on Aug. 30.\n<<<INDENT>>>But there’s also a possible workaround the Steelers could employ if they feel keeping four is too restrictive. Rodgers is the starter.",
-      "logo": "steelers.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) and the only thing likely knocking Rodgers from the starting lineup is an injury – or maybe sustained poor play. Still, he’s 42 years old, and there’s the future to also think about.",
-      "logo": "steelers.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>The Titans plan to play their starters in Thursday's preseason opener against the 49ers, but they won't have many first-stringers lined up against them. 49ers head coach Kyle Shanahan said at a press conference on Tuesday that the team will be sitting most of its starters. \"There won't be many starters playing,\" Shanahan said. \"We'll see, with injuries today and stuff — and that doesn't mean none. But we've got to balance that out.",
+      "title": "49ers All-Pro Nick Bosa dealing with tendinitis in surgically repaired right knee; Christian McCaffrey misses another practice",
+      "body": "<<<INDENT>>>All-Pro San Francisco 49ers edge rusher Nick Bosa is dealing with tendinitis in his surgically repaired right knee and remains absent from practice at training camp. Head coach Kyle Shanahan discussed Bosa’s condition with reporters on Tuesday and downplayed concern that it could linger.\n<<<INDENT>>>He described the tendinitis as “normal” for Bosa coming off surgery to repair an ACL tear and described him as “week-to-week.” “Just soreness, tendinitis,” Shanahan said. “It’s a pretty normal thing with ACLs.",
       "logo": null,
       "league": "nfl",
       "logo_recommended": "nfl.png",
       "category": null
     },
     {
+      "title": "Jets CB Qwan'tez Stiggers transported to the hospital after passing out at practice",
+      "body": "<<<INDENT>>>Jets cornerback Qwan'tez Stiggers was transported in an ambulance to a local hospital after losing consciousness during a joint practice with the Buccaneers. Jets coach Aaron Glenn said after practice that Stiggers was conscious and talking on the field.\n<<<INDENT>>>Stiggers also received an IV before being taken by stretcher to the waiting ambulance. The Jets have not updated Stiggers' condition. Glenn said Stiggers \"came to the sideline, and he just passed out.",
+      "logo": "jets.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
       "title": "",
-      "body": "<<<INDENT>>>Chargers left tackle Rashawn Slater missed his fourth straight practice on Tuesday due to a flare-up in his surgically repaired left knee. Slater tore his patellar tendon in practice a little over a year ago and has been out since last week. \n<<<INDENT>>>Trey Pipkins and Branson Taylor have seen increased reps at left tackle with Slater out of practice.",
+      "body": "<<<INDENT>>>(cont) The incident stopped the joint practice for 10 minutes. Stiggers, 24, entered the NFL as a fifth-round pick of the Jets in 2024 after not playing college football. He played one season for the Toronto Argonauts of the CFL. Stiggers has appeared in 29 games for the Jets, seeing action on 503 special teams snaps and 297 on defense.",
+      "logo": "jets.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "Matthew Stafford doesn't think Puka Nacua's injury was \"anything too major\"",
+      "body": "<<<INDENT>>>Matthew Stafford is neither a trainer nor a doctor. But as a quarterback entering his 18th pro season, he has an idea of what a serious injury looks like. Head coach Sean McVay did not have a real update on why Puka Nacua left Tuesday’s joint practice with the Cowboys, and Stafford didn't know much about it either.\n<<<INDENT>>>But he also did not get any indication that Nacua's injury was significant.",
+      "logo": null,
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "Bears sign OL Wesley French",
+      "body": "<<<INDENT>>>The Bears added depth to their offensive line on Tuesday by signing Wesley French to their 90-man roster. They waived safety Brandon Hill in a corresponding move.\n<<<INDENT>>>French signed with the Colts as an undrafted rookie in 2022 and played in every game for Indianapolis during the 2023 season. He spent 2024 on injured reserve and was on practice squads in Dallas and Cleveland last year.",
+      "logo": "bears.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "Jets' Stiggers in hospital after collapsing in practice",
+      "body": "<<<INDENT>>>Qwan'tez Stiggers was a fifth-round draft pick by the New York Jets in 2024. New York Jets cornerback Qwan'tez Stiggers was taken to hospital by ambulance after collapsing during a joint practice with the Tampa Bay Buccaneers. Stiggers briefly lost consciousness on the sidelines during a training drill, prompting an immediate medical response that halted practice for more than 10 minutes. Jets head coach Aaron Glenn said the 24-year-",
+      "logo": "jets.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": "Sports"
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) The player was conscious and talking before he was carried off the field on a stretcher for further examination. \"He came to the sideline after a play and he actually fell out,\" Glenn told reporters. \"The good thing is he was conscious. He was able to talk. For the most part, he's good.\"\n<<<INDENT>>>Several Jets players took a knee near the sidelines, while some formed a prayer circle as their teammate was receiving medical attention.",
+      "logo": "jets.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": "Sports"
+    },
+    {
+      "title": "Fernando Mendoza may play with 1st-team offensive line Thursday",
+      "body": "<<<INDENT>>>PT kickoff. Tuesday, new Las Vegas head coach Klint Kubiak said Mendoza, the No. 1 overall draft pick, will get “plenty of experience” in the game. He did not indicate how much Mendoza will play, but he did say he may play some with the first-team offensive line. Mendoza is listed second on the newly released depth chart, so he will likely play after Kirk Cousins and before Aidan O’Connell. Kubiak wouldn’t say how much the starters will play, only saying most of them will play.",
+      "logo": null,
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "Commanders sign LB Curtis Jacobs",
+      "body": "<<<INDENT>>>The Commanders announced the signing of defensive tackle Byron Cowart on Tuesday morning and added linebacker Curtis Jacobs to the 90-man roster in the afternoon. The team cut two players when they signed Cowart, so no additional moves were needed.\n<<<INDENT>>>Jacobs appeared in three games for the Titans last season and played 39 special teams snaps. He recorded four tackles in nine games for the Patriots in 2024.",
+      "logo": "commanders.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "Klint Kubiak: Fernando Mendoza will get \"plenty of experience\" on Thursday vs. Cardinals",
+      "body": "<<<INDENT>>>No. 1 overall pick Fernando Mendoza is set to make his preseason debut on Thursday night. Raiders head coach Klint Kubiak said Las Vegas' starters will play against the Cardinals, meaning Kirk Cousins will be the first QB on the field.\n<<<INDENT>>>Mendoza will get plenty of experience in the game, Kubiak said. He looks forward to seeing Mendoza with his teammates and noted many players need evaluation. There is a chance Mendoza will take snaps with the first-team offensive line.",
+      "logo": null,
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "Giants injuries: Abdul Carter (hand), Jaxson Dart (ankle) practice",
+      "body": "<<<INDENT>>>New York Giants pass rusher Abdul Carter reacts after drawing a penalty. The New York Giants have finished their twelfth practice of their 2026 training camp, breathing a sigh of relief as they do so. Both edge defender Abdul Carter (hand) and QB Jaxson Dart (ankle) participated in today’s practice. \n<<<INDENT>>>That said, cornerback Paulson Adebo didn’t practice and has no known injury. They’re one day closer to taking on the Minnesota Vikings when they host them at MetLife Stadium on Saturday at 1 p.m.",
+      "logo": "giants.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) The Giants practiced in shells today after a tough Monday practice. Typically, “Shells” practices are less intense than fully padded practices, and this was reportedly more of a jog-through.",
+      "logo": "giants.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "Could Steelers keep four QBs on opening roster? Pros, cons for every likely scenario",
+      "body": "<<<INDENT>>>Could the Pittsburgh Steelers really keep four quarterbacks on the opening 53-man roster? That's how many they have on the roster now — Aaron Rodgers, Mason Rudolph, Drew Allar and Will Howard — and there's a chance all of them remain on the roster when final cutdowns happen on Aug. 30.\n<<<INDENT>>>But there's also a possible workaround the Steelers could employ if they feel keeping four is too restrictive. Rodgers is the starter.",
+      "logo": "steelers.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) and the only thing likely knocking Rodgers from the starting lineup is an injury — or maybe sustained poor play. Still, he's 42 years old, and there's the future to also think about.",
+      "logo": "steelers.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "Tommy DeVito finding his ‘flow state’ as Patriots QB2",
+      "body": "<<<INDENT>>>The quarterback did not join New England until Aug. 27, when the Patriots claimed him off waivers. DeVito spent the season as a third-stringer behind starter Drake Maye and veteran backup Joshua Dobbs. \n<<<INDENT>>>While learning New England’s offense behind the scenes, his practice time was limited to scout-team situations. Now the primary backup in Year 2, DeVito has gained on-field practice experience and shown significant growth since spring. “It’s a different world,” DeVito said. \n<<<INDENT>>>“It’s one thing to be in the classroom and learn, but another to get reps. Last year, I didn’t get reps in the offense.”",
+      "logo": "patriots.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "49ers won't play many starters on Thursday night",
+      "body": "<<<INDENT>>>The Titans plan to play their starters in Thursday's preseason opener against the 49ers, but they won't have many first-stringers lined up against them. 49ers head coach Kyle Shanahan said at a press conference on Tuesday that the team will be sitting most of its starters.\n<<<INDENT>>>\"There won't be many starters playing,\" Shanahan said. \"We'll see, with injuries today and stuff — and that doesn't mean none.",
+      "logo": null,
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "Chargers OT Rashawn Slater dealing with flare-up in his knee",
+      "body": "<<<INDENT>>>Chargers left tackle Rashawn Slater missed his fourth straight practice on Tuesday due to a flare-up in his surgically repaired left knee. Slater tore his patellar tendon in practice a little over a year ago. \n<<<INDENT>>>He has been out since last week because of the knee issue. Trey Pipkins and Branson Taylor have seen increased reps at left tackle with Slater out of practice.",
       "logo": null,
       "league": "nfl",
       "logo_recommended": "nfl.png",
@@ -44,7 +148,7 @@
       "category": null
     },
     {
-      "title": "",
+      "title": "Robert Saleh unveils plan for Titans’ first preseason game",
       "body": "<<<INDENT>>>Robert Saleh said after today’s joint practice that all healthy Titans players will play in the game. He said the plan is for the starters to play more than one series. Saleh said early on that he planned on the starters playing in every preseason game. That makes sense with a whole new coaching staff trying to implement a new system on both sides of the ball. The players need all of the live reps that they can get.",
       "logo": null,
       "league": "nfl",
@@ -52,23 +156,7 @@
       "category": null
     },
     {
-      "title": "",
-      "body": "<<<INDENT>>>Qwan'tez Stiggers was a fifth-round draft pick by the New York Jets in 2024. New York Jets cornerback Qwan'tez Stiggers was taken to hospital by ambulance after collapsing during a joint practice with the Tampa Bay Buccaneers. Stiggers briefly lost consciousness on the sidelines during a training drill, prompting an immediate medical response that halted practice for more than 10 minutes. Jets head coach Aaron Glenn said the 24-year-",
-      "logo": "jets.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": "Sports"
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) old was conscious and talking before he was carried off the field on a stretcher for further examination. \"He came to the sideline after a play and he actually fell out,\" Glenn told reporters. \"The good thing is he was conscious. He was able to talk. For the most part, he's good.\"\n<<<INDENT>>>Several Jets players took a knee near the sidelines, while some formed a prayer circle as their teammate was receiving medical attention.",
-      "logo": "jets.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": "Sports"
-    },
-    {
-      "title": "",
+      "title": "Biggest winners from the Cowboys’ joint practice with the Rams",
       "body": "<<<INDENT>>>After eight training camp practices, it was time for the 2026 Dallas Cowboys to get their first true test. Dallas traveled over to Woodland Hills to take part in a joint practice with the Los Angeles Rams.\n<<<INDENT>>>Coming off a 12-win season in which they made it to the NFC Championship Game before losing to the Super Bowl Champion Seattle Seahawks, the Rams had arguably the best offseason of any team in the league.",
       "logo": "rams.png",
       "league": "nfl",
@@ -84,111 +172,7 @@
       "category": null
     },
     {
-      "title": "",
-      "body": "<<<INDENT>>>The timeline for Bears safety Coby Bryant's return has extended. Head coach Ben Johnson said Bryant had knee surgery late last week. \n<<<INDENT>>>Bryant is expected to miss four to six months, longer than the initial two to three months estimate. If recovery is on the shorter side, he could return for the end of the regular season and playoffs.",
-      "logo": "bears.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) It's not anything that the Bears are going to be able to count on, however, and that's a big blow to the defense after the Bears moved quickly to sign Bryant off his Super Bowl win with the Seahawks.",
-      "logo": "bears.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>Myles Garrett missed his second consecutive practice, standing and watching the Rams' joint practice with the Cowboys on Tuesday. Coach Sean McVay revealed after the practice that the pass rusher is dealing with swelling in his knee.\n<<<INDENT>>>McVay said Garrett is at \"85 percent\" with no setbacks in his rehab, but the Rams chose to err on the side of caution by holding him out.",
-      "logo": "rams.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) Garrett played all 17 games each of the past two seasons and has missed only four games over the past six seasons. The Rams acquired Garrett in a blockbuster offseason trade with the Browns.<<<INDENT>>>He set the NFL's single-season sacks record with 23 last season. He has 125.",
-      "logo": "rams.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>Jake Browning was slated to start at quarterback for the Buccaneers in Thursday's preseason game against the Jets, but those plans may have to change. Per multiple reports from Tuesday's joint practice with the Jets, Browning had to leave the field during team drills. The quarterback was described as walking gingerly as he made his way off to meet with members of the training staff.",
-      "logo": "buccaneers.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>Before any team can get there, they need to navigate the regular season. For now, all 32 teams can at least make the argument that they will win their division and earn a spot in the postseason. Between now and kickoff between the New England Patriots and Seattle Seahawks to officially start the season we will be asking for your 2026 predictions. We begin this week on the East coast with the NFC and AFC East.",
-      "logo": "patriots.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>Trapilo injured his patellar tendon during the closing moments of the Bears’ Wild Card round playoff victory over the Green Bay Packers on January 10. Most expected that he would miss most, if not all, of the 2026 season. Sports Illustrated’s Albert Breer mentioned a couple of days ago that he had heard that Trapilo “might be back sooner than expected” while attending Bears training camp recently. Well, it turns out that report wasn’t an exaggeration. In fact,",
-      "logo": "bears.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) Trapilo’s pending return could be sooner than expected. Bears GM Ryan Poles told the Hoge and Jahns podcast that Trapilo could “potentially” be back prior to the end of training camp. As in, this year’s training camp. BIG INJURY UPDATE: #Bears LT Ozzy Trapilo isn’t just ahead of schedule, he could “potentially” return before the end of training camp.",
-      "logo": "bears.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>The Minnesota Vikings have named Kyler Murray their starting quarterback. Murray, who signed with the Vikings in the offseason on a one-year deal, won the training camp battle over third-year QB J. J. McCarthy.\n<<<INDENT>>>Head coach Kevin O’Connell said, “After some dialogue in-house, and daily analyzing the overall of where we are at right now, we did name Kyler Murray our starting QB. From the outset of our offseason, we have been intentional and open about the goal of creating a competitive environment.”",
-      "logo": "vikings.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>Nate Tice and Matt Harmon analyze all four teams in the NFC East ahead of the 2026 NFL season. They begin with the defending division champion Philadelphia Eagles, who have a new-look offense under offensive coordinator Sean Mannion and a defense aiming to maintain their top-five status with some new additions.\n<<<INDENT>>>Next, they discuss the Dallas Cowboys, noting significant improvements on defense this offseason. They question whether the Cowboys have done enough on defense to support their star players.",
-      "logo": "eagles.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) studded offense to carry them to a division title? The Washington Commanders are up next, who received a huge blow to their offense when LT Laremy Tunsil went down with a serious injury last week.",
-      "logo": "eagles.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>As the Los Angeles Rams prepare for their first preseason game against the Kansas City Chiefs on Saturday, Aug. 15, their biggest question mark remains the status of Aaron Donald and whether he will return for a potential Super Bowl run this season. Momentum seems to be pointing toward Donald, one of the greatest defensive linemen of all time, suiting up for the Rams again after walking away from the game three years ago, but neither he nor head coach Sean McVay have said anything definitive. The three-",
-      "logo": "rams.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": "sports"
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) time Defensive Player of the Year worked out with the team last week and was spotted running through drills with Braden Fiske and Desjuan Johnson at the Rams' practice facility on Sunday, Aug. 9. \n<<<INDENT>>>McVay told reporters on Thursday that Donald flew out his speed trainer from Pittsburgh to Los Angeles.",
-      "logo": "rams.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": "sports"
-    },
-    {
-      "title": "",
+      "title": "Chicago Cubs vs. Washington Nationals preview, Tuesday 8/11, 5:45 CT",
       "body": "<<<INDENT>>>Tuesday notes…ROAD WARRIORS: The Cubs are 20-7 in their last 27 road games, making their season record 34-26, for a winning percentage of .567. In the past 80 seasons, the Cubs have finished better than .567 on the road only twice: .593 in 2015 (48-33) and .575 in 2016 (46-34-1).\n<<<INDENT>>>From 2017-25, they were .480 (324-351), including .519 last year (42-39). WINNING BIG: In 41 of the Cubs’ 69 wins, 59.4 percent, their final margin of victory was their largest lead of the game.",
       "logo": null,
       "league": "mlb",
@@ -196,7 +180,7 @@
       "category": null
     },
     {
-      "title": "",
+      "title": "AZ Snake Pit Reacts Survey: A farewell to Sewald",
       "body": "<<<INDENT>>>Throughout the year we ask questions of the most plugged-in Diamondbacks fans and fans across the country. Paul Sewald was designated for assignment by the Arizona Diamondbacks yesterday, likely ending the reliever’s tenure with the team.\n<<<INDENT>>>On the broadest level, his time here was nothing special. He pitched 107 times in the regular season for Arizona, posting an underwhelming 4.95 ERA.",
       "logo": null,
       "league": "mlb",
@@ -204,8 +188,8 @@
       "category": null
     },
     {
-      "title": "",
-      "body": "<<<INDENT>>>The Rockies recalled Zac Veen, their 2020 first-round pick, as he returns to the majors. In a corresponding move, Colorado designated infielder Edouard Julien for assignment.\n<<<INDENT>>>This follows yesterday's news that Connor Norby was recalled after Tyler Freeman was placed on the IL with lumbar pain. Veen's return adds depth to the roster.",
+      "title": "According to reports, Rockies recall Zac Veen, DFA Edouard Julien",
+      "body": "<<<INDENT>>>The Rockies recalled Zac Veen, their 2020 first-round pick, as he returns to the majors. They designated infielder Edouard Julien for assignment in a corresponding move.\n<<<INDENT>>>This follows yesterday's news that Connor Norby was recalled after Tyler Freeman was placed on the IL with lumbar pain.",
       "logo": null,
       "league": "mlb",
       "logo_recommended": "mlb.png",
@@ -220,7 +204,7 @@
       "category": null
     },
     {
-      "title": "",
+      "title": "Cincinnati Reds activate Nick Lodolo, select contract of Michael Toglia",
       "body": "<<<INDENT>>>The Cincinnati Reds made official the optioning of IF/OF Ivan Johnson on Monday despite it being an off-day for the club ahead of their series in Chicago against the White Sox. They then gave us a full day to speculate on just what other roster moves lay in store as lefty Nick Lodolo was also expected to make his return to the roster for the series opener.\n<<<INDENT>>>Lodolo is officially back as of Tuesday afternoon. The Reds made room on the pitcher-half of the roster by optioning Zach McCambley back to AAA Louisville.",
       "logo": null,
       "league": "mlb",
@@ -236,8 +220,8 @@
       "category": null
     },
     {
-      "title": "",
-      "body": "<<<INDENT>>>#13 of the New York Yankees reacts after hitting a solo home run during the second inning against the St. Louis Cardinals at Yankee Stadium on August 04, 2026 in the Bronx borough of New York City. For the Yankees, the goal is not just to catch the Tampa Bay Rays, who sit six games above them in first place, but also to fend off the Boston Red Sox, who have surged back into the American League East race. The Yankees’ archrivals are two games back for second place in the AL East,",
+      "title": "Yankees’ ABS challengers to watch down the stretch",
+      "body": "<<<INDENT>>>#13 of the New York Yankees reacts after hitting a solo home run during the second inning against the St. Louis Cardinals at Yankee Stadium on August 04, 2026 in the Bronx borough of New York City. For the Yankees, the goal is not just to catch the Tampa Bay Rays, who sit six games above them in first place, but also to fend off the Boston Red Sox, who have surged back into the American League East race.",
       "logo": "yankees.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
@@ -252,8 +236,8 @@
       "category": null
     },
     {
-      "title": "",
-      "body": "<<<INDENT>>>The Atlanta Braves are looking to rebound from a tough loss last night against the New York Mets as a clash between two top ten offenses since the All-Star break meets in game two at Truist Park. The Braves have scored the seventh most runs in MLB since the All-Star break, and the Mets have scored the tenth most.\n<<<INDENT>>>The rankings are a bit skewed. The gap between the two teams is sixteen runs.",
+      "title": "Ronald Acuña to DH, Mike Yastrzemski in RF as Braves face Mets",
+      "body": "<<<INDENT>>>The Atlanta Braves aim to rebound from a tough loss against the New York Mets in game two at Truist Park. Both teams have top ten offenses since the All-Star break. \n<<<INDENT>>>The Braves have scored the seventh most runs in MLB since the break, while the Mets rank tenth. The Braves trail the Mets by sixteen runs, and with sixteen more runs, they would be just two behind the MLB leader.",
       "logo": null,
       "league": "mlb",
       "logo_recommended": "mlb.png",
@@ -261,23 +245,23 @@
     },
     {
       "title": "",
-      "body": "<<<INDENT>>>(cont) The Mets seem to be getting it together offensively, even without Juan Soto, which means Martín Pérez and crew will need to be on their game tonight to ensure a victory against Nolan McLean. McLean is having a solid year but has shown some weakness as of late. McLean held the Braves to just two earned runs over six innings in early July when he faced Pérez the first time.",
+      "body": "<<<INDENT>>>(cont) The Mets seem to be getting it together offensively, even without Juan Soto, which means Martín Pérez and crew will need to be on their game tonight to ensure a victory against Nolan McLean. McLean is having a solid year but has shown some weakness as of late. McLean was able to hold the Braves to just two earned runs over six innings in early July when he faced off against Pérez the first time.",
       "logo": null,
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
     },
     {
-      "title": "",
-      "body": "<<<INDENT>>>Minasian hired first-time manager Kurt Suzuki on a one-year deal. Maddux, Scott, and Chiti were all in their first season with the Angels in 2026, believed to be on one-year contracts as well.\n<<<INDENT>>>Owner Arte Moreno reportedly did not want contracts extending past 2026 to avoid payments during a potential work stoppage. Minasian was fired by the Angels six weeks ago and replaced by John Mozeliak, the former St.",
+      "title": "Angels fire pitching coaches, including Maddux",
+      "body": "<<<INDENT>>>Minasian hired first-time manager Kurt Suzuki on a one-year deal. Maddux, Scott, and Chiti were all in their first season with the Angels in 2026, believed to be on one-year contracts as well.\n<<<INDENT>>>Owner Arte Moreno reportedly did not want contracts extending past 2026 to avoid paying during a potential work stoppage. Minasian was fired six weeks ago and replaced by John Mozeliak, the former St. Louis Cardinals head who was eased out after nearly two decades due to concerns about his approach to player development.",
       "logo": null,
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
     },
     {
-      "title": "",
-      "body": "<<<INDENT>>>The Phillies are both mediocre and the National League’s biggest threat to upset the Los Angeles Dodgers in this year’s playoffs. How can both be true? The 2026 Phillies enter Tuesday night’s game in St. Louis at 64-56, a .533 winning percentage, 7.5 games behind the Braves in the NL East and tied with the Arizona Diamondbacks for the 2nd wild card, both of whom are just one game up on the San Diego Padres for the NL’s final playoff spot. Since the Phillies reached their high-water mark of 11 games over .",
+      "title": "The Phillies are both mediocre and World Series contenders",
+      "body": "<<<INDENT>>>The Phillies are both mediocre and the National League’s biggest threat to upset the Los Angeles Dodgers in this year’s playoffs. How can both be true?  \n<<<INDENT>>>The 2026 Phillies enter Tuesday night’s game in St. Louis at 64-56, a .533 winning percentage, 7.5 games behind the Braves in the NL East and tied with the Arizona Diamondbacks for the 2nd wild card, both of whom are just one game up on the San Diego Padres for the NL’s final playoff spot. Since the Phillies reached their high-water mark of 11 games over .",
       "logo": null,
       "league": "mlb",
       "logo_recommended": "mlb.png",
@@ -292,8 +276,8 @@
       "category": null
     },
     {
-      "title": "",
-      "body": "<<<INDENT>>>Jake Brooks was a couple of weeks from leaving for Marlins camp in Florida when his UCLA head coach, John Savage, called him. “He gave me a ring and was like, ‘Hey man, how you feeling?’” Brooks said. “I was like, ‘What do you mean?’ And he’s like, ‘Come on, man, how you feeling?’ And I was like, ‘Dude, what are you talking about?’ And he’s like, ‘I think you’re getting traded to the Rockies.’”\n<<<INDENT>>>Brooks had never been traded before and didn’t know how the process worked or who was supposed to call first.",
+      "title": "Weekly Pebble Report: Starting Lanes: Jake Brooks on learning to pitch in Albuquerque",
+      "body": "<<<INDENT>>>Jake Brooks was a couple of weeks from leaving for Marlins camp in Florida when he got a call from John Savage, his head coach at UCLA. Savage asked, \"How you feeling?\" and then told him, \"I think you’re getting traded to the Rockies.\"\n<<<INDENT>>>Brooks had never been traded before and didn’t know how the process worked or who was supposed to call first.",
       "logo": null,
       "league": "mlb",
       "logo_recommended": "mlb.png",
@@ -308,15 +292,15 @@
       "category": null
     },
     {
-      "title": "",
-      "body": "<<<INDENT>>>Boston, MA - April 19: Boston Red Sox manager Alex Cora in the sixth inning. The Red Sox played the Detroit Tigers at Fenway Park on April 19, 2026.\n<<<INDENT>>>We talk a lot about the supposed value of GMs being able to hire their own manager. Neither Chaim Bloom nor Craig Breslow got that opportunity, as Alex Cora was seemingly imposed on both by ownership. Even after firing Cora, Breslow still hasn't really had that chance, as Chad Tracy predates his Red Sox tenure.",
+      "title": "Red Sox News & Links: Alex Cora speaks",
+      "body": "<<<INDENT>>>Boston, MA - April 19: Boston Red Sox manager Alex Cora in the sixth inning. The Red Sox played the Detroit Tigers at Fenway Park on April 19, 2026.\n<<<INDENT>>>We often discuss the value of GMs hiring their own managers. Neither Chaim Bloom nor Craig Breslow had that chance, as Alex Cora was appointed by ownership. Even after firing Cora, Breslow has not fully had that opportunity, since Chad Tracy was hired before his tenure.",
       "logo": null,
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
     },
     {
-      "title": "",
+      "title": "Angels reportedly fire pitching coach Mike Maddux, two others on his staff a few months after joining team",
       "body": "<<<INDENT>>>Mike Maddux has experienced a lot of success as a pitching coach over his career. But even his advice couldn't save the Los Angeles Angels. \n<<<INDENT>>>The Angels reportedly fired Maddux — along with assistant pitching coach Darryl Scott and bullpen coach Dom Chiti — on Tuesday, according to ESPN's Jeff Passan. Maddux joined them in the offseason and was working on a one-year contract.",
       "logo": null,
       "league": "mlb",
@@ -324,15 +308,15 @@
       "category": null
     },
     {
-      "title": "",
-      "body": "<<<INDENT>>>#96 of the New York Yankees played during the game against the Atlanta Braves at Yankee Stadium on August 08, 2026, in the Bronx borough of New York City. The Yankees secured an improbable series win over the Braves in recent days.\n<<<INDENT>>>Pitching largely carried the day, but a young shortstop provided bright moments on both offense and defense. George Lombard Jr. earns his first appearance on At-bat of the Week. We join Lombard leading off the bottom of the seventh in the middle game against the Braves on Saturday.",
+      "title": "Yankees At-Bat of the Week: George Lombard Jr. (8/8)",
+      "body": "<<<INDENT>>>#96 of the New York Yankees played against the Atlanta Braves at Yankee Stadium on August 08, 2026, in the Bronx. The Yankees secured an improbable series win over the Braves in recent days.\n<<<INDENT>>>Pitching largely carried the day, but a young shortstop provided bright moments on both offense and defense. George Lombard Jr. earns his first appearance on At-bat of the Week. We join Lombard leading off the bottom of the seventh in the middle game against the Braves on Saturday.",
       "logo": "yankees.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
     },
     {
-      "title": "",
+      "title": "Amid Mets' feel-good post-deadline run, main needs for 2027 are starting to crystallize",
       "body": "<<<INDENT>>>The Mets emerged from the Aug. 3 trade deadline having dealt roughly one-third of their active roster. Since then, they have looked and played like a new team, which is not a surprise since they basically are a new team. \n<<<INDENT>>>In the week-plus since trading four key members of their bullpen, two starting pitchers, and a valuable outfielder, the Mets have gone 6-1.",
       "logo": null,
       "league": "mlb",
@@ -348,7 +332,7 @@
       "category": null
     },
     {
-      "title": "",
+      "title": "On The Horizon: Cubs vs. Nationals series preview",
       "body": "<<<INDENT>>>The Nationals were the Cubs’ first regular season opponent this year, way back in March. The Nats took two of three at Wrigley Field. Much has changed for both teams since then. The Cubs have solidified their claim on a postseason spot and could still win a division title. After playing over .500 for quite some time, the Nats had a selloff at the Trade Deadline. For more on the Nationals, here’s Sam Sallick, manager of our SB Nation Nationals site Federal Baseball.",
       "logo": null,
       "league": "mlb",
@@ -356,7 +340,7 @@
       "category": null
     },
     {
-      "title": "",
+      "title": "Braves fans sound off on the current roster, rotation, and more",
       "body": "<<<INDENT>>>(Kevin D. Liles/Atlanta Braves/Getty Images) Getty Images Hello, any new Battery Power readers retained from the Great Trade Deadline Site Surge of 2026! We hope you enjoy(ed) your time with this great community as we wind down on a memorable regular reason and that you stick around. Our regulars are some of the best baseball fans in the league. The week following the trade deadline had some highs (back-to-back sweeps,",
       "logo": null,
       "league": "mlb",
@@ -372,7 +356,7 @@
       "category": null
     },
     {
-      "title": "",
+      "title": "Series Preview: Guardians at Tigers",
       "body": "<<<INDENT>>>Anderson, RHP, has a 0.82 ERA and 2.09 FIP, averaging under 4 innings per outing. On Wednesday at 6:40 p.m. ET, Griffin, LHP, with a 3.31 ERA and 4.21 FIP, will face Valdez, LHP, who has a 4.17 ERA and 4.04 FIP.\n<<<INDENT>>>On Thursday at 1:10 p.m. ET, Messick, LHP, with a 2.87 ERA and 3.19 FIP, will pitch against Montero, RHP, who has a 3.50 ERA and 4.14 FIP.",
       "logo": null,
       "league": "mlb",
@@ -388,7 +372,7 @@
       "category": null
     },
     {
-      "title": "",
+      "title": "Happy Birthday Colby Rasmus And Melky Cabrera",
       "body": "<<<INDENT>>>ST. Petersburg, Florida. The Blue Jays chose Ricky Romero with the 6th pick that year. He appeared on Baseball America’s Top 100 Prospects list for three consecutive years: ranked #29 in 2007, #5 in 2008, and #3 in 2009.\n<<<INDENT>>>In 2009, Colby made it to the majors, hitting .251/.307/.407 with 16 home runs, picking up a few Rookie of the Year votes along the way. Then, Colby had an excellent 2010 season, hitting .276/.361/.",
       "logo": null,
       "league": "mlb",

@@ -85,6 +85,7 @@ LOGO_DIR = BASE_DIR / "media" / "logos"
 class NewsItem:
     sport: str                 # "nfl", "nba", "mlb", "nhl"
     category: Optional[str]    # optional category parsed from <category>
+    title: str                 # original article headline, e.g. for a headlines board
     text: str                  # multi-sentence snippet
     published: Optional[datetime]
     logo_path: Optional[Path]  # Optional local logo file; None if not found
@@ -306,8 +307,8 @@ def _parse_rss_items(sport: str, xml_text: str) -> List[NewsItem]:
 
         # Title-based exclusion: skip items whose title contains "fantasy" (case-insensitive)
         title_raw = item.findtext("title") or ""
-        title_clean = _clean_html(title_raw).lower()
-        if "fantasy" in title_clean:
+        title_display = _clean_html(title_raw).strip()
+        if "fantasy" in title_display.lower():
             # quietly skip fantasy-related posts
             #print(f"[news_feed] Skipping item with fantasy in title: {title_raw}", file=sys.stderr)
             continue
@@ -320,6 +321,7 @@ def _parse_rss_items(sport: str, xml_text: str) -> List[NewsItem]:
         ni = NewsItem(
             sport=sport,
             category=category,
+            title=title_display,
             text=text,
             published=published,
             logo_path=logo_path,
