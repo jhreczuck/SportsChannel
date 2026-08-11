@@ -27,6 +27,8 @@ const LINE_DELAY = 0.2;       // seconds between each revealed line
 const SLIDE_DURATION = 18.0;  // seconds per story slide
 const BOARD_DURATION = 12.0;  // seconds per probables/standings board screen
 const TITLECARD_DURATION = 6.0; // seconds the title card shows at the start of each loop
+const TRIVIA_DURATION = 16.0;   // seconds the trivia card shows total
+const TRIVIA_REVEAL_DELAY = 7.0; // seconds before the answer appears
 
 const PROBABLES_GAMES_PER_SCREEN = 5; // full-width rows, no reserved logo column
 const BOARD_ROW_BG = "rgba(25,25,112,0.55)"; // navy row highlight, matches ticker separator color
@@ -205,6 +207,14 @@ function buildHistoryPage(historyData) {
 function buildBirthdaysPage(birthdaysData) {
   if (!birthdaysData || !birthdaysData.people || !birthdaysData.people.length) return [];
   return [{ type: "birthdays", dateLabel: birthdaysData.date_label || "", people: birthdaysData.people }];
+}
+
+// ---------------------------
+// Sports Trivia builder
+// ---------------------------
+function buildTriviaPage(triviaData) {
+  if (!triviaData || !triviaData.trivia) return [];
+  return [{ type: "trivia", trivia: triviaData.trivia }];
 }
 
 // ---------------------------
@@ -795,6 +805,45 @@ function drawBirthdaysBoard(page, birthdayLogo) {
 }
 
 // ---------------------------
+// Sports Trivia
+// ---------------------------
+function drawTriviaBoard(page, questionLogo, answerLogo, revealed) {
+  const logo = revealed ? answerLogo : questionLogo;
+  const titleY = inner.y + TEXT_PADDING;
+  const textStartX = leftColumnTextStartX(!!logo);
+  const textWidth = Math.max(40, inner.right - TEXT_PADDING - textStartX);
+
+  ctx.font = BOARD_TITLE_FONT;
+  ctx.fillStyle = "rgb(235,150,60)"; // same warm accent as headlines/latest line/birthdays
+  ctx.textBaseline = "top";
+  ctx.textAlign = "left";
+  ctx.fillText("SPORTS TRIVIA", textStartX, titleY);
+
+  ctx.font = BODY_FONT;
+  ctx.fillStyle = TEXT_COLOR;
+  const lineHeight = BODY_FONT_PX + 4;
+  let y = titleY + BOARD_TITLE_FONT_PX + 20;
+  for (const line of wrapTextToWidth(page.trivia.question, textWidth, ctx)) {
+    ctx.fillText(line, textStartX, y);
+    y += lineHeight;
+  }
+
+  if (revealed) {
+    y += 20;
+    ctx.fillStyle = "rgb(200,180,120)";
+    ctx.fillText("ANSWER:", textStartX, y);
+    y += lineHeight;
+    ctx.fillStyle = TEXT_COLOR;
+    for (const line of wrapTextToWidth(page.trivia.answer, textWidth, ctx)) {
+      ctx.fillText(line, textStartX, y);
+      y += lineHeight;
+    }
+  }
+
+  drawLeftColumnLogo(logo);
+}
+
+// ---------------------------
 // Music
 // ---------------------------
 const audioEl = new Audio();
@@ -907,6 +956,13 @@ async function main() {
     console.warn("[birthdays] load failed:", e);
   }
 
+  let triviaPages = [];
+  try {
+    triviaPages = buildTriviaPage(await loadJSON("../data/trivia.json"));
+  } catch (e) {
+    console.warn("[trivia] load failed:", e);
+  }
+
   // Rotation order: title card -> today's headlines -> On This Day (not
   // league-specific) -> MLB block (AL/NL probables -> MLB stories -> 6
   // division standings) -> NFL block (latest line -> NFL stories -> 8
@@ -925,6 +981,7 @@ async function main() {
     ...headlinesPages,
     ...historyPages,
     ...birthdaysPages,
+    ...triviaPages,
     ...probablesPages, ...mlbSlides, ...mlbStandingsPages,
     ...latestLinePages, ...nflSlides, ...nflStandingsPages,
     ...otherSlides,
@@ -951,6 +1008,8 @@ async function main() {
   const probableLogo = await getLogo("probable.png");
   const historyLogo = await getLogo("history.png");
   const birthdayLogo = await getLogo("birthday.png");
+  const questionLogo = await getLogo("question.png");
+  const answerLogo = await getLogo("answer.png");
   const titleCardImage = await loadImage("../media/logos/titlecard.png");
   const standingsLogos = { mlb: mlbLogo, al: alLogo, nl: nlLogo, nfl: nflLogo };
 
@@ -999,6 +1058,7 @@ async function main() {
     const item = items[currentIndex];
     const duration = item.type === "story" ? SLIDE_DURATION
       : item.type === "titlecard" ? TITLECARD_DURATION
+      : item.type === "trivia" ? TRIVIA_DURATION
       : BOARD_DURATION;
 
     if (elapsed >= duration) {
@@ -1051,6 +1111,8 @@ async function main() {
       drawHistoryBoard(item, historyLogo);
     } else if (item.type === "birthdays") {
       drawBirthdaysBoard(item, birthdayLogo);
+    } else if (item.type === "trivia") {
+      drawTriviaBoard(item, questionLogo, answerLogo, elapsed >= TRIVIA_REVEAL_DELAY);
     }
 
     drawTicker(tickerText, tickerWidth, tickerX);

@@ -287,6 +287,22 @@ start of the whole rotation.
 - [x] `data/birthdays.json` → `{"date_label", "people": [{"name", "desc", "age"}]}`.
       `buildBirthdaysPage` / `drawBirthdaysBoard` in `app.js`; badge is `media/logos/birthday.png`.
       Uses the same left-column-logo, flush-bottom, wrapped-text treatment as On This Day.
+- [x] Follow-up: `LEFT_LOGO_BOX` bumped ~30% bigger (260×320 → 338×416, shared by On This Day and
+      Birthdays), and Birthday's pixelation cut ~50% (`BIRTHDAY_LOGO_PIXELATE_RESOLUTION = 160`
+      vs the default 80) — verified no text overflow or overlap with the title after either change.
+
+## Feature: Sports Trivia (new)
+- [x] Real curated Q&A, not GPT-generated — [Open Trivia DB](https://opentdb.com)'s Sports
+      category (id 21), a free public API, no key needed. `src/refresh_trivia.py` →
+      `data/trivia.json` (`{"question", "answer", "type"}`).
+- [x] Presentation: question shows first, answer reveals after `TRIVIA_REVEAL_DELAY` (7s), card
+      stays up `TRIVIA_DURATION` (16s) total — matches the retro feel better than showing both at
+      once or listing all multiple-choice options.
+- [x] Same left-column-logo/flush-bottom/wrapped-text treatment as On This Day and Birthdays, but
+      with two badges that swap on reveal: `media/logos/question.png` while the question is up,
+      `media/logos/answer.png` once the answer appears.
+- [x] Sits with the other general (non-league-specific) cards: title card → headlines → On This
+      Day → Birthdays → **Sports Trivia** → MLB block → NFL block → loop.
 
 ## Feature: Title Card + Headlines Board (new)
 - [x] **Title card**: `media/logos/titlecard.png` shown full-canvas (covers header/panel/ticker
