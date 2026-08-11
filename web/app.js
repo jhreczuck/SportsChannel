@@ -333,8 +333,11 @@ function drawSlideText(wrappedLines, linesToShow, logo) {
 }
 
 // Scales an image to fit `box` (preserving aspect ratio) and centers it.
-function drawLogoInBox(logo, box) {
-  const scale = Math.min(box.w / logo.width, box.h / logo.height);
+// `boost` overscales beyond a strict fit (e.g. for art with a lot of
+// transparent padding baked into the file) -- the image can extend past the
+// box's edges when boost > 1, which is fine since it's still centered on it.
+function drawLogoInBox(logo, box, boost = 1) {
+  const scale = Math.min(box.w / logo.width, box.h / logo.height) * boost;
   const w = logo.width * scale;
   const h = logo.height * scale;
   const x = box.x + (box.w - w) / 2;
@@ -423,7 +426,13 @@ function drawProbablesBoard(page, probableLogo) {
   ctx.fillText(title, inner.x + TEXT_PADDING, titleY);
 
   // Full-size badge in the standard logo column, same as story slides.
-  if (probableLogo) drawLogoInBox(probableLogo, rightRect);
+  // Rows only occupy the left column, so the pitcher badge can use the full
+  // right-column height (not just the standard 200px logo box) -- it's tall
+  // art, so this lets it render much larger without overflowing the panel.
+  if (probableLogo) {
+    const tallBox = { x: rightRect.x, y: inner.y, w: rightRect.w, h: inner.bottom - inner.y };
+    drawLogoInBox(probableLogo, tallBox);
+  }
 
   ctx.font = BODY_FONT;
   let rowY = titleY + BODY_FONT_PX + 24;

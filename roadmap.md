@@ -175,6 +175,10 @@ start of the whole rotation.
 - [x] Follow-up: probables board reverted to a reserved right-hand logo column (rows use
       `leftRect.w`, not full width) so the `probable.png` badge can render at full standard
       logo-box size instead of a small 56px corner icon.
+- [x] Follow-up: `probable.png` is tall/narrow art (605×1533) that only filled ~79×200 in the
+      standard square logo box. Since rows only occupy the left column, the badge now uses a
+      tall box spanning the full right-column height (`inner.y` to `inner.bottom`, not just the
+      top 200px) — renders at 200×507, filling the column properly instead of a small square.
 
 ## Feature: Title Card + Headlines Board (new)
 - [x] **Title card**: `media/logos/titlecard.png` shown full-canvas (covers header/panel/ticker
