@@ -252,6 +252,42 @@ start of the whole rotation.
       [MLB: probables → stories → standings] → [NFL: latest line → stories → standings] → loop.
       Both NFL board types share the existing `"nfl"` seasonal gate from `league_seasons.py`.
 
+## Feature: On This Day (sports history fact) (new)
+- [x] Real sourced facts, not GPT-generated — scrapes `onthisday.com/sport/events/{month}/{day}`
+      for today's date. That page has two content tiers: "highlighted" entries (site-curated,
+      each with a photo — a real notability signal) and plain list entries. Both are parsed via
+      regex (`src/refresh_history.py`).
+- [x] Pick logic: score = +1 if highlighted, +5 if the text names an unmistakably famous athlete
+      (`FAMOUS_ATHLETES` — Ruth, Ali, Jordan, etc., a deliberately short tie-breaker list, not a
+      full database), highest score wins, ties broken randomly. Filtered to `year >= 1929`
+      (`MIN_YEAR`) — pre-1929 trivia (Victorian cricket records, etc.) doesn't fit the vibe.
+      Verified: for a date with a Babe Ruth 600th-home-run entry available, that's exactly what
+      both signals converge on.
+- [x] `data/history.json` → `{"date_label", "fact": {"year", "text"}}`. Not MLB/NFL-specific, so
+      it sits outside those blocks: title card → headlines → **On This Day** → **Birthdays** →
+      MLB block → NFL block → loop. `buildHistoryPage` / `drawHistoryBoard` in `app.js`; badge is
+      `media/logos/history.png`.
+- [x] Follow-up: reworked layout to a tall logo in the **left** column, flush with the panel's
+      bottom edge (was the standard right-side square box). Factored into shared
+      `drawLeftColumnLogo` / `leftColumnTextStartX` helpers (`LEFT_LOGO_BOX`, 260×320) since the
+      Birthdays board (below) reuses the exact same treatment. Pixelation dialed down for this
+      one specifically (`HISTORY_LOGO_PIXELATE_RESOLUTION = 200` vs the default 80) — "only
+      slightly" blocky per request, since `drawLogoInBox`/`getPixelatedLogo` now accept a
+      resolution override.
+
+## Feature: Today's Sports Birthdays (new)
+- [x] Same source and approach as On This Day — `onthisday.com/sport/birthdays/{month}/{day}`
+      (`src/refresh_birthdays.py`). Critical filter: the source list includes people regardless
+      of whether they're alive (deceased entries are marked "(d. YYYY)"); those are excluded
+      entirely, since a birthday board can't say a dead person "turns 56".
+- [x] Filtered to `year >= 1980` (`MIN_BIRTH_YEAR`) — keeps it to current-ish athletes. Picks up
+      to 2 people (`MAX_PEOPLE`), scored toward the major US sports this app already covers
+      (NFL/MLB/NBA/NHL keywords) over more obscure ones (cricket, rugby) the source site also
+      carries.
+- [x] `data/birthdays.json` → `{"date_label", "people": [{"name", "desc", "age"}]}`.
+      `buildBirthdaysPage` / `drawBirthdaysBoard` in `app.js`; badge is `media/logos/birthday.png`.
+      Uses the same left-column-logo, flush-bottom, wrapped-text treatment as On This Day.
+
 ## Feature: Title Card + Headlines Board (new)
 - [x] **Title card**: `media/logos/titlecard.png` shown full-canvas (covers header/panel/ticker
       entirely) as the very first item every time the rotation loops, for `TITLECARD_DURATION`

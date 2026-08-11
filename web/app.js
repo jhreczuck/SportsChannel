@@ -107,6 +107,29 @@ async function getLogo(fileName) {
   return img;
 }
 
+// Simple greedy word-wrap to a fixed width -- no logo-zone awareness, for
+// boards with their own custom layout (e.g. drawHistoryBoard's left column).
+function wrapTextToWidth(text, maxWidth, ctxRef) {
+  ctxRef.font = BODY_FONT;
+  const lines = [];
+  const words = text.split(/\s+/);
+  let line = [];
+  while (words.length) {
+    const test = [...line, words[0]].join(" ");
+    if (ctxRef.measureText(test).width <= maxWidth) {
+      line.push(words.shift());
+    } else {
+      if (line.length === 0) line.push(words.shift());
+      else {
+        lines.push(line.join(" "));
+        line = [];
+      }
+    }
+  }
+  if (line.length) lines.push(line.join(" "));
+  return lines;
+}
+
 // ---------------------------
 // Text wrapping
 // ---------------------------
@@ -166,6 +189,22 @@ function wrapTextAroundOverlay(bodyText, ctxRef, hasLogo) {
   }
 
   return lines;
+}
+
+// ---------------------------
+// On This Day (sports history fact) builder
+// ---------------------------
+function buildHistoryPage(historyData) {
+  if (!historyData || !historyData.fact) return [];
+  return [{ type: "history_fact", dateLabel: historyData.date_label || "", fact: historyData.fact }];
+}
+
+// ---------------------------
+// Today's Sports Birthdays builder
+// ---------------------------
+function buildBirthdaysPage(birthdaysData) {
+  if (!birthdaysData || !birthdaysData.people || !birthdaysData.people.length) return [];
+  return [{ type: "birthdays", dateLabel: birthdaysData.date_label || "", people: birthdaysData.people }];
 }
 
 // ---------------------------
@@ -366,12 +405,17 @@ function drawSlideText(wrappedLines, linesToShow, logo) {
 // Cached per source image since the downscale target doesn't depend on
 // final display size, and this is way cheaper to do once than per frame.
 const PIXELATE_RESOLUTION = 80; // "logical pixels" along the longer edge -- higher = less blocky
-const pixelateCache = new WeakMap();
+const pixelateCache = new WeakMap(); // Image -> Map<resolution, canvas>
 
-function getPixelatedLogo(logo) {
-  if (pixelateCache.has(logo)) return pixelateCache.get(logo);
+function getPixelatedLogo(logo, resolution = PIXELATE_RESOLUTION) {
+  let byResolution = pixelateCache.get(logo);
+  if (!byResolution) {
+    byResolution = new Map();
+    pixelateCache.set(logo, byResolution);
+  }
+  if (byResolution.has(resolution)) return byResolution.get(resolution);
 
-  const scale = PIXELATE_RESOLUTION / Math.max(logo.width, logo.height);
+  const scale = resolution / Math.max(logo.width, logo.height);
   const w = Math.max(1, Math.round(logo.width * scale));
   const h = Math.max(1, Math.round(logo.height * scale));
 
@@ -381,7 +425,7 @@ function getPixelatedLogo(logo) {
   const smallCtx = small.getContext("2d");
   smallCtx.drawImage(logo, 0, 0, w, h);
 
-  pixelateCache.set(logo, small);
+  byResolution.set(resolution, small);
   return small;
 }
 
@@ -391,8 +435,10 @@ function getPixelatedLogo(logo) {
 // box's edges when boost > 1, which is fine since it's still centered on it.
 // `pixelate` (default true) applies the retro blocky treatment; pass false
 // for art that should stay smooth (e.g. the probables board's pitcher art).
-function drawLogoInBox(logo, box, boost = 1, pixelate = true) {
-  const source = pixelate ? getPixelatedLogo(logo) : logo;
+// `resolution` overrides how blocky it is (higher = finer/less blocky) --
+// e.g. a higher value than PIXELATE_RESOLUTION for an "only slightly" effect.
+function drawLogoInBox(logo, box, boost = 1, pixelate = true, resolution = PIXELATE_RESOLUTION) {
+  const source = pixelate ? getPixelatedLogo(logo, resolution) : logo;
   const scale = Math.min(box.w / logo.width, box.h / logo.height) * boost;
   const w = logo.width * scale;
   const h = logo.height * scale;
@@ -647,6 +693,107 @@ function drawLatestLineBoard(page, nflLogo) {
 }
 
 // ---------------------------
+// Shared: tall left-column logo, flush with the panel's bottom edge
+// ---------------------------
+// Used by boards styled with a big character graphic on the left (On This
+// Day, Today's Sports Birthdays) instead of the standard right-side logo
+// column. Returns the x where text content should start.
+const LEFT_LOGO_BOX = { w: 260, h: 320 }; // bigger than the standard 200x200 logo box
+
+function drawLeftColumnLogo(logo, resolution = PIXELATE_RESOLUTION) {
+  if (!logo) return;
+  const x0 = inner.x;
+  const y0 = inner.bottom - LEFT_LOGO_BOX.h;
+
+  const scale = Math.min(LEFT_LOGO_BOX.w / logo.width, LEFT_LOGO_BOX.h / logo.height);
+  const w = logo.width * scale;
+  const h = logo.height * scale;
+  const x = x0 + (LEFT_LOGO_BOX.w - w) / 2; // centered horizontally in its column
+  const y = y0 + LEFT_LOGO_BOX.h - h;       // flush with the bottom
+
+  const source = getPixelatedLogo(logo, resolution);
+  const prevSmoothing = ctx.imageSmoothingEnabled;
+  ctx.imageSmoothingEnabled = false;
+  ctx.drawImage(source, x, y, w, h);
+  ctx.imageSmoothingEnabled = prevSmoothing;
+}
+
+function leftColumnTextStartX(hasLogo) {
+  return hasLogo ? inner.x + LEFT_LOGO_BOX.w + 24 : inner.x + TEXT_PADDING;
+}
+
+// ---------------------------
+// On This Day (sports history fact)
+// ---------------------------
+const HISTORY_LOGO_PIXELATE_RESOLUTION = 200; // higher than PIXELATE_RESOLUTION -- only slightly blocky
+
+function drawHistoryBoard(page, historyLogo) {
+  const titleY = inner.y + TEXT_PADDING;
+  const textStartX = leftColumnTextStartX(!!historyLogo);
+  const textWidth = Math.max(40, inner.right - TEXT_PADDING - textStartX);
+
+  ctx.font = BOARD_TITLE_FONT;
+  ctx.fillStyle = "rgb(180,210,120)"; // yellow-green accent, distinct from the other board titles
+  ctx.textBaseline = "top";
+  ctx.textAlign = "left";
+  ctx.fillText(page.dateLabel, textStartX, titleY);
+
+  const bodyY = titleY + BOARD_TITLE_FONT_PX + 20;
+  const yearPrefix = page.fact.year ? `In ${page.fact.year}, ` : "";
+  const wrapped = wrapTextToWidth(yearPrefix + page.fact.text, textWidth, ctx);
+
+  ctx.font = BODY_FONT;
+  ctx.fillStyle = TEXT_COLOR;
+  const lineHeight = BODY_FONT_PX + 4;
+  let lineY = bodyY;
+  for (const line of wrapped) {
+    ctx.fillText(line, textStartX, lineY);
+    lineY += lineHeight;
+  }
+
+  drawLeftColumnLogo(historyLogo, HISTORY_LOGO_PIXELATE_RESOLUTION);
+}
+
+// ---------------------------
+// Today's Sports Birthdays
+// ---------------------------
+function drawBirthdaysBoard(page, birthdayLogo) {
+  const titleY = inner.y + TEXT_PADDING;
+  const textStartX = leftColumnTextStartX(!!birthdayLogo);
+  const textWidth = Math.max(40, inner.right - TEXT_PADDING - textStartX);
+
+  ctx.font = BOARD_TITLE_FONT;
+  ctx.fillStyle = "rgb(235,150,60)"; // same warm accent as headlines/latest line
+  ctx.textBaseline = "top";
+  ctx.textAlign = "left";
+  ctx.fillText("TODAY'S SPORTS", textStartX, titleY);
+  ctx.fillText("BIRTHDAYS", textStartX, titleY + BOARD_TITLE_FONT_PX + 4);
+
+  ctx.font = BODY_FONT;
+  ctx.fillStyle = TEXT_COLOR;
+  let y = titleY + (BOARD_TITLE_FONT_PX + 4) * 2 + 16;
+  ctx.fillText(page.dateLabel, textStartX, y);
+  y += BODY_FONT_PX + 24;
+
+  const lineHeight = BODY_FONT_PX + 4;
+  for (const person of page.people) {
+    if (person.desc) {
+      for (const line of wrapTextToWidth(person.desc, textWidth, ctx)) {
+        ctx.fillText(line, textStartX, y);
+        y += lineHeight;
+      }
+    }
+    for (const line of wrapTextToWidth(`${person.name} turns ${person.age}.`, textWidth, ctx)) {
+      ctx.fillText(line, textStartX, y);
+      y += lineHeight;
+    }
+    y += 20;
+  }
+
+  drawLeftColumnLogo(birthdayLogo);
+}
+
+// ---------------------------
 // Music
 // ---------------------------
 const audioEl = new Audio();
@@ -745,11 +892,26 @@ async function main() {
     console.warn("[headlines] load failed:", e);
   }
 
-  // Rotation order: title card -> today's headlines -> MLB block (AL/NL
-  // probables -> MLB stories -> 6 division standings) -> NFL block (latest
-  // line -> NFL stories -> 8 division standings) -> loop. MLB is the
-  // priority league (shows first); any of the MLB/NFL board types are simply
-  // absent if it's that sport's off-season (each builder returns [] then).
+  let historyPages = [];
+  try {
+    historyPages = buildHistoryPage(await loadJSON("../data/history.json"));
+  } catch (e) {
+    console.warn("[history] load failed:", e);
+  }
+
+  let birthdaysPages = [];
+  try {
+    birthdaysPages = buildBirthdaysPage(await loadJSON("../data/birthdays.json"));
+  } catch (e) {
+    console.warn("[birthdays] load failed:", e);
+  }
+
+  // Rotation order: title card -> today's headlines -> On This Day (not
+  // league-specific) -> MLB block (AL/NL probables -> MLB stories -> 6
+  // division standings) -> NFL block (latest line -> NFL stories -> 8
+  // division standings) -> loop. MLB is the priority league (shows first);
+  // any of the MLB/NFL board types are simply absent if it's that sport's
+  // off-season (each builder returns [] then).
   const nflSlides = storySlides.filter((s) => (s.league || "").toLowerCase() === "nfl")
     .map((s) => ({ type: "story", slide: s }));
   const mlbSlides = storySlides.filter((s) => (s.league || "").toLowerCase() === "mlb")
@@ -760,6 +922,8 @@ async function main() {
   const items = [
     { type: "titlecard" },
     ...headlinesPages,
+    ...historyPages,
+    ...birthdaysPages,
     ...probablesPages, ...mlbSlides, ...mlbStandingsPages,
     ...latestLinePages, ...nflSlides, ...nflStandingsPages,
     ...otherSlides,
@@ -784,6 +948,8 @@ async function main() {
   const nlLogo = await getLogo("NL.png");
   const nflLogo = await getLogo("nfl.png");
   const probableLogo = await getLogo("probable.png");
+  const historyLogo = await getLogo("history.png");
+  const birthdayLogo = await getLogo("birthday.png");
   const titleCardImage = await loadImage("../media/logos/titlecard.png");
   const standingsLogos = { mlb: mlbLogo, al: alLogo, nl: nlLogo, nfl: nflLogo };
 
@@ -880,6 +1046,10 @@ async function main() {
       drawStandingsBoard(item, standingsLogos);
     } else if (item.type === "latest_line") {
       drawLatestLineBoard(item, nflLogo);
+    } else if (item.type === "history_fact") {
+      drawHistoryBoard(item, historyLogo);
+    } else if (item.type === "birthdays") {
+      drawBirthdaysBoard(item, birthdayLogo);
     }
 
     drawTicker(tickerText, tickerWidth, tickerX);
