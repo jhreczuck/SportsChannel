@@ -469,7 +469,7 @@ function drawTitleCard(image) {
 // ---------------------------
 // Standings board
 // ---------------------------
-function drawStandingsBoard(page, mlbLogo, alLogo) {
+function drawStandingsBoard(page, mlbLogo, alLogo, nlLogo) {
   const division = page.division;
   const titleY = inner.y + TEXT_PADDING;
 
@@ -510,9 +510,12 @@ function drawStandingsBoard(page, mlbLogo, alLogo) {
     rowY += rowHeight;
   }
 
-  // American League divisions get the AL badge; everything else (NL, and a
-  // fallback if AL.png fails to load) uses the generic MLB logo.
-  const badgeLogo = (division.name.startsWith("American League") && alLogo) ? alLogo : mlbLogo;
+  // American League divisions get the AL badge, National League gets the NL
+  // badge; anything else (or a failed image load) falls back to the generic
+  // MLB logo.
+  let badgeLogo = mlbLogo;
+  if (division.name.startsWith("American League") && alLogo) badgeLogo = alLogo;
+  else if (division.name.startsWith("National League") && nlLogo) badgeLogo = nlLogo;
   if (badgeLogo) drawLogoInBox(badgeLogo, rightRect);
 }
 
@@ -634,6 +637,7 @@ async function main() {
   const headerLogo = await loadImage("../media/logos/sportschannel.png");
   const mlbLogo = await getLogo("mlb.png");
   const alLogo = await getLogo("AL.png");
+  const nlLogo = await getLogo("NL.png");
   const probableLogo = await getLogo("probable.png");
   const titleCardImage = await loadImage("../media/logos/titlecard.png");
 
@@ -727,7 +731,7 @@ async function main() {
     } else if (item.type === "probables") {
       drawProbablesBoard(item, probableLogo);
     } else if (item.type === "standings") {
-      drawStandingsBoard(item, mlbLogo, alLogo);
+      drawStandingsBoard(item, mlbLogo, alLogo, nlLogo);
     }
 
     drawTicker(tickerText, tickerWidth, tickerX);

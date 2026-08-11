@@ -179,9 +179,9 @@ start of the whole rotation.
       standard square logo box. Since rows only occupy the left column, the badge now uses a
       tall box spanning the full right-column height (`inner.y` to `inner.bottom`, not just the
       top 200px) — renders at 200×507, filling the column properly instead of a small square.
-- [x] Follow-up: `media/logos/AL.png` now used as the standings badge for American League
-      divisions specifically, instead of the generic `mlb.png` for all 6. NL divisions still
-      fall back to `mlb.png` until an `NL.png` is supplied.
+- [x] Follow-up: `media/logos/AL.png` and `media/logos/NL.png` now used as the standings badge
+      for American/National League divisions respectively, instead of the generic `mlb.png` for
+      all 6. All 6 division badges are now league-specific.
 
 ## Feature: Title Card + Headlines Board (new)
 - [x] **Title card**: `media/logos/titlecard.png` shown full-canvas (covers header/panel/ticker
