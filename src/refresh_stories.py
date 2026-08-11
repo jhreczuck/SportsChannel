@@ -77,12 +77,16 @@ def infer_logo_from_text(text: str) -> str | None:
     """
     Infer a team logo filename from capitalized words in the text.
     Example: 'Cowboys' -> 'cowboys.png'
+    Also matches digit-prefixed nicknames like '49ers', which have no
+    uppercase letter at all ("49ers", not "49Ers") and would otherwise never
+    match the capitalized-word pattern.
     Returns None if no matching logo file exists.
     """
     if not text:
         return None
 
     candidates = re.findall(r"\b[A-Z][a-z]+\b", text)
+    candidates += re.findall(r"\b\d+[a-z]+\b", text)
     for word in candidates:
         logo_name = f"{word.lower()}.png"
         if (MEDIA_LOGOS_DIR / logo_name).exists():

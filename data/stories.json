@@ -1,12 +1,28 @@
 {
-  "generated_at": "2026-08-11T21:10:58.563808Z",
+  "generated_at": "2026-08-11T21:28:15.101224Z",
   "source": "yahoo_news_via_news_feed",
   "max_per_sport": 25,
   "slides": [
     {
+      "title": "Ravens CB Nate Wiggins carted off at practice with lower-body injury",
+      "body": "<<<INDENT>>>Baltimore Ravens cornerback Nate Wiggins was carted off at practice Tuesday. Reports indicated he suffered a lower-body injury, either to his left leg or knee. ESPN's Jamison Hensley reported that Wiggins was unable to put any weight on his leg when he entered the team facility and had to be assisted by athletic trainers. After the injury, head coach Jesse Minter said he had no further information to add. He did say, \"I think there's optimism. \"While the nature of the injury is still unknown, <<<INDENT>>>(cont) ESPN’s Ian Rapoport reported that Wiggins did not suffer any structural damage.",
+      "logo": "ravens.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "Browns claim TE Dae'Quan Wright off waivers, put DB Damarri Mathis on IR",
+      "body": "<<<INDENT>>>The Browns made a pair of roster moves on Tuesday afternoon. The NFL's daily transaction report shows that they claimed tight end Dae'Quan Wright off of waivers from the Eagles. They put defensive back Damarri Mathis on injured reserve in a corresponding move. Wright signed with the Eagles after going undrafted out of Ole Miss. He had 39 catches for 635 yards and five touchdowns during his final college season.",
+      "logo": "browns.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
       "title": "49ers All-Pro Nick Bosa dealing with tendinitis in surgically repaired right knee; Christian McCaffrey misses another practice",
       "body": "<<<INDENT>>>All-Pro San Francisco 49ers edge rusher Nick Bosa is dealing with tendinitis in his surgically repaired right knee and remains absent from practice at training camp. Head coach Kyle Shanahan discussed Bosa’s condition with reporters on Tuesday and downplayed concern that it could linger. He described the tendinitis as “normal” for Bosa coming off surgery to repair an ACL tear and described him as “week-to-week. ”“Just soreness, tendinitis,” Shanahan said. “It’s a pretty normal thing with ACLs. Just talking to our guys, <<<INDENT>>>(cont) they say it happens to about 90% of the guys we’ve had. It’s a normal thing, so we’ve got to be smart here, week-to-week.",
-      "logo": null,
+      "logo": "49ers.png",
       "league": "nfl",
       "logo_recommended": "nfl.png",
       "category": null
@@ -126,7 +142,7 @@
     {
       "title": "49ers won't play many starters on Thursday night",
       "body": "<<<INDENT>>>The Titans plan to play their starters in Thursday's preseason opener against the 49ers, but they won't have many first-stringers lined up against them. 49ers head coach Kyle Shanahan said at a press conference on Tuesday that the team will be sitting most of its starters. \"There won't be many starters playing,\" Shanahan said. \"We'll see, with injuries today and stuff — and that doesn't mean none. But we've got to balance that out.",
-      "logo": null,
+      "logo": "49ers.png",
       "league": "nfl",
       "logo_recommended": "nfl.png",
       "category": null
@@ -143,30 +159,6 @@
       "title": "",
       "body": "<<<INDENT>>>(cont) Slater said he doesn't know when he'll be back on the field and called the absence part of the process of getting where he needs to be for the start of the regular season“Nothing crazy,” Slater said, via Kris Rhim of ESPN. com. “Nothing that’s concerning. ”The longer it takes before Slater's back on the field, the likelier it is that others will start to have some concern about his availability in September.",
       "logo": null,
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "Robert Saleh unveils plan for Titans’ first preseason game",
-      "body": "<<<INDENT>>>Robert Saleh said after today’s joint practice that all healthy Titans players will play in the game. He said the plan is for the starters to play more than one series. Saleh said early on that he planned on the starters playing in every preseason game. That makes sense with a whole new coaching staff trying to implement a new system on both sides of the ball. The players need all of the live reps that they can get. It’s part of the reason that the Titans are doing joint practices with all three of the teams they are playing this preseason. <<<INDENT>>>(cont) The plan is also for all four quarterbacks to play on Thursday night.",
-      "logo": null,
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "Biggest winners from the Cowboys’ joint practice with the Rams",
-      "body": "<<<INDENT>>>After eight training camp practices, it was time for the 2026 Dallas Cowboys to get their first true test. Dallas traveled over to Woodland Hills to take part in a joint practice with the Los Angeles Rams. Coming off a 12-win season in which they made it to the NFC Championship Game before losing to the Super Bowl Champion Seattle Seahawks, the Rams had arguably the best offseason of any team in the league. Los Angeles made two big moves to upgrade their defense, acquiring the best defensive player in football, edge rusher Myles Garrett,",
-      "logo": "rams.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) along with stud cornerback Trent McDuffie. The Rams were already ultra-talented, but these offseason moves cemented them as the Super Bowl favorite. Currently, the Rams are the odds-on favorite to win Super Bowl LXI at 500.",
-      "logo": "rams.png",
       "league": "nfl",
       "logo_recommended": "nfl.png",
       "category": null
