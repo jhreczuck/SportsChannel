@@ -360,17 +360,49 @@ function drawSlideText(wrappedLines, linesToShow, logo) {
   if (logo) drawLogoInBox(logo, rightRect);
 }
 
+// Retro pixelation: downscale a logo to a tiny offscreen canvas, then it
+// gets drawn back up with smoothing off, producing genuine blocky pixels
+// (not just a blur) -- matches the CRT/pixel-font look everywhere else.
+// Cached per source image since the downscale target doesn't depend on
+// final display size, and this is way cheaper to do once than per frame.
+const PIXELATE_RESOLUTION = 80; // "logical pixels" along the longer edge -- higher = less blocky
+const pixelateCache = new WeakMap();
+
+function getPixelatedLogo(logo) {
+  if (pixelateCache.has(logo)) return pixelateCache.get(logo);
+
+  const scale = PIXELATE_RESOLUTION / Math.max(logo.width, logo.height);
+  const w = Math.max(1, Math.round(logo.width * scale));
+  const h = Math.max(1, Math.round(logo.height * scale));
+
+  const small = document.createElement("canvas");
+  small.width = w;
+  small.height = h;
+  const smallCtx = small.getContext("2d");
+  smallCtx.drawImage(logo, 0, 0, w, h);
+
+  pixelateCache.set(logo, small);
+  return small;
+}
+
 // Scales an image to fit `box` (preserving aspect ratio) and centers it.
 // `boost` overscales beyond a strict fit (e.g. for art with a lot of
 // transparent padding baked into the file) -- the image can extend past the
 // box's edges when boost > 1, which is fine since it's still centered on it.
-function drawLogoInBox(logo, box, boost = 1) {
+// `pixelate` (default true) applies the retro blocky treatment; pass false
+// for art that should stay smooth (e.g. the probables board's pitcher art).
+function drawLogoInBox(logo, box, boost = 1, pixelate = true) {
+  const source = pixelate ? getPixelatedLogo(logo) : logo;
   const scale = Math.min(box.w / logo.width, box.h / logo.height) * boost;
   const w = logo.width * scale;
   const h = logo.height * scale;
   const x = box.x + (box.w - w) / 2;
   const y = box.y + (box.h - h) / 2;
-  ctx.drawImage(logo, x, y, w, h);
+
+  const prevSmoothing = ctx.imageSmoothingEnabled;
+  ctx.imageSmoothingEnabled = !pixelate; // blocky when pixelating, smooth otherwise
+  ctx.drawImage(source, x, y, w, h);
+  ctx.imageSmoothingEnabled = prevSmoothing;
 }
 
 // ---------------------------
@@ -459,7 +491,7 @@ function drawProbablesBoard(page, probableLogo) {
   // art, so this lets it render much larger without overflowing the panel.
   if (probableLogo) {
     const tallBox = { x: rightRect.x, y: inner.y, w: rightRect.w, h: inner.bottom - inner.y };
-    drawLogoInBox(probableLogo, tallBox);
+    drawLogoInBox(probableLogo, tallBox, 1, false); // keep this one smooth, not pixelated
   }
 
   ctx.font = BODY_FONT;

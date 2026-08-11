@@ -239,6 +239,15 @@ start of the whole rotation.
       to take a single `logos` object (`{mlb, al, nl, nfl}`) instead of positional args, and
       switches its column layout/badge based on `page.sport`.
 - [x] Follow-up: NFL standings columns changed to W, L, T, PCT — GB dropped (MLB keeps it).
+- [x] Retro pixelation for logos: `drawLogoInBox` downscales each logo to a tiny offscreen
+      canvas once (`PIXELATE_RESOLUTION`, started at 40px, backed off to 80px after initial
+      pass looked too blocky), cached per image, then draws that upscaled with
+      `imageSmoothingEnabled = false` — genuine blocky pixels, not a blur filter. Applies
+      everywhere team/league logos render via `drawLogoInBox` (story slides, standings,
+      probables). The header wordmark (`sportschannel.png`) is drawn through its own separate
+      `drawImage` call in `drawHeader`, not `drawLogoInBox`, so it stays smooth (it's network
+      branding, not a team logo). `probable.png` explicitly opted out (`pixelate: false` param)
+      — stays smooth per request.
 - [x] Rotation updated to a full NFL block mirroring the MLB block: title card → headlines →
       [MLB: probables → stories → standings] → [NFL: latest line → stories → standings] → loop.
       Both NFL board types share the existing `"nfl"` seasonal gate from `league_seasons.py`.
