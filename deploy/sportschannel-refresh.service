@@ -1,0 +1,14 @@
+[Unit]
+Description=SportsChannel data refresh (stories, scores, standings, etc.)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/sportschannel
+ExecStart=/opt/sportschannel/deploy/refresh_all.sh
+# Loads OPENAI_API_KEY / SPORTSDATAIO_API_KEY / etc. -- the refresh scripts
+# also load this themselves via python-dotenv, but setting it here too means
+# `systemctl status` / journalctl show a clean environment if you ever want
+# to run this unit with EnvironmentFile instead.
+EnvironmentFile=-/opt/sportschannel/.env

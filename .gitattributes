@@ -1,0 +1,7 @@
+# Force LF line endings for anything that runs on the Linux server,
+# regardless of the local (Windows) git autocrlf setting -- a shell script
+# checked out with CRLF breaks its #!/usr/bin/env bash shebang on Linux.
+deploy/*.sh text eol=lf
+deploy/*.service text eol=lf
+deploy/*.timer text eol=lf
+deploy/*.conf text eol=lf

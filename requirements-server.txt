@@ -1,0 +1,6 @@
+# Server-side deps only -- the refresh_*.py scripts, not the pygame desktop
+# app (main.py). Deliberately excludes pygame/SDL2, which a headless Linux
+# box has no use for and which pulls in extra system packages to build.
+requests>=2.32
+python-dotenv>=1.0
+openai>=1.0
