@@ -405,6 +405,19 @@ start of the whole rotation.
       highlighted rows per game (away name + score, home name + score, score right-aligned).
       `buildScoreResultsPages` / `drawScoreResultsBoard` in `app.js`.
 
+## Fix: Off-season content reduction
+- [x] News stories: `refresh_stories.py` now caps each league at `OFFSEASON_MAX_PER_SPORT` (10)
+      instead of the normal `MAX_PER_SPORT` (default 40) when that league is outside its
+      `league_seasons.py` `ACTIVE_MONTHS` window, rather than fetching the same volume year-round.
+- [x] Latest Line: previously had no seasonal gate at all (unlike Standings/Probables, which
+      already checked `is_mlb_season()`/`active_leagues()`) — it happened to render nothing
+      off-season anyway since ESPN naturally returns no scheduled+odds games, but still made the
+      live fetch every refresh. `refresh_latest_line.py` now checks `"nfl" in active_leagues()`
+      first, matching the Standings/Probables pattern, and records an explicit `in_season` flag.
+- [x] Confirmed Standings (`refresh_standings.py`, `refresh_nfl_standings.py`) and Probables
+      (`refresh_probables.py`) already had correct seasonal gates from when those features were
+      first built — no changes needed there.
+
 ## Feature: Game-recap prioritization (news_feed.py)
 - [x] Bubble game-recap-style stories ("X beat Y 5-2") to the front of each league's feed before
       truncating to `max_per_sport`, so recaps aren't crowded out by analysis/opinion/preview
@@ -535,6 +548,68 @@ the feed itself is noisy at the source rather than just needing more filtering d
       data source in this project, not a guess.
 - [ ] Decide whether to replace Yahoo outright or add a second source and merge, once a
       candidate is identified.
+
+## Feature: Full NBA/NHL board treatment ✅ done
+Mirrors the full MLB/NFL treatment, not just bare story slides. Rotation order is now: title card
+→ headlines → On This Day → Birthdays → Sports Trivia → MLB block → NFL block → **NBA block →
+NHL block** → loop, each league block being Section Intro → (Score Results/Latest Line/Probables)
+→ stories → standings → quote.
+
+- [x] Enabled NBA/NHL feeds in `news_feed.py`'s `SPORT_FEEDS`; added both to `refresh_stories.py`'s
+      `per_sport_order` and `LEAGUE_PRIORITY` (`["mlb", "nfl", "nba", "nhl"]`) — this also put them
+      on the Headlines board for free, since `build_headlines()` already iterates `LEAGUE_PRIORITY`
+      generically. Verified live: both feeds parse correctly (3/3 items each on a spot check).
+- [x] Standings: `refresh_nba_standings.py` (W/L/PCT/GB, same shape as MLB — verified live: ESPN's
+      NBA standings endpoint returns the identical conference→division→entries structure with
+      `wins`/`losses`/`winPercent`/`gamesBehind` stat names) and `refresh_nhl_standings.py` (NHL
+      uses a genuinely different column set — verified live the real stat names are
+      `wins`/`losses`/`otLosses`/`points`, i.e. the standard W/L/OTL/PTS hockey table, not
+      W/L/PCT/GB). `drawStandingsBoard` in `app.js` now branches on `page.sport` for NHL's column
+      layout in addition to NFL's existing T-column branch.
+- [x] Probables-equivalent: NBA and NHL both use point-spread betting lines like NFL (not MLB's
+      pitcher-matchup format), so `refresh_nba_line.py` / `refresh_nhl_line.py` mirror
+      `refresh_latest_line.py`'s odds-parsing exactly. `buildLatestLinePages`/`drawLatestLineBoard`
+      in `app.js` generalized to take a `sport` tag (title reads "NBA GAMES"/"NHL GAMES", correct
+      league badge) instead of being NFL-hardcoded. Not yet spot-checked against a live
+      scheduled+odds NBA/NHL game (both leagues are off-season as of this build) — re-verify once
+      the season starts, same odds-shape assumption as NFL's working implementation.
+- [x] Section Intro and League Quote needed **no app.js changes at all** — both were already
+      fully generic (`buildSectionIntroPage`/`drawSectionIntroBoard` take no league-specific logo;
+      `buildQuotePage`/`drawQuoteBoard` use one fixed `quote.png` badge for every league), so
+      passing `"nba"`/`"nhl"` and new slide data was enough.
+- [x] Quotes: added `nba`→"basketball", `nhl`→"hockey" Goodreads tags and `FAMOUS_BY_LEAGUE`
+      entries to `refresh_quotes.py`. Checked quote quality live like MLB/NFL originally were:
+      basketball's tag is reasonably clean (Jordan, Wooden, Chamberlain mixed with some unrelated
+      authors); hockey's tag turned out **dominated by hockey-themed romance novels** (Rachel
+      Gibson, Sarina Bowen, Hannah Grace), making the famous-name-first pick logic load-bearing
+      there, not just a nice-to-have. Verified live picks: NBA → Michael Jordan, NHL → Herb Brooks
+      (added to the famous list after this check — he's the real 1980 "Miracle on Ice" coach, not
+      fiction).
+- [x] Team logos: added NBA/NHL endpoints to `fetch_team_logos.py` and ran it. Found real new
+      cross-league nickname collisions beyond the existing Giants/Cardinals: **Jets** (NFL/NHL),
+      **Panthers** (NFL/NHL), **Kings** (NBA/NHL), **Rangers** (MLB/NHL) — all auto-detected and
+      saved as league-prefixed files (`nhl_jets.png`, `nfl_jets.png`, etc.) by the existing
+      collision-detection logic, no code changes needed. Left over stale bare `jets.png`/
+      `panthers.png`/`rangers.png` files from before NHL existed are harmless (unused, since
+      `infer_logo()` always knows the story's league and checks the prefixed file first) but could
+      be deleted for tidiness later.
+- [x] Verified end-to-end in-browser: stepped through 190+ rotation advances with zero console
+      errors, confirmed every new data file and team logo (NBA: 76ers/Lakers/Nuggets/Wizards, NHL:
+      Sabres/Penguins/Kraken/Canadiens, etc.) loaded 200 OK over the network.
+
+## Feature: MLB score results — winning/losing/save pitcher ✅ done
+- [x] ESPN's scoreboard endpoint has no pitcher-decision data; it only exists on the per-event
+      summary endpoint (`summary?event=<id>`), one extra request per MLB game. Verified live the
+      exact path: `boxscore.players[team].statistics[pitching group].athletes[i].notes` carries
+      `{"type": "pitchingDecision", "text": "W, 6-8"}` style entries (also "L, ..." and "S, ...";
+      "H, ..." for holds, not used here). `refresh_score_results.py`'s `_fetch_pitching_decisions`
+      extracts win/loss/save, skipped entirely for NFL (no equivalent concept, no extra requests).
+- [x] `drawScoreResultsBoard` in `app.js` adds a compact "W: ... L: ... SV: ..." line per MLB game
+      (wrapped to the column width via `wrapTextToWidth` rather than assumed to fit one line, since
+      names/records vary), correctly omitting the save part when a game had none (e.g. a
+      complete-game-adjacent finish with no separate closer). Reduced MLB's games-per-screen from
+      4 to 3 (`SCORE_RESULTS_GAMES_PER_SCREEN_MLB`) to leave room for the extra line; NFL keeps 4.
+      Verified live: real decisions rendered correctly for two same-day MLB finals.
 
 ---
 

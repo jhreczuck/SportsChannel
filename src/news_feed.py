@@ -67,8 +67,8 @@ SNIPPET_SENTENCE_CAP = 5
 SPORT_FEEDS: Dict[str, str] = {
     "nfl": "https://sports.yahoo.com/nfl/rss.xml",
     "mlb": "https://sports.yahoo.com/mlb/rss.xml",
-    #"nba": "https://sports.yahoo.com/nba/rss.xml",
-    #"nhl": "https://sports.yahoo.com/nhl/rss.xml",
+    "nba": "https://sports.yahoo.com/nba/rss.xml",
+    "nhl": "https://sports.yahoo.com/nhl/rss.xml",
 }
 
 # Base directory for league logos.

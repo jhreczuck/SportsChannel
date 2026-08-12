@@ -1,13 +1,21 @@
 {
-  "generated_at": "2026-08-12T13:31:51.296328+00:00",
+  "generated_at": "2026-08-12T21:28:22.391902+00:00",
   "quotes": {
     "mlb": {
-      "author": "Hank Aaron",
-      "quote": "It took me seventeen years to get three thousand hits in baseball. It took one afternoon on the golf course."
+      "author": "Yogi Berra",
+      "quote": "Okay you guys, pair up in threes!"
     },
     "nfl": {
-      "author": "Vince Lombardi",
-      "quote": "Once you learn to quit, it becomes a habit."
+      "author": "Peyton Manning",
+      "quote": "Pressure is something you feel when you don't know what the hell you're doing."
+    },
+    "nba": {
+      "author": "Wilt Chamberlain",
+      "quote": "They say that nobody is perfect. Then they tell you practice makes perfect. I wish they'd make up their minds."
+    },
+    "nhl": {
+      "author": "Herb Brooks",
+      "quote": "The legs feed the wolf"
     }
   }
 }

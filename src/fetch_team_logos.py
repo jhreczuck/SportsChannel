@@ -1,7 +1,7 @@
 r"""
 fetch_team_logos.py
 
-Downloads team logos from ESPN's team-list API for NFL and MLB, saving them
+Downloads team logos from ESPN's team-list API for NFL, MLB, NBA, and NHL, saving them
 into media/logos/ using the {nickname}.png naming convention that
 infer_logo() (in refresh_stories.py) looks for -- e.g. "49ers.png",
 "cowboys.png", "redsox.png".
@@ -33,6 +33,8 @@ LOGOS_DIR = BASE_DIR / "media" / "logos"
 TEAMS_ENDPOINTS = {
     "nfl": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams",
     "mlb": "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/teams",
+    "nba": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams",
+    "nhl": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/teams",
 }
 
 

@@ -46,6 +46,7 @@ import unicodedata
 
 from gpt_cleaner import clean_article
 import news_feed  # must live in the same src/ folder as this script
+import league_seasons
 
 
 # Base directory is the project root, one level up from src/
@@ -59,13 +60,18 @@ CLEANED_STORIES_PATH = DATA_DIR / "stories_cleaned.json"
 HEADLINES_PATH = DATA_DIR / "headlines.json"
 
 # Which league's content shows first in the web rotation (stories, headlines).
-LEAGUE_PRIORITY = ["mlb", "nfl"]
+LEAGUE_PRIORITY = ["mlb", "nfl", "nba", "nhl"]
 
 # Logos live here (used to validate inferred logo filenames)
 MEDIA_LOGOS_DIR = BASE_DIR / "media" / "logos"
 
 # If a story "item" is very short and looks like a continuation, merge it into the previous slide.
 MERGE_CONTINUATION_MAX_LEN = 200
+
+# Off-season story cap: a league that's out of season (per league_seasons.py's
+# ACTIVE_MONTHS windows) still gets *some* news coverage rather than being cut
+# off entirely, but far fewer slides than an in-season league gets.
+OFFSEASON_MAX_PER_SPORT = 10
 
 # Categories to exclude entirely from generated slides (normalized form).
 # Example: "fantasyfootball" will exclude categories like "Fantasy Football",
@@ -236,12 +242,14 @@ def build_slides_from_news(max_per_sport: int = 40) -> Dict[str, Any]:
     stories.json structure your main app expects, with extra metadata.
     """
     slides: List[Dict[str, Any]] = []
-    per_sport_order = ["nfl", "mlb"]
+    per_sport_order = ["nfl", "mlb", "nba", "nhl"]
     items: List[Any] = []
 
+    active = set(league_seasons.active_leagues())
     for s in per_sport_order:
+        sport_max = max_per_sport if s in active else OFFSEASON_MAX_PER_SPORT
         try:
-            fetched = news_feed.fetch_sport_news(s, max_items=max_per_sport)
+            fetched = news_feed.fetch_sport_news(s, max_items=sport_max)
             items.extend(fetched)
         except Exception as e:
             print(f"[refresh_stories] Warning: failed to fetch {s}: {e}")

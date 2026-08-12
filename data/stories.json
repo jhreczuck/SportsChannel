@@ -1,171 +1,379 @@
 {
-  "generated_at": "2026-08-12T13:29:35.430681Z",
+  "generated_at": "2026-08-12T21:39:58.906305Z",
   "source": "yahoo_news_via_news_feed",
-  "max_per_sport": 25,
+  "max_per_sport": 40,
   "slides": [
     {
-      "title": "Will Chauncey Gardner-Johnson be able to contain himself vs. Texans?",
-      "body": "<<<INDENT>>>Gardner-Johnson #8 of the Houston Texans in coverage during an NFL football game against the Tampa Bay Buccaneers at NRG Stadium on September 15, 2025 in Houston, Texas. Of course things have not gone well in Houston for Buffalo, as the team has suffered three straight losses including one in the playoffs. In fact, the Bills have not won in Houston since 2006. This year the meeting will have a little more of an edge due to safety C. J. Gardner Johnson taking on his old team.",
-      "logo": "texans.png",
+      "title": "NFL news, live updates: Emeka Egbuka dealing with 'minor' toe issue; Kyler Murray named Vikings' starting QB over J.J. McCarthy",
+      "body": "<<<INDENT>>>The next phase of the NFL offseason is officially in full swing. With all 32 teams in training camp, the news continues to flood in leading up to the first full week of preseason action. NFL teams are already beginning to see some of the bumps and bruises pile up as live practices continue. While the San Francisco 49ers saw several offensive players return to practice, including Mike Evans,",
+      "logo": "vikings.png",
       "league": "nfl",
       "logo_recommended": "nfl.png",
       "category": null
     },
     {
-      "title": "Pre-Snap Reads: Robbie Ouzts placed on IR; out for the 2026 season",
-      "body": "<<<INDENT>>>The fullback position is vital to the unique and sustained success of the offense OC Brian Fleury is attempting to implement for our beloved Seattle Seahawks. One of the main players in that equation is Robbie Ouzts, a one-of-one specimen that has had trouble staying on the field since being drafted in 2025. Unfortunately, Robbie is out for the season and now we as a squad have to adjust. We need our FBs, our TEs, et al to function as a multiplicity. <<<INDENT>>>(cont) How hard are you taking the Ouzts injury?",
+      "title": "",
+      "body": "<<<INDENT>>>(cont) news broke this week that star defensive end Nick Bosa is dealing with tendinitis in his recovery from a torn ACL last season. Seahawks safety Coby Bryant, meanwhile, is set to miss 4-6 months after undergoing knee surgery for an injury suffered earlier in training camp. The Ravens got better news on star cornerback Nate Wiggins, who was carted off the field after suffering a lower-body injury Tuesday. Wiggins reportedly didn't sustain any structural damage, though his timeline for a return is unclear.",
+      "logo": "vikings.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "Steelers mailbag: Rookies, Big Mike McCarthy, and future QBs",
+      "body": "<<<INDENT>>>The Steelers play football tomorrow!With the preseason just a day away at this point, Read & React is back with our promised mailbag column ahead of Thursday night’s kickoff. In late July, we asked for some questions about the team, and you all delivered. I’m also happy to announce that, due to the few questions we got about training camp, we brought in contributor Joey Bray, who has been covering training camp for BTSC, to help us out with this column.",
+      "logo": "steelers.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) Let’s dive in: Polamolecules_Dude: After seeing so many rankings for the Steelers (WRs, etc) being ranked so low, how realistic are these rankings with a whole new coaching staff and many new players? Is it just because of so many changes, or nobody really knowing what to expect from this team? Is that maybe a good thing?RB: Without real football to fall back on, the summer becomes ranking season for much of the media, and we’ve kept tabs on quite a few of the more prominent lists here at BTSC.",
+      "logo": "steelers.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "Bo Nix won't play Friday, but will play final two preseason games",
+      "body": "<<<INDENT>>>The Broncos will play their starters 10-15 snaps in Friday night's preseason opener against the Falcons. Those starters will not include quarterback Bo Nix. The game is on the artificial turf at Mercedes-Benz Stadium, and Nix is returning from a fractured right ankle. Nix will play in the second and third preseason games, coach Sean Payton said Wednesday. \"If we were playing a game — you guys have watched practice — he would [play],\" Payton said,",
+      "logo": "broncos.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) via video from Romi Bean of CBS News Colorado. \"He wanted to play. He'll play the next two weeks. \"I think that was probably something that was already decided maybe like a month ago.",
+      "logo": "broncos.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "49ers sign CB Eli Apple, DL Xavier Thomas",
+      "body": "<<<INDENT>>>The 49ers have announced several roster moves on Wednesday. In addition to the previously reported signing of running back Zamir White, San Francisco announced the club has signed cornerback Eli Apple and defensive lineman Xavier Thomas. Apple was with the 49ers through the offseason program and early on in training camp this year before the team let him go earlier this month. The No. 10 overall pick of the 2016 draft,",
+      "logo": "49ers.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) Apple appeared in two games for San Francisco last season while on the practice squad. A fifth-round pick in 2024, Thomas has appeared in 18 games over the last two seasons for the Cardinals. He’s registered 2.5 career sacks. As corresponding roster moves, the 49ers waived receiver Junior Bergen, punter Jack Bouwmeester, and defensive lineman K. J.",
+      "logo": "49ers.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "Former NFL QB Matt Hasselbeck volunteers his brain for CTE research in hopes of finding a diagnosis in the living",
+      "body": "<<<INDENT>>>Chronic traumatic encephalopathy — CTE — is a debilitating, degenerative brain disease that's been linked to the repeated head trauma that comes with playing football. For now, there's no way to diagnose CTE while someone is alive. Matt Hasselbeck is trying to change that. The former NFL quarterback is working with Boston University in an effort to find a method of discovering CTE in living people. The Associated Press reported on those efforts Wednesday. Per the report,",
+      "logo": null,
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) Hasselbeck recently spent two days with Boston University, volunteering his body and brain to undergo a series of tests to determine the extent to which his playing career and the repeated head trauma that came with it has affected his brain health. What Hasselbeck underwent in CTE studyHasselbeck told AP that the tests included a blood sample, an MRI on his brain and a PET (positron emission tomography) scan that injects a radioactive tracer that maps out the brain's function.",
+      "logo": null,
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "Patriots add veteran running back Hassan Haskins ahead of preseason opener, waive rookie",
+      "body": "<<<INDENT>>>To make room for the familiar free agent, the organization waived rookie rusher Myles Montgomery with an injury designation. Haskins, 26, entered the league with the Tennessee Titans in the fourth round of the 2022 draft at pick No. 131 overall. The former first-team All-Big Ten selection did so after amassing 2,495 yards and 30 touchdowns from scrimmage at Michigan. He would overlap with head coach Mike Vrabel, running backs coach Tony Dews,",
+      "logo": "patriots.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) vice president of player personnel Ryan Cowden and additional members of the current staff during his stint in Nashville. And at the league’s cutdown deadline in 2024, Haskins was claimed off waivers by the Los Angeles Chargers and fellow Wolverines product Jim Harbaugh. Staying in the AFC West through the 2025 campaign, Haskins stands with 76 carries for 229 yards, 18 catches for 119 yards, three touchdowns and one start in his NFL career.",
+      "logo": "patriots.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "Broncos QB Bo Nix will NOT play vs. the Falcons in the preseason opener",
+      "body": "<<<INDENT>>>10, 2026, at Broncos Park in Centennial, Colorado. the Atlanta Falcons and announced that quarterback Bo Nix will NOT play in that game. Sean Payton said Bo Nix will not play Friday vs Atlanta. Smart move. Turf should not be where player coming off two ankle surgeries should make his first game test, especially in preseason. If it was regular season opener, Nix plays.",
+      "logo": "broncos.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "49ers add a running back ahead of the preseason opener; waive Junior Bergen",
+      "body": "<<<INDENT>>>Henderson/Getty Images) Getty Images The San Francisco 49ers are entering their first preseason game without the services of their top four running backs, as Christian McCaffrey (tightness), Jordan James (ribs), Kaelon Black (adductor), and Isaac Guerendo (pec) are all sidelined. Because of that, the team had three running backs in the building on Monday. One was on a visit, with two others for tryouts. Despite hosting Watson for a visit,",
+      "logo": "49ers.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) the team signed former Raiders running back Zamir White. That wasn’t the only transaction the team made. They also signed cornerback Eli Apple and defensive lineman Xavier Thomas, along with White, all to one-year deals. The Niners were unlikely to use Deebo Samuel in the backfield in a preseason game the same way they did during their joint practice.",
+      "logo": "49ers.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "Odell Beckham will play in the Giants' preseason opener Saturday",
+      "body": "<<<INDENT>>>Giants wide receiver Odell Beckham Jr. will play his first game in more than two years on Saturday. Coach John Harbaugh said Wednesday that Beckham will play in the Giants' preseason game against the Vikings. Beckham, who is third string on the Giants' depth chart, saw his last game action on Jan. 28, 2024, in a postseason game with Baltimore. He played his last game with the Giants, the team that drafted him, on Dec.",
+      "logo": "nfl_giants.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "Another former Seahawk has joined the NFL on CBS team",
+      "body": "<<<INDENT>>>October 6, 2014: Seattle Seahawks quarterback Russell Wilson (3) and Seattle Seahawks running back Robert Turbin (22) in action before a match between the Washington Redskins and the Seattle Seahawks at FedEx Field in Landover, Maryland. It'll be Tom McCarthy and Robert Turbin on Browns/#Jaguars call in Week 1 for CBS. — Ryan O'Halloran (@ryanohalloran) August 11, 2026CBS announced a host of changes to their commentary rotation, including the (temporary,",
       "logo": "seahawks.png",
       "league": "nfl",
       "logo_recommended": "nfl.png",
       "category": null
     },
     {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) but maybe permanent?) promotion of J. J. Watt to the No. 1 team alongside Jim Nantz. Tony Romo is currently on leave due to his recent arrest. Ross Tucker, who normally works with McCarthy on NFL games, has been bumped all the way up to the No.",
+      "logo": "seahawks.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "Cowboys countdown to kickoff: Top 100 iconic games – Day 32",
+      "body": "<<<INDENT>>>Football: NFC Playoffs: Dallas Cowboys QB Danny White (11) in action vs Atlanta Falcons at Texas Stadium. Irving, TX 12/30/1978 CREDIT: Walter Iooss Jr. /Sports Illustrated via Getty Images) (Set Number: X23016 TK1 R13 F37 ) It is Day 32 of our 100-day countdown to kickoff. We are looking back at the 100 most iconic games in Dallas Cowboys history. The countdown will leads us right up to the opening game of 2026.",
+      "logo": "cowboys.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "10 Biggest Chiefs Questions: Can Rashee Rice, Xavier Worthy bounce back in 2026?",
+      "body": "<<<INDENT>>>They had strong complementary receivers in Juju Smith-Schuster and Marquez Valdes-Scantling alongside the dynamic ability of Kadarius Toney. Those guys rounded out the offense that was built around Kelce. However, the glaring lack of receiver talent became a bigger problem after 2022, when Kelce started to fall off. The Chiefs could no longer revolve the entire passing game around him because Kelce lost the athleticism to dominate the intermediate parts of the field.",
+      "logo": "chiefs.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) It was a struggle to generate explosive passes because he couldn’t win in that area. The rest of the receivers lacked the ability to win downfield, which cramped the offense. Over the last three seasons, the Chiefs have had similar issues in their passing game.",
+      "logo": "chiefs.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "John Harbaugh explains Giants' 'risk-reward' decision on hosting CB Terrion Arnold for a workout",
+      "body": "<<<INDENT>>>Giants head coach John Harbaugh explained the club's decision to bring cornerback Terrion Arnold in for a workout while speaking to members of the media Wednesday. Arnold, 23, is a former first-round pick by the Detroit Lions who played in 24 games (22 starts) over two seasons with the Lions before getting released in late-June shortly after getting arrested on eight felony charges, including kidnapping and armed robbery, stemming from an incident in Tampa, Fla. in February.",
+      "logo": "nfl_giants.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) \"Because we want to be aggressive in every way, whatever we can do, find out everything that we can about any situation, player that can help us be better. I would say that’s it,\" Harbaugh said. \"The margins are tight in the National Football League. You come up with a big play, you can find a play on the internet that somebody puts out there that one of your opponents is running in practice, you look for those too.",
+      "logo": "nfl_giants.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "49ers add RB Zamir White",
+      "body": "<<<INDENT>>>San Francisco has elected to add one of the running backs the club worked out this week. Per Adam Schefter of ESPN, the 49ers are signing Zamir White. White, 26, completed his rookie contract with the Raiders with the 2025 season. A fourth-round pick in 2022, White has appeared in 45 career games with nine starts. He’s taken 198 carries for 736 yards with two touchdowns and caught 25 passes for 152 yards. In six games last season,",
+      "logo": "49ers.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) White took 12 carries for 32 yards and caught four passes for 24 yards. The 49ers also had Nyheim Miller-Hines in for a workout earlier this week. Running back Christian McCaffrey missed Monday’s practice with tightness. Fellow running backs Jordan James, Kaelon Black, and Isaac Guerendo have also been sidelined.",
+      "logo": "49ers.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "Steve Keim denies altering DeAndre Hopkins' failed drug test",
+      "body": "<<<INDENT>>>Steve Keim has responded to serious accusations made by former Arizona Cardinals receiver, DeAndre Hopkins. The receiver recently accused Keim, the then-Cardinals general manager, of manipulating a drug test that resulted in a six-game suspension for Hopkins in 2022. \"I got set up when I played for his team and lost 13 million,\" Hopkins wrote on Instagram, according to the Arizona Republic, part of the USA TODAY Network. \"Skeme Slime was my GM,",
+      "logo": "nfl_cardinals.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": "sports"
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) contaminated drug test go figure how that happened. \"On Aug. 12, Keim spoke about the accusations with Trey Wingo on \"The Wingo Network\" podcast. \"All NFL drug tests are administered by the National Football League,\" Keim said. \"And the only thing teams and players get are the results. \"It's impossible for a general manager or anybody within an organization to contaminate or affect a drug test.",
+      "logo": "nfl_cardinals.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": "sports"
+    },
+    {
       "title": "NY Giants training camp, practice No. 13: Discussion, news, updates",
-      "body": "<<<INDENT>>>Cornerback Korie Black catches the ball during a drill. The New York Giants will have their 13th practice of training camp on Wednesday at the Quest Diagnostics Training Center. This one is expected to be the Giants final padded practice before Saturday’s preseason opener against the Minnesota Vikings. Big Blue View will be in attendance for this one, so be sure to come back after practice for a first-hand practice report, and more.",
+      "body": "<<<INDENT>>>Cornerback Korie Black catches the ball during a drill. The New York Giants will have their 13th practice of training camp on Wednesday at the Quest Diagnostics Training Center. This one is expected to be the Giants final padded practice before Saturday’s preseason opener against the Minnesota Vikings. Big Blue View will be in attendance for this one, so be sure to come back after practice for a first-hand practice report, and more. UpdatesThe final period was a 10- <<<INDENT>>>(cont) minute overtime. It was 1’s vs 1’s and 2’s vs 2’s. Both offenses failed to score on their first two drives.",
       "logo": "nfl_giants.png",
       "league": "nfl",
       "logo_recommended": "nfl.png",
       "category": null
     },
     {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) Here are a few things we will be paying attention to:Malik Nabers’ continued progress. Head coach John Harbaugh said last week that Nabers would eventually begin to do more than routes on air. Could that be today?Could cornerback Terrion Arnold be signed?",
-      "logo": "nfl_giants.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "Puka Nacua left Rams-Cowboys practice with groin injury",
-      "body": "<<<INDENT>>>Elsewhere on the Rams’ roster, Myles Garrett missed his second straight day of practice with a knee injury. #Rams WR Puka Nacua, who left practice while walking with a trainer, is dealing with minor soreness in his groin, I'm told. The team is just being cautious. — Ian Rapoport (@RapSheet) August 11, 2026The L. A. Rams have built a “super-team” this offseason, but they better hope none of these injuries become super serious.",
-      "logo": "rams.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) Puka Nacua injury: Rams star reportedly dealing with ‘minor’ groin soreness (ramswire)“According to Rapoport, Nacua is dealing with minor soreness in his groin that doesn’t appear to be serious. Still, any absence involving Nacua draws scrutiny given his track record. He suffered a significant right-knee injury that was later aggravated in the season opener in 2025, resulting in a PCL sprain and five games on injured reserve. In 2025, an ankle sprain against Baltimore briefly slowed him again, though he missed just one game before closing out a career year.",
-      "logo": "rams.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "It’s time for the Falcons’ offensive line to set the tone",
-      "body": "<<<INDENT>>>Despite being severely undermanned at quarterback and in the skill position areas, they managed to stay competitive in most games thanks to a punishing ground game. It was one of Arthur Smith’s few highlights during his time in Atlanta. It also showcased Dwayne Ledford’s capabilities as an offensive line coach. That season set the stage for a unified offensive line to develop into one of the league’s best units. They never lived up to those expectations. <<<INDENT>>>(cont) They couldn’t run the ball efficiently in numerous games in 2023.",
-      "logo": "falcons.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "Be prepared for the preseason with our Detroit Lions roster",
-      "body": "<<<INDENT>>>Detroit Lions cornerback D. J. Reed (4), center, practices next to cornerback Rock Ya-Sin (23) and cornerback Ennis Rakestraw Jr. (2) during training camp at Meijer Performance Center in Allen Park on Thursday, July 30, 2026. NFL preseason games can be a lot of fun for fans to watch, as many are being introduced to new players on the roster for the first time. However, with rosters expanded to 90-players, tracking your favorite players can be challenging.",
-      "logo": "lions.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "Broncos announce they will wear their throwback uniforms vs. Seahawks and Chargers",
-      "body": "<<<INDENT>>>the reigning Super Bowl Champions, the Seattle Seahawks. The Seahawks will also be wearing their popular throwbacks, so it will be a battle of two of the best jesery/uniforms in the NFL, with the Broncos obviously having the best ones. Throwback Thursday coming #TNFonPrime x #SEAvsDENpic. twitter. com/EKAQHb11ru— Denver Broncos (@Broncos) August 11,",
-      "logo": "broncos.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) 2026They did not stop there; they also announced that they would be wearing these beautiful throwbacks for their season finale matchup vs. their division rivals, the Los Angeles Chargers. They can wear their throwbacks/alternate jerseys up to 4 times in a season, so we could see them wear them at least one more time.",
-      "logo": "broncos.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "Chicago Bears Question of the Day: Will injuries in the secondary derail the season?",
-      "body": "<<<INDENT>>>n I’ve been trying to argue on behalf of the Chicago Bears’ secondary for three seasons now. There is just too much talent to ignore. This year, Jaylon Johnson, Kyler Gordon, Coby Bryant, Dillon Thieneman, Tyrique Stevenson, Malik Muhammad, Terrell Smith, and Cam Lewis are a formidable group. Throw in the likes of past Bears Kevin Byard, Jaquan Brisker, Nashon Wright, and more and the Bears have been swarming in talent over the last few years.",
-      "logo": "bears.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) Despite leading the league in takeaways last season, it still felt like the secondary over the last few seasons has been underperforming. A lot of that is due to persisting injuries to important talents. The 2026 offseason has not been kind to this unit so far, either.",
-      "logo": "bears.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "OC Matt Nagy: Giants only ‘halfway through’ installing their offense",
-      "body": "<<<INDENT>>>More often than not throughout the early stages of New York Giants training camp, the defense has gotten the better of the offense during team periods. That is cause for alarm among some on the fan base . There are many who did not like the hiring of Matt Nagy as offensive coordinator, and aren’t sure how the Giants’ offense is going to come together with multiple former head coaches or play callers on the staff.",
-      "logo": "nfl_giants.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) Nagy offered a hint regarding why the offense has not been better during first first media availability of training camp on Tuesday. As Nagy explains it, the offense we are seeing is far from complete, and far from polished. “We’re halfway through camp right now. We have still two and a half weeks. We’re halfway through our run install and halfway through our pass install, if it gives you any perspective,” Nagy said.",
-      "logo": "nfl_giants.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "The Science of “Ramping Up”: Why Aaron Glenn Playing Starters is a Calculated Risk Worth Taking",
-      "body": "<<<INDENT>>>For years, the conventional wisdom in NFL training camps was simple: wrap the starters in bubble wrap, hold them out of preseason games, save them for Week 1. And every September, like clockwork, the league watches soft-tissue injuries pile up anyway – hamstrings, calves, Achilles, all the non contact stuff that has nothing to do with getting hit and everything to do with a body that wasn’t ready to go full speed. There’s actually a real world test of this. In 2020,",
-      "logo": null,
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) the NFL canceled the entire preseason because of COVID. No joint practices, no exhibition games, nothing. Researchers compared that season’s regular season injury numbers to 2018-19 and found soft-tissue injuries jumped hard.",
-      "logo": null,
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "Jumbo Package: Kane Wommack gushes over Devan Thompkins, Luke Metz",
-      "body": "<<<INDENT>>>Fall camp is always the gumpiest time of year, as optimism abounds. The Bama Central staff collaborated on a practice report from yesterday that highlighted a couple of budding superstars for this upcoming season. The offensive line also held a drill where the tackle blocks a man up front, while the interior lineman runs to the second level to attack the linebacker. Delgatty’s athleticism, which offensive coordinator Ryan Grubb opened up about on Monday,",
-      "logo": null,
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) truly showed during his reps. The Wolf linebackers participated in a drill where they had to shed a blocker and go down low towards a moving blue yoga ball. Jah-Marien Latham, Alabama’s longest-tenured player, stood out during this drill. The wolves also did some one-on-one swim moves against each other, which defensive coordiantor Kane Wommack was right there for.",
-      "logo": null,
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "Drake Maye not worried about making Patriots receivers happy: ‘My job is to score points’",
-      "body": "<<<INDENT>>>Foxborough, MA - July 28: New England Patriots quarterback Drake Maye and wide receiver Mack Hollins shake hands at training camp on July 28, 2026. Looking at this year’s training camp, the team appears to have succeeded. In his third summer, Drake Maye gets to work with a top-tier running back duo, an intriguing group of tight ends, and a wide receiver room that currently stands at seven roster-worthy players deep. Of course,",
+      "title": "Patriots sign RB Hassan Haskins",
+      "body": "<<<INDENT>>>The Patriots made a change to their running back group on Wednesday. They announced the signing of Hassan Haskins to the active roster. Myles Montgomery was waived with an injury designation in a corresponding move. Haskins's last game in the NFL came against the Patriots as he was a member of the Chargers in their playoff loss in New England last season. <<<INDENT>>>(cont) Haskins spent the last two seasons playing for his college coach Jim Harbaugh in Los Angeles and ran 51 times for 136 yards and two touchdowns.",
       "logo": "patriots.png",
       "league": "nfl",
       "logo_recommended": "nfl.png",
       "category": null
     },
     {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) the numbers create some problems that very well can be placed into the “first world” category: how do you keep all of the receiving talent involved and happy?For Maye, the answer is simple. You don’t, at least not by trying to spread the wealth in a traditional sense. “I think the best thing for that is winning,” he explained following Tuesday’s joint practice with the Indianapolis Colts. “Nobody really tries to complain when you win games.",
-      "logo": "patriots.png",
+      "title": "NFL faces AI accusations over new content on \"Move the Sticks\" podcast feed",
+      "body": "<<<INDENT>>>As AI becomes more and more prevalent in society, it's also quietly infiltrating sports media. In some situations, it's not immediately obvious that content was generated by AI. In other situations, it is. Via Ryan Glasspiegel of Front Office Sports, the NFL is facing accusations of AI usage as to audio that has recently been added to the feed that previously served up episodes of the Move the Sticks podcast. The show, which featured Daniel Jeremiah and Bucky Brooks,",
+      "logo": null,
       "league": "nfl",
       "logo_recommended": "nfl.png",
       "category": null
     },
     {
-      "title": "Aaron Rodgers: I don't think there's any advantage to playing in the preseason",
-      "body": "<<<INDENT>>>Steelers head coach Mike McCarthy said on Tuesday that the team was still deciding whether to play quarterback Aaron Rodgers against the Packers on Thursday and he's said more than once that Rodgers has expressed to him that he wants to play in the preseason. Rodgers hasn't done that during his own media sessions and that continued to be the case when he was asked if he wants to play on Tuesday. \"It’s preseason, it’s not real football,\" Rodgers said. \"If I do, great. If not,",
+      "title": "",
+      "body": "<<<INDENT>>>(cont) had been dark since June 4. New content recently emerged, in the form of previews of the NFC East and the NFC West. Glasspiegel's post includes a clip that was posted on Twitter by Arif Hasan. It sounds strange, with clunky narration interspersed with random sound from press conferences and games. Said Jeremiah when asked about the situation on Twitter: \"I no longer appear on that old feed.",
+      "logo": null,
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "Saints place OL Dillon Radunz on IR, sign DT Kahlil Saunders",
+      "body": "<<<INDENT>>>The Saints signed free agent defensive tackle Kahlil Saunders on Wednesday, the team announced. In a corresponding move, the Saints placed offensive lineman Dillon Radunz on injured reserve. Radunz, 28, left practice Saturday with a knee injury, and an MRI confirmed a season-ending torn anterior cruciate ligament. Radunz also tore an ACL in 2022 with the Titans. He started 10 games for New Orleans last season.",
+      "logo": "saints.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) Saunders joins the Saints after participating in training camp with the Dolphins, where he signed as an undrafted free agent following the 2026 draft. He played five seasons at Kentucky, appearing in 51 games with 12 starts. Saunders recorded 77 tackles, 12 tackles for loss and 4.5 sacks in his college career.",
+      "logo": "saints.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "No word on whether Aaron Rodgers will play the Packers this preseason",
+      "body": "<<<INDENT>>>As recently as yesterday, Pittsburgh head coach Mike McCarthy, who won a Super Bowl in Green Bay, said that he hasn’t made the decision on whether starters will play or not on Thursday. There are also mixed signals on the Aaron Rodgers front, as McCarthy stated on the radio that Rodgers does want to play against his former team this week. Rodgers later told reporters: “It’s preseason. It’s not real football. So if I do, great. If not, great. <<<INDENT>>>(cont) ”Here were some more thoughts that Rodgers dropped on summer football exhibitions:“Preseason’s a lot different.",
+      "logo": "packers.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "Be prepared for the preseason with our San Francisco 49ers roster",
+      "body": "<<<INDENT>>>Henderson/Getty Images) Getty Images The NFL preseason is underway, and you’re going to run into a handful of names who you had no idea were on the San Francisco 49ers. Rosters are still at 90 players, so it can be pretty difficult to keep up with all of the moving parts. It seemed like the 49ers had daily tryouts and a different signing for a week straight. Because of that, we’re going to list every member on the Niners preseason roster. <<<INDENT>>>(cont) This will come in handy over the next couple of weeks when you see No. 0 or No.",
+      "logo": "49ers.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "Cardinals vs Raiders Predictions, Picks & Odds for Thursday's NFL Preseason Game",
+      "body": "<<<INDENT>>>Want to get more Covers content? Add us as a preferred source on your Google account here. The Cardinals and Raiders both promise to play their starters in their preseason clash in Las Vegas. When it’s time for the game to be decided, however, there’s a good chance that the rookie quarterbacks will have the stage. The Raiders’ Fernando Mendoza will be getting his first taste of the NFL, while Arizona’s Carson Beck played spectacularly in last week’s Hall of Fame game.",
+      "logo": "nfl_cardinals.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": "NFL"
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) That’s why my Cardinals vs. Raiders predictions and NFL picks look for Arizona to get the win. Cardinals vs Raiders predictionsPickProbabillityCardinals moneyline48%Under 41.551%Percentages courtesy of Kalshi, one of the best prediction market apps.",
+      "logo": "nfl_cardinals.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": "NFL"
+    },
+    {
+      "title": "Report: Emeka Egbuka has a minor toe injury",
+      "body": "<<<INDENT>>>Buccaneers head coach Todd Bowles didn’t have an update on wide receiver Emeka Egbuka after Wednesday's practice, but it looks like Egbuka avoided a serious injury. Egbuka limped off the field during the joint practice at the Jets' facility in New Jersey and did not return before it came to an end. Mike Garafolo of NFL Media reports that Egbuka suffered a toe injury and that it is considered minor.",
+      "logo": "buccaneers.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) That's good news for the Bucs and Egbuka will have a good chunk of time to rest before the team is back on the practice field. They'll play the Jets in their preseason opener and most of the team's starters were expected to sit out that game anyway.",
+      "logo": "buccaneers.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "Cowboys begin to answer big questions in scrimmage at Rams",
+      "body": "<<<INDENT>>>Step number one of two is complete for the week when it comes to the Dallas Cowboys competing against the NFC West, the division with the best winning percentage in football a season ago. The Cowboys visited Los Angeles to scrimmage against the Rams on Tuesday, and the football-ism that defense travels applied for Christian Parker’s defense going up against Sean McVay’s offense.",
+      "logo": "cowboys.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) Step number two of this week’s journey will be the preseason opener at the reigning Super Bowl champion Seattle Seahawks. Before fully turning the page into that matchup, let’s take a deeper look at how the Cowboys matched up with the Rams. The loudest noise coming out of this scrimmage was made by the Dallas defense, in some very key areas when it comes to questions we had about the defense and the answers they showed. Since before the draft, what the Cowboys were going to do about the true linebacker position, and not the outside pass rushing linebacker spot, has been a major question.",
+      "logo": "cowboys.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "Derek Carr, UCLA football's new special advisor, sees a winner in Bob Chesney",
+      "body": "<<<INDENT>>>Former NFL quarterback Derek Carr is now a special advisor to UCLA football coach Bob Chesney and his offensive staff. (David Becker / Associated Press)His NFL playing career is over, but Derek Carr is far from done with football. UCLA announced this week that it has hired Carr as a special advisor to football coach Bob Chesney, and that the four-time Pro Bowl quarterback will assist with the Bruins’ offensive staff in game-planning strategy.",
+      "logo": "bruins.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": "Sports"
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) “Coach Chesney is a leader of men,” said Carr, who was at Dodger Stadium on Monday evening and was on the field before the game. “So many guys get hired just based on scheme. This is a guy who stands up in front of the room and leads. ”It might seem a bit random, Carr joining UCLA’s staff. He played at Fresno State, then with the Raiders in Oakland and Las Vegas before finishing his NFL career in New Orleans.",
+      "logo": "bruins.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": "Sports"
+    },
+    {
+      "title": "Steelers news: Mike McCarthy unhappy with one aspect of practice",
+      "body": "<<<INDENT>>>It’s still very early in training camp for the Pittsburgh Steelers, but new head coach Mike McCarthy shared a pretty blunt assessment of the team’s progress. “I don’t like where we are,” McCarthy said. “As far as the number of missed assignments we’ve had, they’re higher — a little higher than normal. ”While it isn’t what you want to hear from your head coach, the quote shouldn’t induce panic. There is plenty of time in camp and three preseason games to get everything right. <<<INDENT>>>(cont) Also, McCarthy isn’t wrong for expecting a level of consistency.",
+      "logo": "steelers.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "Raiders sign OL Braeden Daniels",
+      "body": "<<<INDENT>>>The Raiders signed offensive lineman Braeden Daniels, the team announced Wednesday. Daniels, who turns 26 later this month, became a free agent on May 21 when the Dolphins cut him. He spent most of last season on the Dolphins' practice squad. Washington drafted him in the fourth round in 2023, and he spent his rookie season on injured reserve. Since then, he has had stints on the practice squads of the Texans (2024), Chargers (2024), Eagles (2024),",
+      "logo": "raiders.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) Cowboys (2024) and Dolphins (2024-25). He has never played a regular-season game. In a corresponding move, the Raiders waived offensive guard Justin Pickett with an injury designation.",
+      "logo": "raiders.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "Aaron Rodgers reveals humorous tactic to help Drew Allar, Will Howard",
+      "body": "<<<INDENT>>>Pittsburgh Steelers quarterback Aaron Rodgers is entering his 22nd season in the National Football League. Although the veteran QB didn’t specifically say that he doesn’t want to play in the preseason, he certainly made it seem that way during his press conference on Monday. “Oh, it’s preseason, it’s not real football,” Rodgers said. “If I do great, if I don’t great. ”Rodgers said those words with a big shrug and long pause after saying “if I don’t.",
       "logo": "steelers.png",
       "league": "nfl",
       "logo_recommended": "nfl.png",
@@ -173,183 +381,143 @@
     },
     {
       "title": "",
-      "body": "<<<INDENT>>>(cont) great. \" Rodgers expanded on his thoughts about the artificiality of August football in response to another question and included his feelings about how even joint practices have become a less effective dress rehearsal for the coming season. \"Preseason's a lot different.",
+      "body": "<<<INDENT>>>(cont) ” While Rodgers seems to be trending toward not playing on Thursday for the team’s preseason opener against the very team that drafted him, the Green Bay Packers, he seems excited to help out the Steelers’ young quarterbacks during the game on the headset. “I like to be on the headset to calm everybody down,” Rodgers said. “Usually the first game is a little hectic on the headset. I like to be the voice of reason, the occasional dad joke or one-liner.",
       "logo": "steelers.png",
       "league": "nfl",
       "logo_recommended": "nfl.png",
       "category": null
     },
     {
-      "title": "Josh Allen reportedly causing frustration inside Bills coaching staff feels completely ridiculous",
-      "body": "<<<INDENT>>>John Fisher University on July 29, 2026 in Rochester, New York. Let’s address aid report. The Athletic’s Mike Sando went on Damon Amendolara’s show “D. A. Live” and said the following:“They’re going to be good. Josh Allen’s going to make them good.",
-      "logo": "bills.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "3 key roster battles to watch in Bengals vs. Lions",
-      "body": "<<<INDENT>>>Cincinnati Bengals tight end Tanner Hudson (87) catches a pass during the Cincinnati Bengals practice in Cincinnati on Tuesday, May 27, 2025. The Cincinnati Bengals will host their preseason opener Thursday when they face the Detroit Lions. With that in mind, here are three important position battles to watch for as the night unfolds. Nickel CornerJalen Davis is the likely starter at the position to begin the season after a strong finish to the season last year. <<<INDENT>>>(cont) His primary backup at the position seems a bit more up for grabs. Ja’Sir Taylor was a veteran addition the Bengals brought in this offseason.",
-      "logo": "bengals.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "New York Jets News: Demario Davis Believes David Bailey Is Ahead of the Curve",
-      "body": "<<<INDENT>>>The New York Jets had a very eventful day yesterday. The Jets finally hit somebody other than their own teammates as they held a joint practice with the Tampa Bay Buccaneers. The hoped-for controlled aggression turned out to be not so controlled, as several scuffles broke out among the players. The Jets got some good news as David Bailey returned from a brief injury and resumed his encouraging performances. Geno Smith, on the other hand, struggled with turnovers. <<<INDENT>>>(cont) The two teams square off in practice again today in advance of their first preseason game on Friday.",
-      "logo": "jets.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "3 winners, 3 losers from Browns’ training camp",
-      "body": "<<<INDENT>>>The Cleveland Browns have finished with their training camp portion of the 2026 preseason process. They now go into practices and then compete in three exhibition games. What the coaching staff is gearing up for is the final cutdown on August 30. RELATED: MONKEN TALKS TALENT VERSUS FITTraining camp always reveals so many things. Certain players who were penciled in as starters suddenly find themselves as a backup when another guy has outplayed him. High-",
-      "logo": "browns.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) round rookies don’t light up the town as the media and fanbase have assumed they would. Then, out of nowhere, an undrafted veteran or rookie comes along and shines, then makes the final roster. Practice sessions are fair to everyone.",
-      "logo": "browns.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "Ranking the Titans’ projected 53-man roster tight ends from best to worst",
-      "body": "<<<INDENT>>>Steve Roberts-Imagn Images The Tennessee Titans underwent pretty significant changes at tight end this offseason. Chig Okonkwo was allowed to leave in free agency. Gunnar Helm is being promoted, and Daniel Bellinger was signed to a 24 million contract. The Titans also signed Kylen Granson and drafted Jaren Kanak. We’re currently projecting the Titans to keep four tight ends on the initial 53-man roster. They’ll play a significant role in Brian Daboll’s offense.",
-      "logo": "titans.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "Thoughts on a 3-2 Rangers loss",
-      "body": "<<<INDENT>>>Efficiency. Bradford needed just 75 pitches to get through those seven innings. He faced 26 batters in all, which meant he averaged fewer than three pitches per batter. Not surprisingly, given that, he walked only one batter and struck out only one batter. Bradford wasn’t missing bats in this outing — he got just four swings and misses. He also gave up a lot of loud contact, giving up 9 hard hit balls out of the 23 balls in play.",
-      "logo": "rangers.png",
+      "title": "Padres Crush Brewers 11-2, Eye Afternoon Sweep",
+      "body": "<<<INDENT>>>He allowed one run and three hits over six innings in a 11-2 victory. View LinkThe San Diego Padres continue their hot streak with a 17-hit attack. Luis Rengifo’s grand slam set the tone of the evening. Luis Campusano added a two-run home run, and Fernando Tatis Jr. blasted a solo shot. Today’s daytime affair is the final game of the three-game set.",
+      "logo": "padres.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
     },
     {
-      "title": "SF Giants ride quality pitching, Bryce Eldridge homer to 4-1 victory over Astros",
-      "body": "<<<INDENT>>>Winning a close game where the Giants ran the bases opportunistically and the other team committed a bunch of errors? That’s some weird, wild stuff. Carson Whisenhunt had a rough start, letting six of the first nine Astros he faced reach base. But he escaped and eventually earned his third win of the season after giving up just one run in 5.2 innings. Then Carson Seymour came through with two shutout innings of relief, yielding only a single to “Late Night” LaMonte Wade, Jr.",
-      "logo": "mlb_giants.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) It was a different sort of game for the Giants, who continued their hard-luck ways Monday when Andrew Susac fouled a ball off leg and fractured his kneecap, which will keep him off the field and off his scooter for the foreseeable future. But Tuesday, the breaks started to go their way. In the first inning, Whisenhunt escaped a bases-loaded jam, caused by a walk, a single and hitting Jose Altuve with a pitch.",
-      "logo": "mlb_giants.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "Astros Waste Early Opportunities in 4-1 Loss to Giants",
-      "body": "<<<INDENT>>>Not only would Houston lose by a score of 4-1, but they’d also witness an early exit from Jose Altuve who was hit in the left foot on an errant pitch from Carson Whisenhunt during his first AB. Nick Allen would replace Altuve as a result. It’s officially being listed as a left foot contusion. Whisenhunt labored early on. In the opening two innings alone, he’d toss 55 pitches.",
-      "logo": "astros.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "Harrison, Brewers hammered by Padres, 11-2",
-      "body": "<<<INDENT>>>For the sixth time this season, the Brewers gave up double-digit runs in a game, and three of those have happened on the west coast. This time, it was an 11-2 loss to the Padres on Wednesday night in San Diego. The game started off well enough for Kyle Harrison, who needed just ten pitches to get through the first inning despite allowing a single. However, it all started falling apart in the second. The inning started with back-to- <<<INDENT>>>(cont) back singles by Jackson Merrill and Austin Hays.",
-      "logo": "brewers.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "A’s Blown Out By Rays 12-4",
-      "body": "<<<INDENT>>>#25 of the Tampa Bay Rays celebrates after hitting a home run during the game between the Tampa Bay Rays and the Athletics at Sutter Health Park on Tuesday, August 11, 2026 in Sacramento, California. The A’s will now have their backs up against the wall tomorrow as they’ll hope to avoid the sweep in front of the home crowd. And with the Angels’ win tonight, they need a win to avoid the cellar of the American League.",
-      "logo": "rays.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) How did it come to this?Tampa didn’t wait to get going against A’s starter Mason Barnett. Just two batters into the game the Rays were up 2-0 thanks to a two-run blast off the bat of Rays slugger Junior Caminero, his 35th of the year which puts him in a tie for the league lead. Tampa would add on another in the third inning thanks to two walks and a wild pitch from Barnett, then three more in the fourth off back-to-back home runs, another two-run blast and a solo home run.",
-      "logo": "rays.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "Minor league update for 8/11/26",
-      "body": "<<<INDENT>>>An aerial view of Anglian Water's Rutland Water reservoir shows the remains of buildings in the former hamlet of Middle Hambleton, revealed in the bed of the reservoir by the receding water -- a reservoir created by the flooding of hamlets Lower and Middle Hambleton -- due to the persistent hot weather and drought, in Upper Hambleton, central England on August 12, 2026. England and Wales experienced their driest July on record this year,",
-      "logo": null,
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) with high temperatures and low rainfall across swathes of the country having plunged almost three-quarters of England and all of Wales into drought. Aneudis Mejia struck out three in 1.1 scoreless innings. Michael Trausch struck out one and walked one in a shutout inning. Marco Argudin homered. Noah Franklin had a hit and a walk. Hickory box scoreHub City’s game got suspended in the third inning with Hub City down 5-0. Joey Danielson struck out the side in an inning for Frisco.",
-      "logo": null,
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "Cubs 8, Nationals 6: Pete Crow-Armstrong smashes a monster home run",
-      "body": "<<<INDENT>>>The Cubs fell behind — again. And came from behind — again. This game was the sixth of the team’s last seven wins in which the opponent scored first. It is, I suppose, not the recommended way to win games, but the Cubs wound up on top, defeating the Nationals 8-6 in the first of a three-game series, and in the end, isn’t that what matters?Here’s how it all went down. Shōta Imanaga served up a two-run homer to CJ Abrams in the first inning. No shame in that,",
-      "logo": "cubs.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) really; it was Abrams’ 29th homer of the year and while he’s not going to win the MVP award, he’ll get a lot of downballot votes. The Cubs cut one run off that deficit in the top of the second. Alex Bregman led off with a walk and went to third on a single by Ian Happ. Nico Hoerner’s sac fly scored Bregman [VIDEO].",
-      "logo": "cubs.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "Cam Sanders looks to build on a strong first impression",
-      "body": "<<<INDENT>>>There are only a few good teams in the American League, and they all happen to play baseball in the AL East. The Orioles are not one of those teams. The Orioles ended last night four games below .500 and no less than three games back from the third Wild Card. It’s difficult to believe that this team is even somewhat close to .500. It feels like they lose almost every night.",
+      "title": "Baz wastes lead, Orioles lose to Twins",
+      "body": "<<<INDENT>>>Between a lack of run support from his offense, substantial letdowns by his defense, and one especially terrible umpiring decision, Baz has racked up his share of hard-luck losses in 2026. As the Orioles tried to take their series against the Twins on Wednesday afternoon, Baz was bad all on his own, pitching just three innings while allowing five runs in the process. He left with the Orioles trailing and that’s the way it stayed, with the O’s eventually losing by a 7-5 score.",
       "logo": "orioles.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
     },
     {
-      "title": "Will a .500 or worse team make the playoffs this year?",
-      "body": "<<<INDENT>>>Looking at the standings right now, the Yankees and Red Sox have fine enough, playoff team-worthy records. And then, you have five teams separated by 2.5 games for the last AL playoff spot… with the 60-60 Rangers leading the pack. Woof. Projections-wise, it might seem fairly close. The Rangers are projected to be the sixth-best team in the AL in terms of finishing record, with 82ish wins. But, even with about seven weeks of regular season play remaining, <<<INDENT>>>(cont) the actual playoff entrant isn’t going to be the team that rolls their expected value, but probably the team that hits a higher-percentile outcome.",
-      "logo": "yankees.png",
+      "title": "",
+      "body": "<<<INDENT>>>(cont) The Orioles gave Baz a lead two separate times and he managed to blow it both times, all within three innings. That’s impressive, if not exactly good in any way for the O’s. To be sure, Minnesota is not an easy team to face.",
+      "logo": "orioles.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
     },
     {
-      "title": "In the lab: An alternative look at offensive efficiency",
-      "body": "<<<INDENT>>>One of the more fascinating parts of statistics is that they give us the opportunity to prove or disprove the veracity of what we are seeing and experiencing. Games like last night come immediately to the forefront. The Astros load the bases twice in the first two innings with a combined one out and come up with only one run. It often feels like the Astros leave a small village on base. That speaks to offensive efficiency and we have covered that ground before. <<<INDENT>>>(cont) It wouldn’t surprise anyone to see that the Astros efficiency rating has gone up this year as they have scored more runs and generally had more offensive success.",
-      "logo": "astros.png",
+      "title": "Wheels fell off: Cardinals 7, Phillies 1",
+      "body": "<<<INDENT>>>Aug 12, 2026; St. Louis, Missouri, USA; Philadelphia Phillies starting pitcher Zack Wheeler (45) throws against St. Louis Cardinals second baseman JJ Wetherholt (26) during the third inning at Busch Stadium. It may be time to be concerned about Zack Wheeler. Yes, it was hot out, and yes, he was coming off a 116-pitch outing. But after falling apart in the fifth inning of Wednesday’s game, <<<INDENT>>>(cont) he has now given up four or more innings in three of his last four starts (and the other only went two innings due to rain).",
+      "logo": "mlb_cardinals.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
     },
     {
-      "title": "What’s your favorite baseball movie?",
-      "body": "<<<INDENT>>>Paul Saints and the Iowa Cubs at MLB Field at Field of Dreams on Tuesday, August 11, 2026 in Dyersville, Iowa. If you build it, they will come (and if you make it available via streaming, they will watch). But tonight, there’s no Phillies baseball to watch; their game is an afternoon affair. That gives you some free time. And what better way to use it than to watch a baseball movie?",
-      "logo": "saints.png",
+      "title": "Twins 7, Orioles 5: Offense answers back — and in greater numbers",
+      "body": "<<<INDENT>>>With the Orioles also contenders in the American League Wild Card – only half a game behind the Twins – a win was necessary. Well… a win is always necessary, right? Zebby Matthews started for the Twins today and had a rough go of it out of the gate, par for the course for most Minnesota starts as of late. A walk to Gunnar Henderson, single from Pete Alonso, and a force-out off the bat of Jackson Holliday gave the Birds an early 1-0 lead. Fast- <<<INDENT>>>(cont) forward through two harmless singles in the second and Baltimore drew blood again in the third inning.",
+      "logo": "twins.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
     },
     {
-      "title": "White Sox stats you probably haven’t thought about",
-      "body": "<<<INDENT>>>As Sam Antonacci well knows, there are a whole lot of batters being hit by pitches in White Sox games this year. Henderson/Getty Images) Chances are, if you’re even a casual White Sox fan, you share the incredible surprise at the team’s record. If you’re somewhat algorithm inclined, you may be aware that both FanGraphs and PECOTA now predict they’ll end the season with an 82-80 record, barely better than .500. But, since we’re talking about the AL Central,",
+      "title": "Chicago Cubs vs. Washington Nationals preview, Wednesday 8/12, 5:45 CT",
+      "body": "<<<INDENT>>>Wednesday notes…REACHING A BENCHMARK: The Cubs are 20 games above .500 for the first time this season, after 120 games. Last year, they reached 20 after 98 games, at 59-39. They fell below 20 several times after that and did not reach it for good until their 160th game, at 90-70. (Courtesy BCB’s JohnW53)AND MORE ON THE BENCHMARK: It took this year’s Cubs 34 games to reach 10 games above .500, at 22-12, on May 3. After a loss on June 10, they were .500, 34-34.",
+      "logo": "cubs.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "Mariners vs Yankees Prediction, Picks & Odds for Tonight's MLB Game",
+      "body": "<<<INDENT>>>Want to get more Covers content? Add us as a preferred source on your Google account here. After taking Tuesday's opener in a low-scoring grind, the Yankees are laying -130 to make it two straight over Seattle. Both starters have posted shaky ERA numbers of late, but Will Warren's superior underlying process is the key edge backing my Wednesday, Aug. 12 Mariners vs. Yankees predictions and MLB picks. Who will win Mariners vs Yankees today: New York Yankees (- <<<INDENT>>>(cont) 130)Will Warren and Bryce Miller have posted very similar results over the past month.",
+      "logo": "mariners.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": "MLB"
+    },
+    {
+      "title": "Ronald Acuña Jr. leads off, Lane Thomas and Mauricio Dubón start in Mets series finale",
+      "body": "<<<INDENT>>>#13 of the Atlanta Braves looks on in the seventh inning during the game against the New York Mets at Truist Park on August 11, 2026 in Atlanta, Georgia. Take a look at today’s lineup – I don’t know about you, but I would’ve been pretty [heart eyes emoji] about this lineup on Opening Day:Mahle on the mound #BravesCountrypic. twitter. com/vnQf7Ka0wo— Atlanta Braves (@Braves) August 12, 2026Enough of the experiment (for now) – Walt Weiss has reinstated Ronald Acuña Jr. <<<INDENT>>>(cont) in the leadoff spot. He’ll also return to right field after DH’ing last night. He’ll trade spots with Drake Baldwin, who gets the day off from being behind the plate.",
+      "logo": "mets.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "Game Discussion: Milwaukee Brewers (74-46) @ San Diego Padres (64-57)",
+      "body": "<<<INDENT>>>For the Brewers, the heat has intensified with these last two losses; the Chicago Cubs now find themselves 4.0 games behind for first place. With arguably one of the biggest series of the year looming with the Los Angeles Dodgers this weekend, the Brewers look to salvage the final game of the series with the Padres with Dustin May on the mound. May will be making his second start in a Brewers uniform after having a stellar first outing a week ago.",
+      "logo": "brewers.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) He’ll try to build upon his six innings of two-run ball, with five strikeouts, in what feels like a must-need similar outing today. Thankfully, the Brewers caught a break this afternoon as it came out that Pat Murphy misspoke when talking about injuries last night, stating that it was Jackson Chourio who hurt his thumb and not Brice Turang. With already a roughed-up infield, a blow to Turang on the right side would not have been ideal.",
+      "logo": "brewers.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "Nationals outfielder Jacob Young reaches another power milestone in career year",
+      "body": "<<<INDENT>>>You could argue that Jacob Young made the biggest transformation out of anyone though. The defensive minded center fielder entered the season with just 5 career homers despite having near everyday reps the last two seasons. This year he has already hit double digits after a 427 foot bomb last night. JACOB YOUNG 10TH HOME RUN OF THE YEARWHO WOULDVE THOUGHT pic. twitter. com/NzIPXaZ6CO— Kev (@klwoodjr) August 11, 2026This offseason, adding power was a real focus for Young.",
+      "logo": "nationals.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) He went to Driveline to improve his bat path and exit velocities. Between that instruction and the work by the Nats hitting coaches, Young has made tremendous strides at the plate while maintaining his elite defense.",
+      "logo": "nationals.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "How to watch San Francisco Giants vs. Houston Astros",
+      "body": "<<<INDENT>>>Henderson/Getty Images) Getty Images The San Francisco Giants conclude this three-game home series against the Houston Astros this afternoon. Taking the mound for the Giants will be right-hander Adrian Houser, who enters today’s game with a 4.55 ERA, 4.83 FIP, with 65 strikeouts to 31 walks in 97 innings pitched. His last start was in the Giants’ 5-2 win over the Detroit Tigers on Friday, in which he allowed one run on six hits with four strikeouts and a walk in five innings.",
+      "logo": "mlb_giants.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) He’ll be facing off against Astros left-hander Bryan King, who enters today’s game with a 3.83 ERA, 4.64 FIP, with 40 strikeouts to 17 walks in 49.1 innings pitched in relief. His last appearance was in the Astros’ 7-2 loss to the San Diego Padres on Sunday, in which he closed out the game, allowing two runs on two hits with three strikeouts in one inning.",
+      "logo": "mlb_giants.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "Milwaukee Brewers at San Diego Padres",
+      "body": "<<<INDENT>>>PSTWatch: Padres. TVLocation: Petco Park – San Diego, Calif. Listen: 97.3 The FanClosing out the homestand. Fans in the Padres home television territory can watch for free on https://t. co/HUkqcZyxVa. pic. twitter. com/REHvymPbC8— San Diego Padres (@Padres) August 12, 2026San Diego finale: https://t. co/eycfmE2vgm: WTMJ#ThisIsMyCrew x @NicoletLawpic. twitter. com/u0oo10BpSd— Milwaukee Brewers (@Brewers) August 12, 2026Please remember our Game Day thread guidelines.",
+      "logo": "brewers.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) Don’t troll in your comments; create conversation rather than destroying itRemember Gaslamp Ball is basically a non-profanity siteOut of respect to broadcast partners who have paid to carry the game, no mentions of “alternative” (read: illegal) viewing methods are allowed in our threadJoin the conversation!Sign up for a user account and get:Fewer adsCreate community postsComment on articles, community postsRec comments, community postsNew, improved notifications system!",
+      "logo": "brewers.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "Duke of Steal: Ellis swipes way into Scranton/Wilkes-Barre record book",
+      "body": "<<<INDENT>>>Duke Ellis of the Scranton/Wilkes-Barre RailRiders steals a base during a Minor League Baseball game at Coca-Cola Park in Allentown, United States, on May 23, 2026. He broke for second and when the throw from Red Wings catcher Maxwell Romero Jr. was high, Ellis safely slid headfirst into the bag. It was Ellis’ 41st stolen base of the season and 83rd of his career, surpassing the franchise record of 82 set by Nick Punto from 2001-03. Since then,",
       "logo": null,
       "league": "mlb",
       "logo_recommended": "mlb.png",
@@ -357,74 +525,346 @@
     },
     {
       "title": "",
-      "body": "<<<INDENT>>>(cont) that’s enough to squeak by and win the division. If you like a little more in the way of numbers, thanks to the barrage of shilling for sports books on every trivial event in order to promote problem gambling that the announcing staff does, you’re probably aware that the White Sox are eighth in the majors in runs scored per game, 4.76, and a hair better than average in runs allowed at 4.44. Sixth in homers? You knew that.",
+      "body": "<<<INDENT>>>(cont) he has extended the mark to 85 steals in 156 career games with Scranton/Wilkes-Barre. #1 Duke Ellis sets a new franchise record as the career-leader in steals with 83!#RepBXpic. twitter. com/0vrX92MLDa— SWB RailRiders (@swbrailriders) August 7, 2026Ellis is on the brink of another franchise record, too.",
       "logo": null,
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
     },
     {
-      "title": "Today in White Sox History: August 12",
-      "body": "<<<INDENT>>>On this day 54 years ago, Ed Spiezio clubbed the White Sox into first place. WTHB 1907In a 5-3 loss to the Boston Americans, Ed Walsh had 11 assists over eight innings, becoming the first pitcher in history to have at least 11 assists in a game twice in one season. Walsh added one putout and made no errors. He dropped to 18-10 on the season in one of just nine starts he made of 46 total he didn’t complete. (Walsh’s 56 games, 46 starts, 37 complete games, <<<INDENT>>>(cont) four saves and 422 13 innings all led the entire majors in 1907. )Walsh also gobbled up 11 assists in a 1-0 win over the St.",
-      "logo": "history.png",
+      "title": "MLB Road to the Show: Full preview, schedule, prospects for five-part docuseries",
+      "body": "<<<INDENT>>>The game's next generation took centerstage this summer with July's MLB Draft, Futures Game and HBCU Swingman Classic. Fans can look forward to a behind-the-scenes journey following six of baseball's top prospects and draft hopefuls with MLB Road to the Show, a new five-part docuseries streaming on Peacock. The series, produced by MLB Network and narrated by content creator and YouTuber Dan Sarmiento, follows these players through Spring Training and right into the season.",
+      "logo": "brewers.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": "hardballtalk"
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) Fans can expect the series to highlight breakthrough performances, setbacks and personal milestones. Get everything you need to know below with the series' featured players, full episode release schedule, and how to watch information. Which MLB prospects and college players will Road to the Show follow?MLB prospectsJesus Made, SS, Brewers (MLB. com's No. 1 prospect)Ethan Holliday, SS, Rockies (MLB. com's No. 15 prospect)Braden Montgomery, OF, White Sox (MLB. com's No.",
+      "logo": "brewers.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": "hardballtalk"
+    },
+    {
+      "title": "Cubs vs Nationals Prediction, Picks & Odds for Today's MLB Game",
+      "body": "<<<INDENT>>>Want to get more Covers content? Add us as a preferred source on your Google account here. There’s a rookie making his debut on the mound for Washington tonight, so I’ll be fading him as part of my Cubs vs. Nationals predictions. We’re not seeing much value on the moneyline, so I’ll be riding the Cubs at 101 on the run line over at Polymarket. Let’s take advantage of a rookie arm going up against one of the most potent lineups in baseball.",
+      "logo": "cubs.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": "MLB"
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) Time to dive into my MLB picks for Wednesday, Aug. 12. Who will win Cubs vs Nationals today: Cubs -1.5 (101)Today’s analysis is simple: the Chicago Cubs have killed lefties to the tune of a .806 OPS this season, and they’re seeing a rookie pitcher on the mound.",
+      "logo": "cubs.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": "MLB"
+    },
+    {
+      "title": "Game Thread: The gauntlet is over!",
+      "body": "<<<INDENT>>>ST. Petersburg, Florida.",
+      "logo": null,
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
     },
     {
-      "title": "Ranking MLB teams by World Series titles: Which clubs have never won?",
-      "body": "<<<INDENT>>>Every February, all 30 MLB franchises begin spring training with a renewed sense of hope. Their bodies are rested, their eyes already on the fall with the dream of hoisting the Commissioner's Trophy as World Series champions. It's an exclusive club . . . but not as exclusive as you might expect. All in all, 25 out of 30 big league franchises have won at least one championship. Out of the five who have yet to win one, <<<INDENT>>>(cont) only the Seattle Mariners have yet to appear in a World Series.",
-      "logo": "mariners.png",
+      "title": "Colorado Rockies vs. Arizona Diamondbacks game discussion: Ryan Feltner vs. Merrill Kelly",
+      "body": "<<<INDENT>>>Louis Cardinals in the first inning at Busch Stadium on August 7, 2026 in St Louis, Missouri. Now, with the series tied, the Rockies face off against their most dreaded foe this season, the rubber match. When a chance to win a series is on the line in the final game of a series, the Rockies have been, to be frank, abysmal. In 15 chances to win a series rubber match, the Rockies are 3-13. They previously lost a rubber match game last Sunday in St.",
+      "logo": "rockies.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
-      "category": "mlb"
+      "category": null
     },
     {
-      "title": "On the Big East, college athletics, and MLB’s CBA negotiations",
-      "body": "<<<INDENT>>>ST. Paul, Minnesota. John’s, and, of course, Villanova — announced that it had hired Tim Brosnan as its new commissioner. Normally, news about the Big East would pass by Pinstripe Alley, and indeed, most baseball sites, without a mention. After all, since conference realignment in 2013, the best player to come out of the conference has been injured Rays starter Ryan Pepiot, whose claim to fame is being the top prospect chip from the Tyler Glasnow deal three years back. <<<INDENT>>>(cont) What brings this news to our attention, though, is the fact that Brosnan worked for Major League Baseball in various high-ranking roles from 1991 to 2015.",
+      "title": "Rangers vs Angels Prediction: Odds, recent stats, trends, and best bets for August 12",
+      "body": "<<<INDENT>>>Texas (60-60) and Los Angeles (46-74) meet for the third game of a four-game series. The Angels held onto a 3-2 win on Tuesday to follow the Rangers 4-1 win in extra innings. Following their four-game winning streak, Texas has gone 1-2 over the last three games and the offense has struggled in August. Texas is hitting .220 (21st) with 37 runs over 10 games (T-21st) and the eight-most strikeouts (91). The Rangers pitching staff is holding a 3.48 ERA (T-",
+      "logo": "mlb_rangers.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": "hardballtalk"
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) 10th) through 10 games (5-5 record), but giving out four walks per game in that span (8th-most). Los Angeles broke a three-game losing streak with Tuesday's win. The Angels rank last in the MLB during August with a .191 batting average, as well as OBP, OPS, and SLG.",
+      "logo": "mlb_rangers.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": "hardballtalk"
+    },
+    {
+      "title": "Game #121: Rays at Athletics Game Thread",
+      "body": "<<<INDENT>>>After gaining momentum from Monday night’s crazy comeback victory, the Rays crushed six home runs on Tuesday night in a blowout series-clinching victory. Now, it is up to the A’s to salvage the series finale and avoid potentially falling to last place in the American League, capping the team’s swift fall from grace. Roster MoveBefore today’s game, the team shook up its bullpen as it continues tinkering to find the best possible group of relievers.",
       "logo": "rays.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
     },
     {
-      "title": "Cal Raleigh gives blunt assessment of his performance with Mariners mired in losing streak: 'I'm awful'",
-      "body": "<<<INDENT>>>One could argue Cal Raleigh was the story of the 2025 MLB season. Sure, Aaron Judge walked away with the American League MVP, but Raleigh was the breakout superstar. He clubbed 60 home runs, made his first All-Star team and won the Home Run Derby. A year later, though, Raleigh is literally one of the worst hitters in the game. With the Mariners quickly falling out of the playoff hunt after losing their fifth straight game, <<<INDENT>>>(cont) Raleigh surprised reporters by inviting an impromptu Q&A after Tuesday's 4-1 loss to the New York Yankees.",
-      "logo": "mariners.png",
+      "title": "",
+      "body": "<<<INDENT>>>(cont) We have made the following roster moves. pic. twitter. com/vaX5wvDMoa— Athletics (@Athletics) August 12, 2026Hayden Juenger returns to the majors four days after he was optioned to Triple-A in the wake of a bad relief appearance. Left-hander Drew Rom, whom the A’s claimed off waivers from the Milwaukee Brewers yesterday, joins him. Rom, the team’s latest scrap-heap acquisition, will look to carve out a role in the A’s bullpen over the rest of the season.",
+      "logo": "rays.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
     },
     {
-      "title": "Phillies vs Cardinals Prediction, Picks & Odds for Today's MLB Game",
-      "body": "<<<INDENT>>>Want to get more Covers content? Add us as a preferred source on your Google account here. The Philadelphia Phillies sit as a heavy -150 moneyline favorite this afternoon against the St. Louis Cardinals, with first pitch scheduled for 2:15 p. m. ET at Busch Stadium. However, my Phillies vs.",
-      "logo": "phillies.png",
+      "title": "The Tyrone Taylor trade by the numbers",
+      "body": "<<<INDENT>>>Yesterday we took a closer look at the Clay Holmes part of this transaction that brought a sinkerball throwing, extreme ground ball pitcher to the Cubs rotation in return for one of their top prospects, Jefferson Rojas. You can read about the Rojas part of the trade in the link above, however today I want to focus on the second piece the Cubs got in this deal: outfielder Tyrone Taylor. Here is his first hit as a Cub [VIDEO]. Your browser does not support the video tag.",
+      "logo": "cubs.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
-      "category": "MLB"
+      "category": null
     },
     {
-      "title": "Braves News: Matt Olson rakes again, Bryce Elder, and more",
-      "body": "<<<INDENT>>>Cox/Getty Images) Getty Images The Atlanta Braves evened the series against the New York Mets after Tuesday’s 4-0 win. Martín Pérez got the start, lasting six innings with three walks and two strikeouts. He surrendered just four hits. The Braves’ bats were relatively quiet with the team tallying just three hits. Two of those hits were home runs, courtesy of Ozzie Albies and Matt Olson.",
+      "title": "",
+      "body": "<<<INDENT>>>(cont) Download the video. The batTaylor is a 32-year-old righthanded outfielder whose overall slash line doesn’t really jump off the page. In 174 plate appearances this season he’s hit .241/.294/.481 with ten home runs and zero stolen bases.",
+      "logo": "cubs.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "St. Louis Cardinals vs Philadelphia Phillies Game Discussion Wednesday",
+      "body": "<<<INDENT>>>Louis Cardinals delivers a pitch against the San Diego Padres in the first inning at Busch Stadium on June 17, 2026 in St Louis, Missouri. Louis Cardinal wrap up their homestand before heading off to Chicago with a game Wednesday afternoon against the Philadelphia Phillies. Kyle Leahy gets the nod from the Cardinals while Zack Wheeler will start for the Phillies.",
+      "logo": "mlb_cardinals.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) First pitch scheduled for 1:15pm central time at Busch Stadium and game TV broadcast will be available via Cardinals. tv. Join the conversation!Sign up for a user account and get:Fewer adsCreate community postsComment on articles, community postsRec comments, community postsNew, improved notifications system!",
+      "logo": "mlb_cardinals.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "Tyler Mahle makes home debut in rubber match versus the Mets",
+      "body": "<<<INDENT>>>The Braves and Mets will face off for the final time this season at 7:15 pm ET. Bryce Elder and Martin Perez had some diametrically opposed starts in Games 1 and 2 – so what will Tyler Mahle bring to Game 3 in his first start in front of the home crowd?Mahle (3-9, 4.83 ERA) went toe-to-toe with old friend Max Fried in the Yankees series opener. In a battle of #54s, Mahle spun six scoreless innings of three-hit ball. He tossed 92 pitches, walked two batters,",
+      "logo": "mets.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) and struck out nine. Other than receiving a no-decision in the extra-innings loss, there was a lot to like about Mahle’s first start in a Braves uniform. Sean Murphy turning Mahle into an ace?",
+      "logo": "mets.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "Red Sox News & Links: Harold Rivas to Orioles to complete Adley Rutschman trade",
+      "body": "<<<INDENT>>>Harold Rivas, who was widely reported to be a part of the deal on the day it was made, only for that reporting to be walked back, has now officially been named as the final player to be named later going from Boston to Baltimore. An athletic outfielder with a high-risk/high-reward profile, Rivas was the 10th-rated prospect in the system according to Soxprospects. com. As an 18-year-old who has yet to graduate out of the Florida Complex League,",
+      "logo": "orioles.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) he is the definition of a lottery ticket. (Brian Murphy, MLB. com)The Sox did get one prospect back on deadline day: 21-year-old outfielder Carlos Gutierrez, who came over from the Giants in the Marcelo Mayer deal. Gutierrez has hit the ground running down in Greenville, which probably pleases his Red Sox fan sister.",
+      "logo": "orioles.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "Braves vs Mets Prediction: Odds, recent stats, trends, and best bets for August 12",
+      "body": "<<<INDENT>>>Atlanta took game two of the series, 4-0, behind a two-run homer by Matt Olson in the eighth inning to put the game out of reach. The current series is tied at one-apiece, but the Mets are 7-5 versus Atlanta this season and outscored the Braves, 62-58 in those 12 games. After winning eight-straight games, Atlanta has gone 2-3 over the next five games versus the Yankees and Mets. Atlanta is 7-3 on the month and rank third in ERA (2.68), lead the league in OBA (.194),",
       "logo": "braves.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
+      "category": "hardballtalk"
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) and fourth-best WHIP (1.11). The offense has been backed by homers. Atlanta has 16 homers, which is the third-best and they've scored the 10th-most runs (48) in August. New York is 6-4 to start August, including a 6-2 record on this current nine-game road trip.",
+      "logo": "braves.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": "hardballtalk"
+    },
+    {
+      "title": "Orioles vs. Twins discussion",
+      "body": "<<<INDENT>>>They linger on, two or three games out – currently two – and while it’s not terribly likely that they leapfrog four teams to make it in as the third wild card team, the flame of hope has not gone out entirely just yet. Probably it will go out when their next ten games after today are against the Rays and Yankees. But it’s not out yet, so winning today’s game still matters. The Orioles flip back ahead of the Twins in that wild card picture if they win the finale today. <<<INDENT>>>(cont) Elements of a decent enough team are in this mix somewhere.",
+      "logo": "orioles.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
       "category": null
     },
     {
-      "title": "MLB News: Yordan Alvarez Triple Crown, Paul Skenes, Blake Snell, Max Scherzer",
-      "body": "<<<INDENT>>>Happy Wednesday, everyone! I hope you’re all having a wonderful week and enjoying the waning weeks of summer. Are we in the “dog days”? Or is that September? What does that even mean, really?",
+      "title": "Key dates revealed in Cavs 2026-27 season: LeBron’s return to Cleveland",
+      "body": "<<<INDENT>>>NOTE TO USER: User expressly acknowledges and agrees that, by downloading and/or using this Photograph, user is consenting to the terms and conditions of the Getty Images License Agreement. Key dates for the 2026-27 NBA season have been unveiled ahead of the full schedule being released tomorrow. For now, we know some major games to mark your calendar for. Let’s start with their first game of the season. <<<INDENT>>>(cont) Cleveland opens their season on the road against the Philadelphia 76ers on October 22nd.",
+      "logo": "76ers.png",
+      "league": "nba",
+      "logo_recommended": "nba.png",
+      "category": null
+    },
+    {
+      "title": "Russell Westbrook retires + Lakers sold in record-breaking deal",
+      "body": "<<<INDENT>>>Subscribe to The Kevin O'Connor ShowApple Podcasts Spotify YouTubeKevin O’Connor and Trey Kirby react to the breaking news of Russell Westbrook’s retirement from the NBA after 18 seasons. Later, KOC and Yaron Weitzman break down the bombshell sale of the Los Angeles Lakers to Bob Iger and Joshua Kushner. The pair unpacks the federal investigation surrounding Mark Walter's finances, speculates on what this means for Rob Pelinka’s future and more.",
+      "logo": "lakers.png",
+      "league": "nba",
+      "logo_recommended": "nba.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) (0:24) Russell Westbrook retires(7:36) Lakers sold for 12 billionSACRAMENTO, CALIFORNIA - MARCH 8: Russell Westbrook #18 of the Sacramento Kings looks on during the second half against Chicago Bulls at Golden 1 Center on March 8, 2026 in Sacramento, California.",
+      "logo": "lakers.png",
+      "league": "nba",
+      "logo_recommended": "nba.png",
+      "category": null
+    },
+    {
+      "title": "Lakers begin NBA Cup play at Warriors on Oct. 30",
+      "body": "<<<INDENT>>>Hinkle Fieldhouse at Butler University in Indianapolis will be the site of the NBA Cup championship game on Dec. 11. (Darron Cummings / Associated Press)The Lakers will open NBA Cup play against the same team they open the season with. The Lakers start the in-season tournament on Oct. 30 on the road against the Golden State Warriors at 7 p. m. PDT on Prime Video, the NBA announced Wednesday during another stage of the schedule release that will wrap up Thursday.",
+      "logo": "lakers.png",
+      "league": "nba",
+      "logo_recommended": "nba.png",
+      "category": "Sports"
+    },
+    {
+      "title": "Russell Westbrook retires from NBA after 18 seasons",
+      "body": "<<<INDENT>>>NOTE TO USER: User expressly acknowledges and agrees that, by downloading and or using this photograph, User is consenting to the terms and conditions of the Getty Images Agreement. The point guard announced his retirement from the NBA at age-37 on Wednesday after a brilliant career that spanned 18 seasons. Westbrook will be remembered as the 2017 NBA MVP, and the first player to average a triple-double since Oscar Robertson. Westbrook retires as the NBA’s all- <<<INDENT>>>(cont) time leader in triple-doubles with 209. It’s likely that record doesn’t last for long, because Denver Nuggets star Nikola Jokic already has 198 triple-doubles at age-31.",
+      "logo": "nuggets.png",
+      "league": "nba",
+      "logo_recommended": "nba.png",
+      "category": null
+    },
+    {
+      "title": "NBA star Russell Westbrook retires, ending one of basketball's most unique careers",
+      "body": "<<<INDENT>>>Russell Westbrook is calling it a career after 18 NBA seasons. Westbrook announced his retirement from basketball in a video posted to his Instagram account on Wednesday, Aug. 12. Westbrook finished his career as the all-time leader in triple-doubles with 209 in his storied career. He entered the NBA after being selected out of UCLA with the No.",
       "logo": null,
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
+      "league": "nba",
+      "logo_recommended": "nba.png",
+      "category": "sports"
+    },
+    {
+      "title": "Russell Westbrook announces retirement",
+      "body": "<<<INDENT>>>After a decorated 18-year career, former Washington Wizards guard Russell Westbrook announced his retirement from the NBA on Wednesday. Sometimes you don’t even know when you’ve already watched the end. You had to be there. And now it’s over. pic. twitter. com/6YoOW8WyIV— Russell Westbrook (@russwest44) August 12, 2026Westbrook, 37, spent one season in Washington after the team acquired him in a December 2020 trade that sent John Wall and picks to the Houston Rockets.",
+      "logo": "wizards.png",
+      "league": "nba",
+      "logo_recommended": "nba.png",
+      "category": "NBA"
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) The standout guard averaged a triple-double — 22.2 points, 11.7 assists and 11.5 rebounds per game — during his lone season with the Wizards. Washington made the playoff as the No. 8 seed before losing in five games to the Philadelphia 76ers. Westbrook spent 11 seasons with the Oklahoma City Thunder before stints with the Rockets, Wizards, Los Angeles Lakers, Los Angeles Clippers, Denver Nuggets and Sacramento Kings.",
+      "logo": "wizards.png",
+      "league": "nba",
+      "logo_recommended": "nba.png",
+      "category": "NBA"
+    },
+    {
+      "title": "Hockey Canada extends bans of all but one player acquitted of sexual assault in 2018 case",
+      "body": "<<<INDENT>>>CALGARY, Alberta (AP) — Three of the five players acquitted of sexual assault in the high-profile 2018 Canada world junior case have had their international play suspensions get extended for at least another year, with only one set for immediate reinstatement. Hockey Canada on Wednesday extended Michael McLeod’s ban from representing the country until Nov. 10, 2030, Dillon Dube through the same date in 2028 and Carter Hart through that date in 2027.",
+      "logo": null,
+      "league": "nhl",
+      "logo_recommended": "nhl.png",
+      "category": "Sports Wire"
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) Cal Foote’s suspension will end this November, while Alex Formenton has been reinstated. The decisions were announced after an independent appeal board ruled that the players breached Hockey Canada’s code of conduct. Last year, the NHL allowed the players to sign contracts beginning in October and to play in December. Hart signed with Vegas in the fall, returned to the NHL on Dec. 2 and backstopped the Golden Knights to the Stanley Cup, while Dube in July became the second of the five players to sign an NHL contract when he joined St.",
+      "logo": null,
+      "league": "nhl",
+      "logo_recommended": "nhl.png",
+      "category": "Sports Wire"
+    },
+    {
+      "title": "Suspensions extended for four players acquitted in Hockey Canada trial",
+      "body": "<<<INDENT>>>An appeals panel ruled that five players from Hockey Canada's 2018 world junior championships team breached the organization's code of conduct in a case that led to a sexual assault trial in which all were acquitted. The panel continued suspensions for four of the five players, and announced the dates when they will again be eligible to represent Canada in international play. Alex Formenton is eligible to return immediately.",
+      "logo": null,
+      "league": "nhl",
+      "logo_recommended": "nhl.png",
+      "category": "nhl"
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) Here are the return dates for the other four players:Cal Foote: suspended until Nov. 10, 2026Carter Hart: suspended until Nov. 10, 2027Dillon Dubé: suspended until Nov. 10, 2028Michael McLeod: suspended until Nov.",
+      "logo": null,
+      "league": "nhl",
+      "logo_recommended": "nhl.png",
+      "category": "nhl"
+    },
+    {
+      "title": "Former Sabres Still Unsigned Free Agents - James Reimer",
+      "body": "<<<INDENT>>>As the National Hockey League enters the second month of free agency, a number of former Buffalo Sabres still remain unsigned. At this point of the offseason, players who have not latched on with an NHL club might consider playing in Europe, or taking a short-term deal or professional tryout to earn a one-year deal. It appeared at the beginning of last season that Reimer’s long career had come to an end. He was brought in late in the preseason by the Toronto Maple Leafs,",
+      "logo": "sabres.png",
+      "league": "nhl",
+      "logo_recommended": "nhl.png",
       "category": null
     },
     {
-      "title": "Wednesday Rockpile: Jake McCarthy has stabilized the Rockies’ leadoff spot",
-      "body": "<<<INDENT>>>“I got to meet him. I played against him, obviously, over the last few years in Arizona here,” McCarthy said. “I mean, obviously a great player. I understand. He batted leadoff for these guys for a long time.",
-      "logo": "rockies.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
+      "title": "",
+      "body": "<<<INDENT>>>(cont) the club that drafted him in 2006, as a possible stop-gap backup to Anthony Stolarz with Joseph Woll on a leave of absence from the club. That possibility lasted one period in the exhibition finale against Detroit, after which he was let go.",
+      "logo": "sabres.png",
+      "league": "nhl",
+      "logo_recommended": "nhl.png",
+      "category": null
+    },
+    {
+      "title": "Former Penguins Prospect Signs In The KHL",
+      "body": "<<<INDENT>>>A former Pittsburgh Penguins prospect is heading to the KHL. The Shanghai Dragons have signed former Penguins prospect defenseman Calen Addison to a one-year contract. Addison was selected by the Penguins in the second round of the 2018 NHL Entry Draft, 53rd overall. He was once considered one of the Penguins' top prospects, but he never ended up playing a game for Pittsburgh.",
+      "logo": "penguins.png",
+      "league": "nhl",
+      "logo_recommended": "nhl.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) This is because the Penguins traded Addison to the Minnesota Wild in February 2020 as part of the the trade that brought forward Jason Zucker to Pittsburgh. Addison played in three games for the Wilkes-Barre/Scranton Penguins in 2018-19, however, where he posted two assists. After being traded by the Penguins, Addison played four NHL seasons from 2020-21 to 2023-24.",
+      "logo": "penguins.png",
+      "league": "nhl",
+      "logo_recommended": "nhl.png",
+      "category": null
+    },
+    {
+      "title": "Coachella Valley Firebirds Sign Defenseman Gustav Olofsson",
+      "body": "<<<INDENT>>>The Coachella Firebirds, the American Hockey League (AHL) Seattle Kraken affiliate, announced on July 29th that the team had signed defenseman Gustav Olofsson. Olofsson appeared in 48 games last season for the Firebirds, recording four goals and 28 assists. The defenseman was drafted 46th overall in the 2013 NHL Draft by the Minnesota Wild. he has appeared in 63 NHL Games with three teams: the Minnesota Wild, the Montreal Canadiens, and the Seattle Kraken. <<<INDENT>>>(cont) Firebirds General Manager Troy Bodie spoke about the signing.",
+      "logo": "kraken.png",
+      "league": "nhl",
+      "logo_recommended": "nhl.png",
+      "category": null
+    },
+    {
+      "title": "Canadiens: What To Expect From Struble This Season",
+      "body": "<<<INDENT>>>Montreal Canadiens’ defenseman Jayden Struble now has four years of professional hockey under his belt, but he has yet to establish himself as a full-time NHLer. For the last three seasons, he’s been in a duel with teammate Arber Xhekaj for the sixth defenseman role. Thanks to the injury bug, though, they’ve both seen a fair bit of action. Last year, Struble skated in 59 games with an average of 14:01 of ice time,",
+      "logo": "canadiens.png",
+      "league": "nhl",
+      "logo_recommended": "nhl.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) while Xhekaj saw action in 65 games but only averaged 11:25 of ice time. However, in the playoffs, Struble played in 12 games and averaged 11:40 of ice time, while Xhekaj played in 13 games but averaged only 8:06.",
+      "logo": "canadiens.png",
+      "league": "nhl",
+      "logo_recommended": "nhl.png",
+      "category": null
+    },
+    {
+      "title": "Sabres Top 40 Prospects - #27",
+      "body": "<<<INDENT>>>The Buffalo Sabres have been considered to have one of the deepest prospect pools in the NHL, which is in part due to them selecting high in recent drafts because of their not qualifying for the playoffs. The Sabres have displayed an eye for talent, and the organization’s developmental model has begun to yield results, with 2023 first rounder Zach Benson making an impact in the playoffs,",
+      "logo": "sabres.png",
+      "league": "nhl",
+      "logo_recommended": "nhl.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) and 2024 top pick Konsta Helenius appearing as one of the AHL’s top prospects the last two seasons. Leading up to the opening of training camp in mid-September, we will look at the club's top 40 prospects. These players are all 25 years old or younger, whose rights are currently held by the Sabres or are on AHL or NHL deals, and have played less than 82 NHL games. Other Sabres StoriesSabres Emotionally Devastated By Game 7 Overtime LossWho had the best and worst offseason in the Atlantic Division?",
+      "logo": "sabres.png",
+      "league": "nhl",
+      "logo_recommended": "nhl.png",
       "category": null
     }
   ]

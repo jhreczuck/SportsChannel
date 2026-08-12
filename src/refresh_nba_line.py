@@ -1,14 +1,21 @@
 r"""
-refresh_latest_line.py
+refresh_nba_line.py
 
-Fetches upcoming NFL betting lines (favorite/spread/underdog) from ESPN's
-scoreboard endpoint and writes data/latest_line.json, grouped by game day --
-mirrors the "LATEST LINE" board from the original broadcast. No byline or
-copyright line, per request.
+Fetches upcoming NBA point-spread lines from ESPN's scoreboard endpoint and
+writes data/nba_line.json, grouped by game day -- mirrors refresh_latest_line.py
+(NFL), reusing the exact same odds shape (odds[0].spread,
+odds[0].homeTeamOdds.favorite). NBA uses spreads like NFL (unlike MLB's
+moneyline-heavy pitcher matchups), so no separate design was needed.
+
+Not yet spot-checked against a live NBA game with odds attached (NBA is
+off-season as of this writing, and ESPN drops the odds field once a game
+finishes, so there was no live scheduled+odds game available to verify
+against). Re-check the odds shape once the season is live -- if it's ever
+empty despite games being scheduled, that's the first thing to check.
 
 Usage:
 
-    python C:\Users\Admin\Documents\APIs\Sportschannel\Sportschannel\src\refresh_latest_line.py
+    python C:\Users\Admin\Documents\APIs\Sportschannel\Sportschannel\src\refresh_nba_line.py
 """
 from __future__ import annotations
 
@@ -23,23 +30,23 @@ from league_seasons import active_leagues
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE_DIR / "data"
-LATEST_LINE_PATH = DATA_DIR / "latest_line.json"
+NBA_LINE_PATH = DATA_DIR / "nba_line.json"
 
-SCOREBOARD_URL = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard"
+SCOREBOARD_URL = "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard"
 LOOKAHEAD_DAYS = 7
 
 
 def _team_label(team: Dict[str, Any]) -> str:
     location = team.get("location", "")
     name = team.get("name", "")
-    # Two NY teams share a city name; disambiguate like the reference board
-    # ("NY Giants" / "NY Jets") instead of a bare, ambiguous "New York".
+    # Knicks and Nets both share "New York" -- disambiguate like the NFL
+    # board does for the Giants/Jets.
     if location == "New York":
         return f"NY {name}"
     return location or name
 
 
-def fetch_latest_line() -> List[Dict[str, Any]]:
+def fetch_nba_line() -> List[Dict[str, Any]]:
     today = datetime.now(timezone.utc)
     end = today + timedelta(days=LOOKAHEAD_DAYS)
     date_range = f"{today:%Y%m%d}-{end:%Y%m%d}"
@@ -83,7 +90,6 @@ def fetch_latest_line() -> List[Dict[str, Any]]:
         except Exception:
             continue
 
-    # Preserve chronological day order rather than dict insertion order.
     day_order = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     ordered_days = sorted(games_by_day.keys(), key=lambda d: day_order.index(d) if d in day_order else 99)
 
@@ -91,14 +97,14 @@ def fetch_latest_line() -> List[Dict[str, Any]]:
 
 
 def main() -> None:
-    in_season = "nfl" in active_leagues()
+    in_season = "nba" in active_leagues()
 
     days: List[Dict[str, Any]] = []
     if in_season:
         try:
-            days = fetch_latest_line()
+            days = fetch_nba_line()
         except Exception as e:
-            print(f"[refresh_latest_line] Fetch failed: {e}")
+            print(f"[refresh_nba_line] Fetch failed: {e}")
 
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     wrapper = {
@@ -106,9 +112,9 @@ def main() -> None:
         "in_season": in_season,
         "days": days,
     }
-    LATEST_LINE_PATH.write_text(json.dumps(wrapper, indent=2, ensure_ascii=False), encoding="utf-8")
+    NBA_LINE_PATH.write_text(json.dumps(wrapper, indent=2, ensure_ascii=False), encoding="utf-8")
     total_games = sum(len(d["games"]) for d in days)
-    print(f"[refresh_latest_line] in_season={in_season}, wrote {total_games} games across {len(days)} days to {LATEST_LINE_PATH}")
+    print(f"[refresh_nba_line] in_season={in_season}, wrote {total_games} games across {len(days)} days to {NBA_LINE_PATH}")
 
 
 if __name__ == "__main__":

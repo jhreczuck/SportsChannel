@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-12T13:54:40.788526+00:00",
+  "generated_at": "2026-08-12T21:37:54.450156+00:00",
   "results": {
     "nfl": {
       "day_label": "Thursday's",
@@ -13,97 +13,24 @@
       ]
     },
     "mlb": {
-      "day_label": "Tuesday's",
+      "day_label": "Wednesday's",
       "games": [
-        {
-          "away": "Cleveland",
-          "away_score": "4",
-          "home": "Detroit",
-          "home_score": "6"
-        },
-        {
-          "away": "Pittsburgh",
-          "away_score": "0",
-          "home": "Miami",
-          "home_score": "2"
-        },
-        {
-          "away": "Chicago",
-          "away_score": "8",
-          "home": "Washington",
-          "home_score": "6"
-        },
-        {
-          "away": "Seattle",
-          "away_score": "1",
-          "home": "New York",
-          "home_score": "4"
-        },
-        {
-          "away": "Boston",
-          "away_score": "3",
-          "home": "Toronto",
-          "home_score": "5"
-        },
-        {
-          "away": "New York",
-          "away_score": "0",
-          "home": "Atlanta",
-          "home_score": "4"
-        },
         {
           "away": "Baltimore",
           "away_score": "5",
           "home": "Minnesota",
-          "home_score": "2"
-        },
-        {
-          "away": "Cincinnati",
-          "away_score": "5",
-          "home": "Chicago",
-          "home_score": "4"
+          "home_score": "7",
+          "winning_pitcher": "Z. Matthews, 6-8",
+          "losing_pitcher": "S. Baz, 4-12",
+          "save_pitcher": "Y. Gomez, 17"
         },
         {
           "away": "Philadelphia",
-          "away_score": "0",
-          "home": "St. Louis",
-          "home_score": "2"
-        },
-        {
-          "away": "Texas",
-          "away_score": "2",
-          "home": "Los Angeles",
-          "home_score": "3"
-        },
-        {
-          "away": "Colorado",
-          "away_score": "3",
-          "home": "Arizona",
-          "home_score": "2"
-        },
-        {
-          "away": "Milwaukee",
-          "away_score": "2",
-          "home": "San Diego",
-          "home_score": "11"
-        },
-        {
-          "away": "Tampa Bay",
-          "away_score": "12",
-          "home": "Athletics",
-          "home_score": "4"
-        },
-        {
-          "away": "Houston",
           "away_score": "1",
-          "home": "San Francisco",
-          "home_score": "4"
-        },
-        {
-          "away": "Kansas City",
-          "away_score": "4",
-          "home": "Los Angeles",
-          "home_score": "5"
+          "home": "St. Louis",
+          "home_score": "7",
+          "winning_pitcher": "K. Leahy, 9-4",
+          "losing_pitcher": "Z. Wheeler, 10-4"
         }
       ]
     }

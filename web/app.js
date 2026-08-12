@@ -334,7 +334,7 @@ function buildStandingsPages(standingsData) {
 // ---------------------------
 const LATEST_LINE_GAMES_PER_SCREEN = 4; // 5 overflowed past the panel with the taller title/logo layout
 
-function buildLatestLinePages(latestLineData) {
+function buildLatestLinePages(latestLineData, sport = "nfl") {
   const pages = [];
   for (const day of (latestLineData && latestLineData.days) || []) {
     const games = day.games || [];
@@ -343,6 +343,7 @@ function buildLatestLinePages(latestLineData) {
     for (let p = 0; p < totalPages; p++) {
       pages.push({
         type: "latest_line",
+        sport,
         day: day.day,
         games: games.slice(p * LATEST_LINE_GAMES_PER_SCREEN, (p + 1) * LATEST_LINE_GAMES_PER_SCREEN),
         page: p + 1,
@@ -357,19 +358,23 @@ function buildLatestLinePages(latestLineData) {
 // Score Results builder ("Monday's NFL Result(s)")
 // ---------------------------
 const SCORE_RESULTS_GAMES_PER_SCREEN = 4;
+// MLB games get an extra pitcher-decision line each (see drawScoreResultsBoard),
+// so fewer fit per screen than NFL's plain score rows.
+const SCORE_RESULTS_GAMES_PER_SCREEN_MLB = 3;
 
 function buildScoreResultsPages(scoreResultsData, league) {
   const result = scoreResultsData && scoreResultsData.results && scoreResultsData.results[league];
   if (!result || !result.games || !result.games.length) return [];
   const games = result.games;
-  const totalPages = Math.ceil(games.length / SCORE_RESULTS_GAMES_PER_SCREEN);
+  const perScreen = league === "mlb" ? SCORE_RESULTS_GAMES_PER_SCREEN_MLB : SCORE_RESULTS_GAMES_PER_SCREEN;
+  const totalPages = Math.ceil(games.length / perScreen);
   const pages = [];
   for (let p = 0; p < totalPages; p++) {
     pages.push({
       type: "score_results",
       league,
       dayLabel: result.day_label,
-      games: games.slice(p * SCORE_RESULTS_GAMES_PER_SCREEN, (p + 1) * SCORE_RESULTS_GAMES_PER_SCREEN),
+      games: games.slice(p * perScreen, (p + 1) * perScreen),
       page: p + 1,
       totalPages,
     });
@@ -676,6 +681,7 @@ function drawStandingsBoard(page, logos, linesToShow) {
   const shouldShow = makeLineGate(linesToShow);
   const division = page.division;
   const isNFL = page.sport === "nfl";
+  const isNHL = page.sport === "nhl";
   const titleY = inner.y + TEXT_PADDING;
 
   ctx.font = BODY_FONT;
@@ -691,9 +697,9 @@ function drawStandingsBoard(page, logos, linesToShow) {
   const colW = Math.max(100, leftRect.w - TEXT_PADDING * 2);
   const colWX = nameX + colW * 0.50;
   const colLX = nameX + colW * 0.60;
-  const colTX = nameX + colW * 0.68; // NFL only
-  const colPctX = nameX + colW * (isNFL ? 0.78 : 0.74);
-  const colGbX = nameX + colW * 0.90; // MLB only -- NFL has no games-behind column
+  const colTX = nameX + colW * 0.68; // NFL only (ties)
+  const col4X = nameX + colW * (isNFL ? 0.78 : 0.74); // NHL: OTL, others: PCT
+  const col5X = nameX + colW * 0.90; // NHL: PTS, MLB/NBA: GB -- NFL has neither
 
   // Column headers
   if (shouldShow()) {
@@ -701,8 +707,13 @@ function drawStandingsBoard(page, logos, linesToShow) {
     ctx.fillText("W", colWX, rowY);
     ctx.fillText("L", colLX, rowY);
     if (isNFL) ctx.fillText("T", colTX, rowY);
-    ctx.fillText("PCT", colPctX, rowY);
-    if (!isNFL) ctx.fillText("GB", colGbX, rowY);
+    if (isNHL) {
+      ctx.fillText("OTL", col4X, rowY);
+      ctx.fillText("PTS", col5X, rowY);
+    } else {
+      ctx.fillText("PCT", col4X, rowY);
+      if (!isNFL) ctx.fillText("GB", col5X, rowY);
+    }
   }
   rowY += rowHeight;
 
@@ -715,16 +726,20 @@ function drawStandingsBoard(page, logos, linesToShow) {
       ctx.fillText(team.w, colWX, rowY);
       ctx.fillText(team.l, colLX, rowY);
       if (isNFL) ctx.fillText(team.t || "0", colTX, rowY);
-      ctx.fillText(team.pct, colPctX, rowY);
-      if (!isNFL) ctx.fillText(team.gb || "--", colGbX, rowY);
+      if (isNHL) {
+        ctx.fillText(team.otl || "0", col4X, rowY);
+        ctx.fillText(team.pts || "0", col5X, rowY);
+      } else {
+        ctx.fillText(team.pct, col4X, rowY);
+        if (!isNFL) ctx.fillText(team.gb || "--", col5X, rowY);
+      }
     }
     rowY += rowHeight;
   }
 
-  // AL/NL divisions get their league badge; NFL divisions get the generic
-  // NFL logo (no AFC/NFC-specific art yet); anything else (or a failed image
-  // load) falls back to the sport's generic logo.
-  let badgeLogo = isNFL ? logos.nfl : logos.mlb;
+  // AL/NL divisions get their league badge; everything else falls back to
+  // its sport's generic logo (no conference-specific art for NFL/NBA/NHL).
+  let badgeLogo = logos[page.sport] || logos.mlb;
   if (division.name.startsWith("American League") && logos.al) badgeLogo = logos.al;
   else if (division.name.startsWith("National League") && logos.nl) badgeLogo = logos.nl;
   if (badgeLogo) drawLogoInBox(badgeLogo, rightRect);
@@ -733,9 +748,10 @@ function drawStandingsBoard(page, logos, linesToShow) {
 // ---------------------------
 // Latest Line board (NFL betting lines)
 // ---------------------------
-function drawLatestLineBoard(page, nflLogo, linesToShow) {
+function drawLatestLineBoard(page, sportLogo, linesToShow) {
   const shouldShow = makeLineGate(linesToShow);
   const titleY = inner.y + TEXT_PADDING;
+  const sportLabel = `${(page.sport || "nfl").toUpperCase()} GAMES`;
 
   ctx.font = BOARD_TITLE_FONT;
   ctx.fillStyle = "rgb(235,150,60)"; // same warm accent as the headlines title
@@ -745,7 +761,7 @@ function drawLatestLineBoard(page, nflLogo, linesToShow) {
 
   ctx.font = BODY_FONT;
   ctx.fillStyle = TEXT_COLOR;
-  if (shouldShow()) ctx.fillText("NFL GAMES", inner.x + TEXT_PADDING, titleY + BOARD_TITLE_FONT_PX + 16);
+  if (shouldShow()) ctx.fillText(sportLabel, inner.x + TEXT_PADDING, titleY + BOARD_TITLE_FONT_PX + 16);
 
   // Everything below here (headers, day label, rows) starts below the
   // logo's bottom edge and uses the full panel width -- no need to stay
@@ -797,7 +813,7 @@ function drawLatestLineBoard(page, nflLogo, linesToShow) {
   ctx.fillStyle = "rgb(180,180,200)";
   if (shouldShow()) ctx.fillText("Home Team in CAPS", nameX, subY);
 
-  if (nflLogo) drawLogoInBox(nflLogo, rightRect);
+  if (sportLogo) drawLogoInBox(sportLogo, rightRect);
 }
 
 // ---------------------------
@@ -1067,7 +1083,31 @@ function drawScoreResultsBoard(page, leagueLogo, linesToShow) {
       ctx.fillText(String(game.home_score), scoreX, rowY);
       ctx.textAlign = "left";
     }
-    rowY += rowHeight + 14;
+    rowY += rowHeight;
+
+    // MLB only -- winning/losing/save pitcher, wrapped to fit the column
+    // rather than assumed to fit on one line (names/records vary in length).
+    if (game.winning_pitcher || game.losing_pitcher) {
+      const parts = [];
+      if (game.winning_pitcher) parts.push(`W: ${game.winning_pitcher}`);
+      if (game.losing_pitcher) parts.push(`L: ${game.losing_pitcher}`);
+      if (game.save_pitcher) parts.push(`SV: ${game.save_pitcher}`);
+      ctx.font = SMALL_FONT;
+      const pitcherLines = wrapTextToWidth(parts.join("   "), colW, ctx);
+      if (shouldShow()) {
+        ctx.fillStyle = "rgb(180,180,200)";
+        for (const line of pitcherLines) {
+          ctx.fillText(line, nameX, rowY);
+          rowY += SMALL_FONT_PX + 4;
+        }
+      } else {
+        rowY += pitcherLines.length * (SMALL_FONT_PX + 4);
+      }
+      ctx.font = BODY_FONT;
+      rowY += 2;
+    }
+
+    rowY += 14;
   }
 
   if (leagueLogo) drawLogoInBox(leagueLogo, rightRect);
@@ -1158,11 +1198,39 @@ async function main() {
     console.warn("[nfl standings] load failed:", e);
   }
 
+  let nbaStandingsPages = [];
+  try {
+    nbaStandingsPages = buildStandingsPages(await loadJSON("../data/nba_standings.json"));
+  } catch (e) {
+    console.warn("[nba standings] load failed:", e);
+  }
+
+  let nhlStandingsPages = [];
+  try {
+    nhlStandingsPages = buildStandingsPages(await loadJSON("../data/nhl_standings.json"));
+  } catch (e) {
+    console.warn("[nhl standings] load failed:", e);
+  }
+
   let latestLinePages = [];
   try {
-    latestLinePages = buildLatestLinePages(await loadJSON("../data/latest_line.json"));
+    latestLinePages = buildLatestLinePages(await loadJSON("../data/latest_line.json"), "nfl");
   } catch (e) {
     console.warn("[latest line] load failed:", e);
+  }
+
+  let nbaLinePages = [];
+  try {
+    nbaLinePages = buildLatestLinePages(await loadJSON("../data/nba_line.json"), "nba");
+  } catch (e) {
+    console.warn("[nba line] load failed:", e);
+  }
+
+  let nhlLinePages = [];
+  try {
+    nhlLinePages = buildLatestLinePages(await loadJSON("../data/nhl_line.json"), "nhl");
+  } catch (e) {
+    console.warn("[nhl line] load failed:", e);
   }
 
   let headlinesPages = [];
@@ -1202,11 +1270,13 @@ async function main() {
     console.warn("[score results] load failed:", e);
   }
 
-  let mlbQuotePages = [], nflQuotePages = [];
+  let mlbQuotePages = [], nflQuotePages = [], nbaQuotePages = [], nhlQuotePages = [];
   try {
     const quotesData = await loadJSON("../data/quotes.json");
     mlbQuotePages = buildQuotePage(quotesData, "mlb");
     nflQuotePages = buildQuotePage(quotesData, "nfl");
+    nbaQuotePages = buildQuotePage(quotesData, "nba");
+    nhlQuotePages = buildQuotePage(quotesData, "nhl");
   } catch (e) {
     console.warn("[quotes] load failed:", e);
   }
@@ -1214,20 +1284,29 @@ async function main() {
   // Rotation order: title card -> today's headlines -> On This Day (not
   // league-specific) -> MLB block (AL/NL probables -> MLB stories -> 6
   // division standings -> MLB quote) -> NFL block (latest line -> NFL
-  // stories -> 8 division standings -> NFL quote) -> loop. MLB is the
-  // priority league (shows first); any of the MLB/NFL board types are simply
+  // stories -> 8 division standings -> NFL quote) -> NBA block (latest line
+  // -> NBA stories -> 6 division standings -> NBA quote) -> NHL block
+  // (latest line -> NHL stories -> 4 division standings -> NHL quote) ->
+  // loop. MLB is the priority league (shows first); any board type is simply
   // absent if it's that sport's off-season (each builder returns [] then).
+  const knownLeagues = ["nfl", "mlb", "nba", "nhl"];
   const nflSlides = storySlides.filter((s) => (s.league || "").toLowerCase() === "nfl")
     .map((s) => ({ type: "story", slide: s }));
   const mlbSlides = storySlides.filter((s) => (s.league || "").toLowerCase() === "mlb")
     .map((s) => ({ type: "story", slide: s }));
-  const otherSlides = storySlides.filter((s) => !["nfl", "mlb"].includes((s.league || "").toLowerCase()))
+  const nbaSlides = storySlides.filter((s) => (s.league || "").toLowerCase() === "nba")
+    .map((s) => ({ type: "story", slide: s }));
+  const nhlSlides = storySlides.filter((s) => (s.league || "").toLowerCase() === "nhl")
+    .map((s) => ({ type: "story", slide: s }));
+  const otherSlides = storySlides.filter((s) => !knownLeagues.includes((s.league || "").toLowerCase()))
     .map((s) => ({ type: "story", slide: s }));
 
   // Section intros preview a few real headlines from that league's own
-  // slides, so they need to be built after mlbSlides/nflSlides exist.
+  // slides, so they need to be built after each league's *Slides exist.
   const mlbIntroPages = buildSectionIntroPage("BASEBALL", mlbSlides);
   const nflIntroPages = buildSectionIntroPage("FOOTBALL", nflSlides);
+  const nbaIntroPages = buildSectionIntroPage("BASKETBALL", nbaSlides);
+  const nhlIntroPages = buildSectionIntroPage("HOCKEY", nhlSlides);
 
   const items = [
     { type: "titlecard" },
@@ -1237,6 +1316,8 @@ async function main() {
     ...triviaPages,
     ...mlbIntroPages, ...mlbScoreResultsPages, ...probablesPages, ...mlbSlides, ...mlbStandingsPages, ...mlbQuotePages,
     ...nflIntroPages, ...nflScoreResultsPages, ...latestLinePages, ...nflSlides, ...nflStandingsPages, ...nflQuotePages,
+    ...nbaIntroPages, ...nbaLinePages, ...nbaSlides, ...nbaStandingsPages, ...nbaQuotePages,
+    ...nhlIntroPages, ...nhlLinePages, ...nhlSlides, ...nhlStandingsPages, ...nhlQuotePages,
     ...otherSlides,
   ];
   if (items.length === 1) items.push({ type: "story", slide: { title: "", body: "No content available.", logo: null } });
@@ -1258,6 +1339,8 @@ async function main() {
   const alLogo = await getLogo("AL.png");
   const nlLogo = await getLogo("NL.png");
   const nflLogo = await getLogo("nfl.png");
+  const nbaLogo = await getLogo("nba.png");
+  const nhlLogo = await getLogo("nhl.png");
   const probableLogo = await getLogo("probable.png");
   const historyLogo = await getLogo("history.png");
   const birthdayLogo = await getLogo("birthday.png");
@@ -1265,7 +1348,8 @@ async function main() {
   const answerLogo = await getLogo("answer.png");
   const quoteLogo = await getLogo("quote.png");
   const titleCardImage = await loadImage("../media/logos/titlecard.png");
-  const standingsLogos = { mlb: mlbLogo, al: alLogo, nl: nlLogo, nfl: nflLogo };
+  const standingsLogos = { mlb: mlbLogo, al: alLogo, nl: nlLogo, nfl: nflLogo, nba: nbaLogo, nhl: nhlLogo };
+  const latestLineLogos = { nfl: nflLogo, nba: nbaLogo, nhl: nhlLogo };
 
   await setupMusic();
   playCurrentTrack();
@@ -1364,7 +1448,7 @@ async function main() {
     } else if (item.type === "standings") {
       drawStandingsBoard(item, standingsLogos, boardLinesToShow);
     } else if (item.type === "latest_line") {
-      drawLatestLineBoard(item, nflLogo, boardLinesToShow);
+      drawLatestLineBoard(item, latestLineLogos[item.sport] || nflLogo, boardLinesToShow);
     } else if (item.type === "history_fact") {
       drawHistoryBoard(item, historyLogo, boardLinesToShow);
     } else if (item.type === "birthdays") {

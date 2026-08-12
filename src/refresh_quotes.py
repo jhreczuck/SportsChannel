@@ -43,7 +43,7 @@ HEADERS = {
 # Goodreads tag per league. "football" on Goodreads is dominated by American
 # football (Lombardi, Manning, Rice) rather than soccer, which is what we
 # want here.
-TAG_BY_LEAGUE = {"mlb": "baseball", "nfl": "football"}
+TAG_BY_LEAGUE = {"mlb": "baseball", "nfl": "football", "nba": "basketball", "nhl": "hockey"}
 
 # Recognizable enough that a quote from them beats a generic
 # loosely-tagged one, even though it's not exhaustive.
@@ -57,6 +57,16 @@ FAMOUS_BY_LEAGUE = {
         "vince lombardi", "joe montana", "tom brady", "peyton manning", "jerry rice",
         "walter payton", "john madden", "bill belichick", "brett favre",
         "lawrence taylor", "jim brown", "troy aikman", "lou holtz",
+    ],
+    "nba": [
+        "michael jordan", "lebron james", "kobe bryant", "magic johnson", "larry bird",
+        "kareem abdul-jabbar", "shaquille o'neal", "bill russell", "wilt chamberlain",
+        "tim duncan", "stephen curry", "phil jackson", "charles barkley",
+    ],
+    "nhl": [
+        "wayne gretzky", "gordie howe", "bobby orr", "mario lemieux", "sidney crosby",
+        "alexander ovechkin", "mark messier", "patrick roy", "scotty bowman",
+        "bobby hull", "jaromir jagr", "connor mcdavid", "herb brooks",
     ],
 }
 
