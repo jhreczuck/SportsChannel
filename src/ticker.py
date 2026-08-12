@@ -12,6 +12,7 @@ You can also import this file and use:
 
 inside your own rendering loop (e.g., PIL image overlay).
 """
+from __future__ import annotations
 
 import time
 import shutil
