@@ -218,6 +218,15 @@ function buildTriviaPage(triviaData) {
 }
 
 // ---------------------------
+// League Quote builder
+// ---------------------------
+function buildQuotePage(quotesData, league) {
+  const quote = quotesData && quotesData.quotes && quotesData.quotes[league];
+  if (!quote) return [];
+  return [{ type: "quote", league, quote: quote.quote, author: quote.author }];
+}
+
+// ---------------------------
 // Headlines board builder
 // ---------------------------
 const HEADLINES_MAX_PAGES = 2;
@@ -840,7 +849,38 @@ function drawTriviaBoard(page, questionLogo, answerLogo, revealed) {
     }
   }
 
-  drawLeftColumnLogo(logo);
+  drawLeftColumnLogo(logo, BIRTHDAY_LOGO_PIXELATE_RESOLUTION);
+}
+
+// ---------------------------
+// League Quote (shown once after each league's block)
+// ---------------------------
+function drawQuoteBoard(page, quoteLogo) {
+  const titleY = inner.y + TEXT_PADDING;
+  const textStartX = leftColumnTextStartX(!!quoteLogo);
+  const textWidth = Math.max(40, inner.right - TEXT_PADDING - textStartX);
+
+  ctx.font = BOARD_TITLE_FONT;
+  ctx.fillStyle = "rgb(180,210,120)"; // same yellow-green accent as On This Day
+  ctx.textBaseline = "top";
+  ctx.textAlign = "left";
+  ctx.fillText(`${page.league.toUpperCase()} QUOTE`, textStartX, titleY);
+  ctx.fillText("OF THE DAY", textStartX, titleY + BOARD_TITLE_FONT_PX + 4);
+
+  ctx.font = BODY_FONT;
+  ctx.fillStyle = TEXT_COLOR;
+  const lineHeight = BODY_FONT_PX + 4;
+  let y = titleY + (BOARD_TITLE_FONT_PX + 4) * 2 + 20;
+  for (const line of wrapTextToWidth(`"${page.quote}"`, textWidth, ctx)) {
+    ctx.fillText(line, textStartX, y);
+    y += lineHeight;
+  }
+
+  y += 16;
+  ctx.fillStyle = "rgb(200,180,120)";
+  ctx.fillText(`- ${page.author.toUpperCase()}`, textStartX, y);
+
+  drawLeftColumnLogo(quoteLogo, BIRTHDAY_LOGO_PIXELATE_RESOLUTION);
 }
 
 // ---------------------------
@@ -963,12 +1003,21 @@ async function main() {
     console.warn("[trivia] load failed:", e);
   }
 
+  let mlbQuotePages = [], nflQuotePages = [];
+  try {
+    const quotesData = await loadJSON("../data/quotes.json");
+    mlbQuotePages = buildQuotePage(quotesData, "mlb");
+    nflQuotePages = buildQuotePage(quotesData, "nfl");
+  } catch (e) {
+    console.warn("[quotes] load failed:", e);
+  }
+
   // Rotation order: title card -> today's headlines -> On This Day (not
   // league-specific) -> MLB block (AL/NL probables -> MLB stories -> 6
-  // division standings) -> NFL block (latest line -> NFL stories -> 8
-  // division standings) -> loop. MLB is the priority league (shows first);
-  // any of the MLB/NFL board types are simply absent if it's that sport's
-  // off-season (each builder returns [] then).
+  // division standings -> MLB quote) -> NFL block (latest line -> NFL
+  // stories -> 8 division standings -> NFL quote) -> loop. MLB is the
+  // priority league (shows first); any of the MLB/NFL board types are simply
+  // absent if it's that sport's off-season (each builder returns [] then).
   const nflSlides = storySlides.filter((s) => (s.league || "").toLowerCase() === "nfl")
     .map((s) => ({ type: "story", slide: s }));
   const mlbSlides = storySlides.filter((s) => (s.league || "").toLowerCase() === "mlb")
@@ -982,8 +1031,8 @@ async function main() {
     ...historyPages,
     ...birthdaysPages,
     ...triviaPages,
-    ...probablesPages, ...mlbSlides, ...mlbStandingsPages,
-    ...latestLinePages, ...nflSlides, ...nflStandingsPages,
+    ...probablesPages, ...mlbSlides, ...mlbStandingsPages, ...mlbQuotePages,
+    ...latestLinePages, ...nflSlides, ...nflStandingsPages, ...nflQuotePages,
     ...otherSlides,
   ];
   if (items.length === 1) items.push({ type: "story", slide: { title: "", body: "No content available.", logo: null } });
@@ -1010,6 +1059,7 @@ async function main() {
   const birthdayLogo = await getLogo("birthday.png");
   const questionLogo = await getLogo("question.png");
   const answerLogo = await getLogo("answer.png");
+  const quoteLogo = await getLogo("quote.png");
   const titleCardImage = await loadImage("../media/logos/titlecard.png");
   const standingsLogos = { mlb: mlbLogo, al: alLogo, nl: nlLogo, nfl: nflLogo };
 
@@ -1113,6 +1163,8 @@ async function main() {
       drawBirthdaysBoard(item, birthdayLogo);
     } else if (item.type === "trivia") {
       drawTriviaBoard(item, questionLogo, answerLogo, elapsed >= TRIVIA_REVEAL_DELAY);
+    } else if (item.type === "quote") {
+      drawQuoteBoard(item, quoteLogo);
     }
 
     drawTicker(tickerText, tickerWidth, tickerX);

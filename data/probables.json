@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-08-11T21:12:22.922931+00:00",
+  "generated_at": "2026-08-12T12:48:13.995480+00:00",
   "in_season": true,
-  "date_label": "Tuesday's",
+  "date_label": "Wednesday's",
   "leagues": [
     {
       "name": "AL",
       "games": [
         {
           "away": "Cleveland",
-          "away_pitcher": "T. Bibee 4-11",
+          "away_pitcher": "T. Bibee 4-12",
           "home": "Detroit",
           "home_pitcher": "D. Anderson 4-4"
         },
@@ -20,27 +20,27 @@
         },
         {
           "away": "Boston",
-          "away_pitcher": "P. Sandoval 1-0",
+          "away_pitcher": "P. Sandoval 1-1",
           "home": "Toronto",
           "home_pitcher": "D. Cease 7-5"
         },
         {
           "away": "Baltimore",
-          "away_pitcher": "B. Young 8-3",
+          "away_pitcher": "B. Young 9-3",
           "home": "Minnesota",
-          "home_pitcher": "B. Ober 7-3"
+          "home_pitcher": "B. Ober 7-4"
         },
         {
           "away": "Texas",
-          "away_pitcher": "C. Bradford 0-0",
+          "away_pitcher": "C. Bradford 0-1",
           "home": "Los Angeles",
           "home_pitcher": "R. Johnson 2-6"
         },
         {
           "away": "Tampa Bay",
-          "away_pitcher": "N. Martinez 11-3",
+          "away_pitcher": "N. Martinez 12-3",
           "home": "Athletics",
-          "home_pitcher": "M. Barnett 1-2"
+          "home_pitcher": "M. Barnett 1-3"
         }
       ]
     },
@@ -49,21 +49,21 @@
       "games": [
         {
           "away": "Pittsburgh",
-          "away_pitcher": "P. Skenes 9-10",
+          "away_pitcher": "P. Skenes 9-11",
           "home": "Miami",
-          "home_pitcher": "E. Perez 5-9"
+          "home_pitcher": "E. Perez 6-9"
         },
         {
           "away": "Chicago",
           "away_pitcher": "S. Imanaga 8-9",
           "home": "Washington",
-          "home_pitcher": "J. Irvin 2-5"
+          "home_pitcher": "J. Irvin 2-6"
         },
         {
           "away": "New York",
-          "away_pitcher": "N. McLean 8-7",
+          "away_pitcher": "N. McLean 8-8",
           "home": "Atlanta",
-          "home_pitcher": "M. Perez 7-6"
+          "home_pitcher": "M. Perez 8-6"
         },
         {
           "away": "Philadelphia",
@@ -73,21 +73,21 @@
         },
         {
           "away": "Colorado",
-          "away_pitcher": "T. Sugano 11-5",
+          "away_pitcher": "T. Sugano 12-5",
           "home": "Arizona",
           "home_pitcher": "M. Bratt 1-1"
         },
         {
           "away": "Milwaukee",
-          "away_pitcher": "K. Harrison 9-2",
+          "away_pitcher": "K. Harrison 9-3",
           "home": "San Diego",
-          "home_pitcher": "W. Buehler 6-5"
+          "home_pitcher": "W. Buehler 7-5"
         },
         {
           "away": "Houston",
-          "away_pitcher": "H. Brown 3-1",
+          "away_pitcher": "H. Brown 3-2",
           "home": "San Francisco",
-          "home_pitcher": "C. Whisenhunt 2-3"
+          "home_pitcher": "C. Whisenhunt 3-3"
         },
         {
           "away": "Kansas City",

@@ -303,6 +303,27 @@ start of the whole rotation.
       `media/logos/answer.png` once the answer appears.
 - [x] Sits with the other general (non-league-specific) cards: title card → headlines → On This
       Day → Birthdays → **Sports Trivia** → MLB block → NFL block → loop.
+- [x] Follow-up: trivia/question/answer badge pixelation matched to Birthdays
+      (`BIRTHDAY_LOGO_PIXELATE_RESOLUTION` instead of the sharper default).
+
+## Feature: League Quote (new)
+- [x] Shown once **after each league's block** (after MLB standings, after NFL standings) — not
+      a general card like the others above, since it's tied to a specific league.
+- [x] Real athlete/coach quotes, not GPT-generated — scrapes Goodreads' quote-tag pages
+      (`goodreads.com/quotes/tag/baseball`, `.../football`; "football" there is dominated by
+      American football, not soccer). `src/refresh_quotes.py` → `data/quotes.json`
+      (`{"quotes": {"mlb": {...}, "nfl": {...}}}`).
+- [x] Pick logic: the tag pages mix genuine athlete quotes (Babe Ruth, Vince Lombardi) with
+      loosely-tagged literary/commentary quotes that just happen to share the tag (a humor
+      columnist riffing on football, etc.) — a "sports" co-tag turned out **not** to correlate
+      with quote quality (checked: Lombardi/Manning/Rice entries had no "sports" co-tag, a noisy
+      Dave Barry one did). Instead uses a curated per-league famous-name list
+      (`FAMOUS_BY_LEAGUE`, same pattern as `refresh_history.py`'s `FAMOUS_ATHLETES`) to prefer a
+      real sports-figure quote when one's in the fetched batch; falls back to random pick
+      otherwise — "related to the league if possible," not guaranteed. Verified live: MLB → Babe
+      Ruth, NFL → Lou Holtz, both real famous-name matches.
+- [x] Same left-column-logo/flush-bottom treatment as the other general cards; badge is
+      `media/logos/quote.png`. `buildQuotePage` / `drawQuoteBoard` in `app.js`.
 
 ## Feature: Title Card + Headlines Board (new)
 - [x] **Title card**: `media/logos/titlecard.png` shown full-canvas (covers header/panel/ticker
