@@ -325,6 +325,19 @@ start of the whole rotation.
 - [x] Same left-column-logo/flush-bottom treatment as the other general cards; badge is
       `media/logos/quote.png`. `buildQuotePage` / `drawQuoteBoard` in `app.js`.
 
+## Feature: Section Intro ("FOOTBALL / COMING UP:") (new)
+- [x] One shown right before each league's block starts — before MLB probables, before NFL
+      Latest Line. No new data source needed: headlines are pulled straight from that league's
+      own `mlbSlides`/`nflSlides` (already in memory), using the same `title` field the Headlines
+      board reads — a live preview of what's actually coming up in this pass through the
+      rotation, not a separately-fetched/curated list. Up to 4 headlines
+      (`SECTION_INTRO_MAX_HEADLINES`), de-duplicated.
+- [x] Centered big title (sport name) + "COMING UP:" subtitle, then a left-aligned "- headline"
+      bullet list reusing `wrapHeadline`'s prefix/continuation-indent wrapping (same mechanism as
+      the Headlines board's ".. headline" bullets, different prefix). No side logo — full-width
+      layout, distinct from the other general cards' left-column-logo treatment.
+      `buildSectionIntroPage` / `drawSectionIntroBoard` in `app.js`.
+
 ## Feature: Title Card + Headlines Board (new)
 - [x] **Title card**: `media/logos/titlecard.png` shown full-canvas (covers header/panel/ticker
       entirely) as the very first item every time the rotation loops, for `TITLECARD_DURATION`

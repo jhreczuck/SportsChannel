@@ -227,6 +227,28 @@ function buildQuotePage(quotesData, league) {
 }
 
 // ---------------------------
+// Section Intro builder ("FOOTBALL / COMING UP: ...")
+// ---------------------------
+const SECTION_INTRO_MAX_HEADLINES = 4;
+
+// Pulls headlines straight from that league's own story slides -- no
+// separate data source needed, and it's a live preview of what's actually
+// coming up in this pass through the rotation.
+function buildSectionIntroPage(sportName, leagueStoryItems) {
+  const titles = [];
+  const seen = new Set();
+  for (const item of leagueStoryItems) {
+    const title = (item.slide && item.slide.title || "").trim();
+    if (!title || seen.has(title)) continue;
+    seen.add(title);
+    titles.push(title);
+    if (titles.length >= SECTION_INTRO_MAX_HEADLINES) break;
+  }
+  if (!titles.length) return [];
+  return [{ type: "section_intro", sportName, headlines: titles }];
+}
+
+// ---------------------------
 // Headlines board builder
 // ---------------------------
 const HEADLINES_MAX_PAGES = 2;
@@ -884,6 +906,38 @@ function drawQuoteBoard(page, quoteLogo) {
 }
 
 // ---------------------------
+// Section Intro ("FOOTBALL" / "COMING UP: ...")
+// ---------------------------
+function drawSectionIntroBoard(page) {
+  const centerX = inner.x + inner.w / 2;
+  let y = inner.y + TEXT_PADDING + 10;
+
+  ctx.font = `${BOARD_TITLE_FONT_PX + 12}px PxPlusIBMVGA8, monospace`;
+  ctx.fillStyle = "rgb(235,150,60)"; // same warm accent as the other board titles
+  ctx.textBaseline = "top";
+  ctx.textAlign = "center";
+  ctx.fillText(page.sportName, centerX, y);
+  y += BOARD_TITLE_FONT_PX + 12 + 16;
+
+  ctx.font = BODY_FONT;
+  ctx.fillStyle = TEXT_COLOR;
+  ctx.fillText("COMING UP:", centerX, y);
+  y += BODY_FONT_PX + 30;
+
+  ctx.textAlign = "left";
+  const listX = inner.x + TEXT_PADDING + 20;
+  const listWidth = Math.max(40, inner.w - TEXT_PADDING * 2 - 40);
+  const lineHeight = BODY_FONT_PX + 4;
+  for (const headline of page.headlines) {
+    for (const line of wrapHeadline(headline, "- ", "  ", listWidth, ctx)) {
+      ctx.fillText(line, listX, y);
+      y += lineHeight;
+    }
+    y += 10;
+  }
+}
+
+// ---------------------------
 // Music
 // ---------------------------
 const audioEl = new Audio();
@@ -1025,14 +1079,19 @@ async function main() {
   const otherSlides = storySlides.filter((s) => !["nfl", "mlb"].includes((s.league || "").toLowerCase()))
     .map((s) => ({ type: "story", slide: s }));
 
+  // Section intros preview a few real headlines from that league's own
+  // slides, so they need to be built after mlbSlides/nflSlides exist.
+  const mlbIntroPages = buildSectionIntroPage("BASEBALL", mlbSlides);
+  const nflIntroPages = buildSectionIntroPage("FOOTBALL", nflSlides);
+
   const items = [
     { type: "titlecard" },
     ...headlinesPages,
     ...historyPages,
     ...birthdaysPages,
     ...triviaPages,
-    ...probablesPages, ...mlbSlides, ...mlbStandingsPages, ...mlbQuotePages,
-    ...latestLinePages, ...nflSlides, ...nflStandingsPages, ...nflQuotePages,
+    ...mlbIntroPages, ...probablesPages, ...mlbSlides, ...mlbStandingsPages, ...mlbQuotePages,
+    ...nflIntroPages, ...latestLinePages, ...nflSlides, ...nflStandingsPages, ...nflQuotePages,
     ...otherSlides,
   ];
   if (items.length === 1) items.push({ type: "story", slide: { title: "", body: "No content available.", logo: null } });
@@ -1165,6 +1224,8 @@ async function main() {
       drawTriviaBoard(item, questionLogo, answerLogo, elapsed >= TRIVIA_REVEAL_DELAY);
     } else if (item.type === "quote") {
       drawQuoteBoard(item, quoteLogo);
+    } else if (item.type === "section_intro") {
+      drawSectionIntroBoard(item);
     }
 
     drawTicker(tickerText, tickerWidth, tickerX);
