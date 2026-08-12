@@ -390,6 +390,21 @@ start of the whole rotation.
       21/21 tracks normalized, 0 failures. Verified a normalized track actually loads and plays
       in-browser (175.7s duration).
 
+## Feature: Score Results ("Monday's NFL Result") (new)
+- [x] One card per league, showing the most recent completed day's final scores, inserted right
+      after that league's Section Intro (before Probables/Latest Line). Multiple finals stack on
+      one card (paginated at 4 games/screen, same density as Latest Line), rather than one card
+      per game.
+- [x] `src/refresh_score_results.py` walks backward day-by-day (up to 10 days) from today looking
+      for the most recent date with at least one `STATUS_FINAL` game — "yesterday" isn't always
+      right, confirmed live during this preseason gap: NFL's most recent finals were a full week
+      back, while MLB had 15 the very next day. `data/score_results.json` →
+      `{"results": {"nfl": {"day_label", "games": [...]}, "mlb": {...}}}`.
+- [x] Reuses the standard right-side logo column (generic `nfl.png`/`mlb.png`, not the tall
+      left-column treatment) and the row-highlight pattern from Probables/Latest Line — two
+      highlighted rows per game (away name + score, home name + score, score right-aligned).
+      `buildScoreResultsPages` / `drawScoreResultsBoard` in `app.js`.
+
 ## Feature: Game-recap prioritization (news_feed.py)
 - [x] Bubble game-recap-style stories ("X beat Y 5-2") to the front of each league's feed before
       truncating to `max_per_sport`, so recaps aren't crowded out by analysis/opinion/preview

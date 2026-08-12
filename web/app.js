@@ -354,6 +354,30 @@ function buildLatestLinePages(latestLineData) {
 }
 
 // ---------------------------
+// Score Results builder ("Monday's NFL Result(s)")
+// ---------------------------
+const SCORE_RESULTS_GAMES_PER_SCREEN = 4;
+
+function buildScoreResultsPages(scoreResultsData, league) {
+  const result = scoreResultsData && scoreResultsData.results && scoreResultsData.results[league];
+  if (!result || !result.games || !result.games.length) return [];
+  const games = result.games;
+  const totalPages = Math.ceil(games.length / SCORE_RESULTS_GAMES_PER_SCREEN);
+  const pages = [];
+  for (let p = 0; p < totalPages; p++) {
+    pages.push({
+      type: "score_results",
+      league,
+      dayLabel: result.day_label,
+      games: games.slice(p * SCORE_RESULTS_GAMES_PER_SCREEN, (p + 1) * SCORE_RESULTS_GAMES_PER_SCREEN),
+      page: p + 1,
+      totalPages,
+    });
+  }
+  return pages;
+}
+
+// ---------------------------
 // Drawing helpers
 // ---------------------------
 function drawHeader(headerLogo) {
@@ -1000,6 +1024,56 @@ function drawSectionIntroBoard(page, linesToShow) {
 }
 
 // ---------------------------
+// Score Results ("Monday's NFL Result")
+// ---------------------------
+function drawScoreResultsBoard(page, leagueLogo, linesToShow) {
+  const shouldShow = makeLineGate(linesToShow);
+  const titleY = inner.y + TEXT_PADDING;
+
+  ctx.font = BODY_FONT;
+  ctx.fillStyle = TEXT_COLOR;
+  ctx.textBaseline = "top";
+  ctx.textAlign = "left";
+  let title = `${page.dayLabel} ${page.league.toUpperCase()} Result`;
+  if (page.totalPages > 1) title += ` (${page.page}/${page.totalPages})`;
+  if (shouldShow()) ctx.fillText(title, inner.x + TEXT_PADDING, titleY);
+
+  const nameX = inner.x + TEXT_PADDING;
+  const colW = leftRect.w - TEXT_PADDING * 2; // leave the logo column clear
+  const scoreX = nameX + colW - 10;
+  const rowHeight = BODY_FONT_PX + 12;
+  let rowY = titleY + BODY_FONT_PX + 30;
+
+  for (const game of page.games) {
+    if (shouldShow()) {
+      ctx.fillStyle = BOARD_ROW_BG;
+      ctx.fillRect(nameX - 8, rowY - 4, colW, rowHeight - 6);
+      ctx.fillStyle = TEXT_COLOR;
+      ctx.textAlign = "left";
+      ctx.fillText(game.away, nameX, rowY);
+      ctx.textAlign = "right";
+      ctx.fillText(String(game.away_score), scoreX, rowY);
+      ctx.textAlign = "left";
+    }
+    rowY += rowHeight;
+
+    if (shouldShow()) {
+      ctx.fillStyle = BOARD_ROW_BG;
+      ctx.fillRect(nameX - 8, rowY - 4, colW, rowHeight - 6);
+      ctx.fillStyle = TEXT_COLOR;
+      ctx.textAlign = "left";
+      ctx.fillText(game.home, nameX, rowY);
+      ctx.textAlign = "right";
+      ctx.fillText(String(game.home_score), scoreX, rowY);
+      ctx.textAlign = "left";
+    }
+    rowY += rowHeight + 14;
+  }
+
+  if (leagueLogo) drawLogoInBox(leagueLogo, rightRect);
+}
+
+// ---------------------------
 // Music
 // ---------------------------
 const audioEl = new Audio();
@@ -1119,6 +1193,15 @@ async function main() {
     console.warn("[trivia] load failed:", e);
   }
 
+  let mlbScoreResultsPages = [], nflScoreResultsPages = [];
+  try {
+    const scoreResultsData = await loadJSON("../data/score_results.json");
+    mlbScoreResultsPages = buildScoreResultsPages(scoreResultsData, "mlb");
+    nflScoreResultsPages = buildScoreResultsPages(scoreResultsData, "nfl");
+  } catch (e) {
+    console.warn("[score results] load failed:", e);
+  }
+
   let mlbQuotePages = [], nflQuotePages = [];
   try {
     const quotesData = await loadJSON("../data/quotes.json");
@@ -1152,8 +1235,8 @@ async function main() {
     ...historyPages,
     ...birthdaysPages,
     ...triviaPages,
-    ...mlbIntroPages, ...probablesPages, ...mlbSlides, ...mlbStandingsPages, ...mlbQuotePages,
-    ...nflIntroPages, ...latestLinePages, ...nflSlides, ...nflStandingsPages, ...nflQuotePages,
+    ...mlbIntroPages, ...mlbScoreResultsPages, ...probablesPages, ...mlbSlides, ...mlbStandingsPages, ...mlbQuotePages,
+    ...nflIntroPages, ...nflScoreResultsPages, ...latestLinePages, ...nflSlides, ...nflStandingsPages, ...nflQuotePages,
     ...otherSlides,
   ];
   if (items.length === 1) items.push({ type: "story", slide: { title: "", body: "No content available.", logo: null } });
@@ -1294,6 +1377,8 @@ async function main() {
       drawQuoteBoard(item, quoteLogo, boardLinesToShow);
     } else if (item.type === "section_intro") {
       drawSectionIntroBoard(item, boardLinesToShow);
+    } else if (item.type === "score_results") {
+      drawScoreResultsBoard(item, item.league === "nfl" ? nflLogo : mlbLogo, boardLinesToShow);
     }
 
     drawTicker(tickerText, tickerWidth, tickerX);
