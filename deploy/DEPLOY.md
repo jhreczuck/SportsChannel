@@ -92,18 +92,38 @@ systemctl start sportschannel-refresh.service
 journalctl -u sportschannel-refresh.service -n 50 --no-pager
 ```
 
-## 7. Install the nginx config
+## 7. Install nginx and the config (Rocky Linux 9 / RHEL-family)
+
+Rocky doesn't ship nginx by default, and uses `conf.d/` rather than the
+Debian-style `sites-available`/`sites-enabled` layout. Rocky also ships
+with SELinux and firewalld both active by default — both need explicit
+config or nginx will get silently denied / the port will be unreachable
+from outside the box, even once nginx itself is running correctly.
 
 ```bash
-cp deploy/nginx-sportschannel.conf /etc/nginx/sites-available/sportschannel
-ln -s /etc/nginx/sites-available/sportschannel /etc/nginx/sites-enabled/sportschannel
+dnf install -y nginx
+systemctl enable --now nginx
+
+cp deploy/nginx-sportschannel.conf /etc/nginx/conf.d/sportschannel.conf
+
+# SELinux: without this, nginx can't read /opt/sportschannel even with
+# correct Unix file permissions.
+dnf install -y policycoreutils-python-utils
+semanage fcontext -a -t httpd_sys_content_t "/opt/sportschannel(/.*)?"
+restorecon -Rv /opt/sportschannel
+
+# firewalld: open the port for external access.
+firewall-cmd --permanent --add-port=8080/tcp
+firewall-cmd --reload
+
 nginx -t
 systemctl reload nginx
 ```
 
 If port 8080 is already in use by something else on this box (it may be,
 given boston311 is also hosted here), change the `listen 8080;` lines in
-`deploy/nginx-sportschannel.conf` to a free port before copying it in.
+`deploy/nginx-sportschannel.conf` (and the firewalld command above) to a
+free port before copying it in.
 
 ## 8. Verify
 
