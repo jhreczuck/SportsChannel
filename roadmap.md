@@ -338,6 +338,23 @@ start of the whole rotation.
       layout, distinct from the other general cards' left-column-logo treatment.
       `buildSectionIntroPage` / `drawSectionIntroBoard` in `app.js`.
 
+## Feature: Game-recap prioritization (news_feed.py)
+- [x] Bubble game-recap-style stories ("X beat Y 5-2") to the front of each league's feed before
+      truncating to `max_per_sport`, so recaps aren't crowded out by analysis/opinion/preview
+      pieces that happened to publish more recently.
+- [x] First pass checked the full article body and was far too loose — nearly every baseball
+      article mentions *some* score/W-L record in passing, so ~everything matched (verified: 10/10
+      sampled MLB items flagged true, including "White Sox stats you probably haven't thought
+      about"). Tightened to require **both** the score-shaped number ("4-1") and a recap keyword
+      to appear specifically in the **title**, not the body — real recap headlines put them right
+      next to each other ("...to 4-1 victory over Astros", "A's Blown Out By Rays 12-4"), while a
+      preview like "Tigers seek series-clinching win over Guardians" has the keyword but no score
+      digits and now correctly excludes.
+      Verified against live data: MLB recaps (SF Giants 4-1 victory, Astros 4-1 Loss, Brewers
+      hammered 11-2, A's Blown Out 12-4) correctly lead the order; NFL had zero recaps available
+      (preseason games just starting this week) and zero false positives — heuristic leaves order
+      unchanged when nothing qualifies, doesn't force a match.
+
 ## Feature: Title Card + Headlines Board (new)
 - [x] **Title card**: `media/logos/titlecard.png` shown full-canvas (covers header/panel/ticker
       entirely) as the very first item every time the rotation loops, for `TITLECARD_DURATION`

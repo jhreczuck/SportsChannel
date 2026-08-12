@@ -208,6 +208,34 @@ _FANTASY_PROMO_RE = re.compile(
     re.IGNORECASE,
 )
 
+# Heuristic for "this is a game recap" (score reported) vs. analysis/opinion/
+# roster-move/preview pieces. Checking the full article body was too loose --
+# nearly every baseball article mentions *some* score or W-L record in
+# passing, so it matched almost everything. Requiring BOTH the score-shaped
+# number ("4-1") AND a recap keyword to appear specifically in the TITLE is
+# far more precise: real recap headlines put them right next to each other
+# ("SF Giants ride quality pitching... to 4-1 victory over Astros", "A's
+# Blown Out By Rays 12-4"), while a future-tense preview like "Tigers seek
+# series-clinching win over Guardians" has the keyword but no score digits,
+# and gets correctly excluded.
+_SCORE_PATTERN_RE = re.compile(r"\b\d{1,3}\s*[-–]\s*\d{1,3}\b")
+_RECAP_KEYWORDS = [
+    "beat", "beats", "beaten", "defeat", "defeated", "defeats",
+    "top", "tops", "topped", "rally", "rallied", "walk-off", "walked off",
+    "shutout", "shut out", "win", "wins", "won", "loss", "lose", "lost",
+    "fall to", "falls to", "fell to", "recap", "final score",
+    "clinch", "clinched", "sweep", "swept", "hammered", "blown out",
+    "blow out", "romp", "romped", "rout", "routed", "victory",
+    "trounce", "trounced", "outlast", "outlasted", "edge", "edged",
+]
+
+
+def _is_game_recap(item: "NewsItem") -> bool:
+    title_lower = item.title.lower()
+    if not _SCORE_PATTERN_RE.search(item.title):
+        return False
+    return any(kw in title_lower for kw in _RECAP_KEYWORDS)
+
 
 def _is_caption_sentence(sentence: str) -> bool:
     """
@@ -353,6 +381,11 @@ def fetch_sport_news(sport: str, max_items: int | None = None) -> List[NewsItem]
         return []
 
     items = _parse_rss_items(sport_lower, xml_text)
+    # Bubble game-recap-style stories to the front before truncating, so a
+    # truncated max_items window favors "X beat Y 5-2" over analysis/opinion
+    # pieces that happened to publish more recently. Stable sort preserves
+    # feed order within each group.
+    items.sort(key=lambda item: not _is_game_recap(item))
     if max_items is not None:
         items = items[:max_items]
     return items

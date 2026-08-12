@@ -1,6 +1,34 @@
 {
-  "generated_at": "2026-08-12T12:45:45.205345Z",
+  "generated_at": "2026-08-12T13:14:45.349103Z",
   "headlines": [
+    {
+      "title": "SF Giants ride quality pitching, Bryce Eldridge homer to 4-1 victory over Astros",
+      "league": "mlb"
+    },
+    {
+      "title": "Astros Waste Early Opportunities in 4-1 Loss to Giants",
+      "league": "mlb"
+    },
+    {
+      "title": "Harrison, Brewers hammered by Padres, 11-2",
+      "league": "mlb"
+    },
+    {
+      "title": "A’s Blown Out By Rays 12-4",
+      "league": "mlb"
+    },
+    {
+      "title": "In the lab: An alternative look at offensive efficiency",
+      "league": "mlb"
+    },
+    {
+      "title": "White Sox stats you probably haven’t thought about",
+      "league": "mlb"
+    },
+    {
+      "title": "Today in White Sox History: August 12",
+      "league": "mlb"
+    },
     {
       "title": "Ranking MLB teams by World Series titles: Which clubs have never won?",
       "league": "mlb"
@@ -11,6 +39,10 @@
     },
     {
       "title": "Cal Raleigh gives blunt assessment of his performance with Mariners mired in losing streak: 'I'm awful'",
+      "league": "mlb"
+    },
+    {
+      "title": "Phillies vs Cardinals Prediction, Picks & Odds for Today's MLB Game",
       "league": "mlb"
     },
     {
@@ -46,40 +78,8 @@
       "league": "mlb"
     },
     {
-      "title": "Mets Daily Prospect Report, 8/12/26: The Mets minor league system digs the long ball",
-      "league": "mlb"
-    },
-    {
-      "title": "Cubs current record, schedule, MLB standings, broadcast information",
-      "league": "mlb"
-    },
-    {
-      "title": "Could Tarik Skubal go home to Tigers? What history says about MLB rental stars",
-      "league": "mlb"
-    },
-    {
-      "title": "Which hitter could be cut following possible star returns?",
-      "league": "mlb"
-    },
-    {
-      "title": "Yankees news: Giancarlo Stanton runs bases as rehab continues",
-      "league": "mlb"
-    },
-    {
-      "title": "Sugano Continues to Have the Dbacks Number: Dbacks 2, Rockies 3",
-      "league": "mlb"
-    },
-    {
-      "title": "SF Giants ride quality pitching, Bryce Eldridge homer to 4-1 victory over Astros",
-      "league": "mlb"
-    },
-    {
-      "title": "Royals game goes to extra innings and you already know how that story ends",
-      "league": "mlb"
-    },
-    {
-      "title": "Blake Snell has a stellar start and Dodgers get walk-off win over Royals",
-      "league": "mlb"
+      "title": "Pre-Snap Reads: Robbie Ouzts placed on IR; out for the 2026 season",
+      "league": "nfl"
     },
     {
       "title": "It’s time for the Falcons’ offensive line to set the tone",
@@ -147,10 +147,6 @@
     },
     {
       "title": "Chiefs News: Defense getting synced up has ‘been a little slow-moving’",
-      "league": "nfl"
-    },
-    {
-      "title": "Jets announce Qwan’tez Stiggers has been released from the hospital",
       "league": "nfl"
     }
   ]

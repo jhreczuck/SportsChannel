@@ -1,8 +1,16 @@
 {
-  "generated_at": "2026-08-12T12:45:45.203932Z",
+  "generated_at": "2026-08-12T13:14:45.346888Z",
   "source": "yahoo_news_via_news_feed",
   "max_per_sport": 25,
   "slides": [
+    {
+      "title": "Pre-Snap Reads: Robbie Ouzts placed on IR; out for the 2026 season",
+      "body": "<<<INDENT>>>The fullback position is vital to the unique and sustained success of the offense OC Brian Fleury is attempting to implement for our beloved Seattle Seahawks. One of the main players in that equation is Robbie Ouzts, a one-of-one specimen that has had trouble staying on the field since being drafted in 2025. Unfortunately, Robbie is out for the season and now we as a squad have to adjust. We need our FBs, our TEs, et al to function as a multiplicity. <<<INDENT>>>(cont) How hard are you taking the Ouzts injury?",
+      "logo": "seahawks.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
     {
       "title": "It’s time for the Falcons’ offensive line to set the tone",
       "body": "<<<INDENT>>>Despite being severely undermanned at quarterback and in the skill position areas, they managed to stay competitive in most games thanks to a punishing ground game. It was one of Arthur Smith’s few highlights during his time in Atlanta. It also showcased Dwayne Ledford’s capabilities as an offensive line coach. That season set the stage for a unified offensive line to develop into one of the league’s best units. They never lived up to those expectations. <<<INDENT>>>(cont) They couldn’t run the ball efficiently in numerous games in 2023.",
@@ -212,19 +220,83 @@
       "category": null
     },
     {
-      "title": "Jets announce Qwan’tez Stiggers has been released from the hospital",
-      "body": "<<<INDENT>>>When Jets cornerback Qwan’tez Stiggers was taken off the practice field on a stretcher Tuesday, it was a scary moment. But it appears that Stiggers is going to be fine. The Jets have announced that Stiggers was released from the hospital and is home recovering. Stiggers ended up needing to be in the hospital for only a few hours after passing out on the sideline during practice.",
-      "logo": "jets.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
+      "title": "SF Giants ride quality pitching, Bryce Eldridge homer to 4-1 victory over Astros",
+      "body": "<<<INDENT>>>Winning a close game where the Giants ran the bases opportunistically and the other team committed a bunch of errors? That’s some weird, wild stuff. Carson Whisenhunt had a rough start, letting six of the first nine Astros he faced reach base. But he escaped and eventually earned his third win of the season after giving up just one run in 5.2 innings. Then Carson Seymour came through with two shutout innings of relief, yielding only a single to “Late Night” LaMonte Wade, Jr.",
+      "logo": "mlb_giants.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
       "category": null
     },
     {
       "title": "",
-      "body": "<<<INDENT>>>(cont) It's unclear what led him to pass out and there's been no word on when he might be back at practice. The 24-year-old Stiggers is heading into his third season with the Jets. He's an easy player to root for given his journey to the NFL after never playing college football. Stiggers went from high school football to the Fan Controlled Football league and then signed with the Toronto Argonauts of the Canadian Football League.",
-      "logo": "jets.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
+      "body": "<<<INDENT>>>(cont) It was a different sort of game for the Giants, who continued their hard-luck ways Monday when Andrew Susac fouled a ball off leg and fractured his kneecap, which will keep him off the field and off his scooter for the foreseeable future. But Tuesday, the breaks started to go their way. In the first inning, Whisenhunt escaped a bases-loaded jam, caused by a walk, a single and hitting Jose Altuve with a pitch.",
+      "logo": "mlb_giants.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "Astros Waste Early Opportunities in 4-1 Loss to Giants",
+      "body": "<<<INDENT>>>Not only would Houston lose by a score of 4-1, but they’d also witness an early exit from Jose Altuve who was hit in the left foot on an errant pitch from Carson Whisenhunt during his first AB. Nick Allen would replace Altuve as a result. It’s officially being listed as a left foot contusion. Whisenhunt labored early on. In the opening two innings alone, he’d toss 55 pitches.",
+      "logo": "astros.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "Harrison, Brewers hammered by Padres, 11-2",
+      "body": "<<<INDENT>>>For the sixth time this season, the Brewers gave up double-digit runs in a game, and three of those have happened on the west coast. This time, it was an 11-2 loss to the Padres on Wednesday night in San Diego. The game started off well enough for Kyle Harrison, who needed just ten pitches to get through the first inning despite allowing a single. However, it all started falling apart in the second. The inning started with back-to- <<<INDENT>>>(cont) back singles by Jackson Merrill and Austin Hays.",
+      "logo": "brewers.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "A’s Blown Out By Rays 12-4",
+      "body": "<<<INDENT>>>#25 of the Tampa Bay Rays celebrates after hitting a home run during the game between the Tampa Bay Rays and the Athletics at Sutter Health Park on Tuesday, August 11, 2026 in Sacramento, California. The A’s will now have their backs up against the wall tomorrow as they’ll hope to avoid the sweep in front of the home crowd. And with the Angels’ win tonight, they need a win to avoid the cellar of the American League.",
+      "logo": "rays.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) How did it come to this?Tampa didn’t wait to get going against A’s starter Mason Barnett. Just two batters into the game the Rays were up 2-0 thanks to a two-run blast off the bat of Rays slugger Junior Caminero, his 35th of the year which puts him in a tie for the league lead. Tampa would add on another in the third inning thanks to two walks and a wild pitch from Barnett, then three more in the fourth off back-to-back home runs, another two-run blast and a solo home run.",
+      "logo": "rays.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "In the lab: An alternative look at offensive efficiency",
+      "body": "<<<INDENT>>>One of the more fascinating parts of statistics is that they give us the opportunity to prove or disprove the veracity of what we are seeing and experiencing. Games like last night come immediately to the forefront. The Astros load the bases twice in the first two innings with a combined one out and come up with only one run. It often feels like the Astros leave a small village on base. That speaks to offensive efficiency and we have covered that ground before. <<<INDENT>>>(cont) It wouldn’t surprise anyone to see that the Astros efficiency rating has gone up this year as they have scored more runs and generally had more offensive success.",
+      "logo": "astros.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "White Sox stats you probably haven’t thought about",
+      "body": "<<<INDENT>>>As Sam Antonacci well knows, there are a whole lot of batters being hit by pitches in White Sox games this year. Henderson/Getty Images) Chances are, if you’re even a casual White Sox fan, you share the incredible surprise at the team’s record. If you’re somewhat algorithm inclined, you may be aware that both FanGraphs and PECOTA now predict they’ll end the season with an 82-80 record, barely better than .500. But, since we’re talking about the AL Central,",
+      "logo": null,
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) that’s enough to squeak by and win the division. If you like a little more in the way of numbers, thanks to the barrage of shilling for sports books on every trivial event in order to promote problem gambling that the announcing staff does, you’re probably aware that the White Sox are eighth in the majors in runs scored per game, 4.76, and a hair better than average in runs allowed at 4.44. Sixth in homers? You knew that.",
+      "logo": null,
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "Today in White Sox History: August 12",
+      "body": "<<<INDENT>>>On this day 54 years ago, Ed Spiezio clubbed the White Sox into first place. WTHB 1907In a 5-3 loss to the Boston Americans, Ed Walsh had 11 assists over eight innings, becoming the first pitcher in history to have at least 11 assists in a game twice in one season. Walsh added one putout and made no errors. He dropped to 18-10 on the season in one of just nine starts he made of 46 total he didn’t complete. (Walsh’s 56 games, 46 starts, 37 complete games, <<<INDENT>>>(cont) four saves and 422 13 innings all led the entire majors in 1907. )Walsh also gobbled up 11 assists in a 1-0 win over the St.",
+      "logo": "history.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
       "category": null
     },
     {
@@ -250,6 +322,14 @@
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
+    },
+    {
+      "title": "Phillies vs Cardinals Prediction, Picks & Odds for Today's MLB Game",
+      "body": "<<<INDENT>>>Want to get more Covers content? Add us as a preferred source on your Google account here. The Philadelphia Phillies sit as a heavy -150 moneyline favorite this afternoon against the St. Louis Cardinals, with first pitch scheduled for 2:15 p. m. ET at Busch Stadium. However, my Phillies vs.",
+      "logo": "phillies.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": "MLB"
     },
     {
       "title": "Braves News: Matt Olson rakes again, Bryce Elder, and more",
@@ -338,142 +418,6 @@
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
-    },
-    {
-      "title": "Mets Daily Prospect Report, 8/12/26: The Mets minor league system digs the long ball",
-      "body": "<<<INDENT>>>PORT ST. LUCIE, FLORIDA - MARCH 19, 2026: Elian Peña #3 of the New York Mets bats during the first inning of a spring training Spring Breakout game against the Tampa Bay Rays at Clover Park on March 19, 2026 in Port St. Lucie, Florida. The right-hander tossed four innings against the Jumbo Shrimp, allowing a run- a Bennett Hostetler solo homer- on four hits and four walks, striking out six. The run ultimately didn’t matter much, as the offense was clicking on most cylinders.",
-      "logo": "mets.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "Cubs current record, schedule, MLB standings, broadcast information",
-      "body": "<<<INDENT>>>Last game: 8-6 win over NationalsNext game: Wednesday, Aug. 12, vs. Nationals at Washington, 5:45 p. m. CT. TV: Marquee Sports Network. Cubs regular season radio: WSCR 670/104.3 The Score (all regular season games), Cubs broadcast radio affiliates, Cubs Sirius XM radio scheduleCurrent MLB standings2026 Cubs regular season scheduleCubs 2026 regular season record: 70-50 (35-24 home, 35-26 road)Al’s 2026 regular season record: 38-27 (35-24 home, 3-",
-      "logo": "cubs.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) 3 road)Cubs 2026 regular season record on various TV channels Marquee Sports Network: 66-42Fox: 2-2NBC/Peacock: 1-2ESPN/ABC: 0-2Apple TV: 1-2Cubs 2026 regular season record wearing various uniforms White pinstripe: 32-17Chicago Blues: 3-6July 4: 0-1Blue alternate: 13-9Road gray: 22-17Cubs 2026 spring training record: 14-18 (14-17 Spring Training, 0-1 WBC exhibition)Al’s 2026 spring training record: 7-8 (7-7 Spring Training, 0-1 WBC exhibition)",
-      "logo": "cubs.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "Could Tarik Skubal go home to Tigers? What history says about MLB rental stars",
-      "body": "<<<INDENT>>>There's a version of this story that ends with Tarik Skubal back in Detroit, embraced by Tigers fans. It's just not the one that anybody in the Motor City is hoping for. Skubal has been a Los Angles Dodger for a little over a week and he hasn't stopped talking about the team that traded him. \"I would love to play my whole career in Detroit,\" he said on Pardon My Take, adding that he hopes talks pick back up in November once the playoff are over.",
-      "logo": "tigers.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": "mlb"
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) Tigers fans heard hope in that sentence. The rest of the league heard a well-prepared, soon-to-be free agent represented by Scott Boras looking to keep his market open as wide as possible. All bidders are welcome.",
-      "logo": "tigers.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": "mlb"
-    },
-    {
-      "title": "Which hitter could be cut following possible star returns?",
-      "body": "<<<INDENT>>>It’s a tough time to do so, as players around the league certainly get gassed by the dog days of summer as the grind of the 162-game season really sets in. The Yanks got a 4-1 win over the Mariners last night, but it’s an unflattering statement on the offense when four runs—in one inning, no less!—feels like an explosion for this team. They must press on regardless and hope that some slumping bats awaken while the pitching remains elite.",
-      "logo": "mariners.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) The Yankees obviously hope to get all of Judge, Stanton, and Bellinger back at various points over the next month and change; manager Aaron Boone suggested that the reverse order could be most likely. Outside of Bellinger, their injuries have been fuzzy enough that I’m not going to personally focus on their returns until they’re actually in the lineup. But I do think that at absolute minimum, Bellinger will be back and Judge will appear in a lineup again by season’s end.",
-      "logo": "mariners.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "Yankees news: Giancarlo Stanton runs bases as rehab continues",
-      "body": "<<<INDENT>>>Steinbrenner Field. n New York Daily News Gary Phillips: At this point in the 2026 season, Giancarlo Stanton has been out so long that he almost feels like an afterthought, as he last played on April 24th in Houston. The calf injury was said to be minor, but sadly nothing truly is with MLB’s active home run leader. If nothing else, Stanton at least hit a milestone in the rehab process yesterday, participating in on-",
-      "logo": "yankees.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) field baserunning drills at Yankee Stadium for the first time since June (when his calf strain recurred). He had been working on his hitting, but he hadn’t previously done this during the process. Stanton has avoided rehab appearances in recent years since as a DH, the Trajekt pitching machines do an excellent job of replicating game action.",
-      "logo": "yankees.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "Sugano Continues to Have the Dbacks Number: Dbacks 2, Rockies 3",
-      "body": "<<<INDENT>>>If you would’ve asked most Dbacks fans at this point, they would probably be feeling pretty good about the rest of the game considering what this team has done to the Rockies this season. However, Sugano had different thoughts. All in all the young lefty Mitch Bratt looked pretty good tonight as he allowed just the 2 run home run over 6 innings tonight.",
-      "logo": "rockies.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) This continued an impressive turn through the Dbacks starting rotation as they group has allowed a grand total of 5 ER over their last 5 starts. Bratt continued to demonstrate poise and presence beyond his years tonight as he navigated his way through the Rockies lineup while striking out 4 Rockies batters. However as mentioned earlier, it was really the offense that let the Dbacks down again tonight in what has become a trend of scoring early and then getting shut down. It is worth noting that Sugano has had quite a bit of success against the Dbacks this season as he has allowed just 6 ER across just over 17 innings of work.",
-      "logo": "rockies.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "SF Giants ride quality pitching, Bryce Eldridge homer to 4-1 victory over Astros",
-      "body": "<<<INDENT>>>Winning a close game where the Giants ran the bases opportunistically and the other team committed a bunch of errors? That’s some weird, wild stuff. Carson Whisenhunt had a rough start, letting six of the first nine Astros he faced reach base. But he escaped and eventually earned his third win of the season after giving up just one run in 5.2 innings. Then Carson Seymour came through with two shutout innings of relief, yielding only a single to “Late Night” LaMonte Wade, Jr.",
-      "logo": "mlb_giants.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) It was a different sort of game for the Giants, who continued their hard-luck ways Monday when Andrew Susac fouled a ball off leg and fractured his kneecap, which will keep him off the field and off his scooter for the foreseeable future. But Tuesday, the breaks started to go their way. In the first inning, Whisenhunt escaped a bases-loaded jam, caused by a walk, a single and hitting Jose Altuve with a pitch.",
-      "logo": "mlb_giants.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "Royals game goes to extra innings and you already know how that story ends",
-      "body": "<<<INDENT>>>Royals starter Michael Wacha pitched well into the seventh inning and the offense rallied in the eighth inning, but the bullpen did what it does best—give up runs and lose baseball games. Most of this game was rather uneventful because Wacha and Blake Snell were cruising for most of it. Mookie Betts smacked a solo home run in the second inning and Salvador Perez lifted a sacrifice fly in the fourth inning, but most of the action happened in the final four frames.",
-      "logo": "royals.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) In the seventh inning, Alex Call doubled home Mookie Betts to give the Dodgers the lead, and then Teoscar Hernandez doubled to score Call and push the lead to two. Alex for the lead! pic. twitter. com/4NjhGQO9P3— Los Angeles Dodgers (@Dodgers) August 12, 2026Kansas City battled back the very next frame.",
-      "logo": "royals.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "Blake Snell has a stellar start and Dodgers get walk-off win over Royals",
-      "body": "<<<INDENT>>>Blake Snell pitches during the fourth inning Tuesday. (Eric Thayer / Los Angeles Times)Dodgers southpaw Blake Snell called his shot. It wasn’t quite Babe Ruth pointing from the batter’s box. The moment won’t make its way into any movie. But Snell did tell manager Dave Roberts over text message that he was going to throw six innings in his first start back from the injured list after undergoing surgery to remove loose bodies from his elbow. Then, en route to a 5-4 walk-",
-      "logo": "dodgers.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": "Sports"
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) off Dodgers victory in 10 innings against the Royals, Snell did just that. “I knew that’s what the plan was coming in, and I really wanted to execute that plan,” Snell said after limiting the Royals to one run and three hits. Despite Snell’s resume, the two-time Cy Young winner wasn’t guaranteed a smooth return. It had been three months since he’d last started a major-league game.",
-      "logo": "dodgers.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": "Sports"
     }
   ]
 }
