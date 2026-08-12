@@ -1,12 +1,52 @@
 {
-  "generated_at": "2026-08-12T13:14:45.346888Z",
+  "generated_at": "2026-08-12T13:29:35.430681Z",
   "source": "yahoo_news_via_news_feed",
   "max_per_sport": 25,
   "slides": [
     {
+      "title": "Will Chauncey Gardner-Johnson be able to contain himself vs. Texans?",
+      "body": "<<<INDENT>>>Gardner-Johnson #8 of the Houston Texans in coverage during an NFL football game against the Tampa Bay Buccaneers at NRG Stadium on September 15, 2025 in Houston, Texas. Of course things have not gone well in Houston for Buffalo, as the team has suffered three straight losses including one in the playoffs. In fact, the Bills have not won in Houston since 2006. This year the meeting will have a little more of an edge due to safety C. J. Gardner Johnson taking on his old team.",
+      "logo": "texans.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
       "title": "Pre-Snap Reads: Robbie Ouzts placed on IR; out for the 2026 season",
       "body": "<<<INDENT>>>The fullback position is vital to the unique and sustained success of the offense OC Brian Fleury is attempting to implement for our beloved Seattle Seahawks. One of the main players in that equation is Robbie Ouzts, a one-of-one specimen that has had trouble staying on the field since being drafted in 2025. Unfortunately, Robbie is out for the season and now we as a squad have to adjust. We need our FBs, our TEs, et al to function as a multiplicity. <<<INDENT>>>(cont) How hard are you taking the Ouzts injury?",
       "logo": "seahawks.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "NY Giants training camp, practice No. 13: Discussion, news, updates",
+      "body": "<<<INDENT>>>Cornerback Korie Black catches the ball during a drill. The New York Giants will have their 13th practice of training camp on Wednesday at the Quest Diagnostics Training Center. This one is expected to be the Giants final padded practice before Saturday’s preseason opener against the Minnesota Vikings. Big Blue View will be in attendance for this one, so be sure to come back after practice for a first-hand practice report, and more.",
+      "logo": "nfl_giants.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) Here are a few things we will be paying attention to:Malik Nabers’ continued progress. Head coach John Harbaugh said last week that Nabers would eventually begin to do more than routes on air. Could that be today?Could cornerback Terrion Arnold be signed?",
+      "logo": "nfl_giants.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "Puka Nacua left Rams-Cowboys practice with groin injury",
+      "body": "<<<INDENT>>>Elsewhere on the Rams’ roster, Myles Garrett missed his second straight day of practice with a knee injury. #Rams WR Puka Nacua, who left practice while walking with a trainer, is dealing with minor soreness in his groin, I'm told. The team is just being cautious. — Ian Rapoport (@RapSheet) August 11, 2026The L. A. Rams have built a “super-team” this offseason, but they better hope none of these injuries become super serious.",
+      "logo": "rams.png",
+      "league": "nfl",
+      "logo_recommended": "nfl.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) Puka Nacua injury: Rams star reportedly dealing with ‘minor’ groin soreness (ramswire)“According to Rapoport, Nacua is dealing with minor soreness in his groin that doesn’t appear to be serious. Still, any absence involving Nacua draws scrutiny given his track record. He suffered a significant right-knee injury that was later aggravated in the season opener in 2025, resulting in a PCL sprain and five games on injured reserve. In 2025, an ankle sprain against Baltimore briefly slowed him again, though he missed just one game before closing out a career year.",
+      "logo": "rams.png",
       "league": "nfl",
       "logo_recommended": "nfl.png",
       "category": null
@@ -188,35 +228,11 @@
       "category": null
     },
     {
-      "title": "2026 TCU Countdown to Kickoff: 17 Days Until Horned Frog Football",
-      "body": "<<<INDENT>>>29. As the Countdown to Kickoff continues, we’ll highlight a former Horned Frog whose jersey number coincided with the number of days remaining until the opener. At No. 17 is former TCU wide receiver Cory Rodgers!Rodgers was a consistent targer for the Horned Frogs in the early 2000s, finishing his career with 150 catches for 2,111 yards and 17 touchdowns over three seasons. In 2004, Rodgers logged a career-high 61 catches for 836 yards and seven scores.",
-      "logo": null,
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "Browns sign TE Dae’Quan Wright from Eagles, place DB on IR",
-      "body": "<<<INDENT>>>Wright (6’-4”, 255 pounds) is an athletic tight end but has been inconsistent as a blocker. He went undrafted in April’s NFL draft and then signed with the Philadelphia Eagles, but was recently waived. In a corresponding move, the Browns placed CB Damarri Mathis on IR. In Tuesday’s practice, Mathis was carted off the field. Wright began his college career at Virginia Tech and then entered the transfer portal. He chose Ole Miss, where he played the past two seasons.",
-      "logo": "browns.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "Chiefs News: Defense getting synced up has ‘been a little slow-moving’",
-      "body": "<<<INDENT>>>Kansas City Chiefs defensive coordinator Steve Spagnuolo helps players run through drills at practice during training camp on July 21, 2024, in St. Joseph, Missouri. (Emily Curiel/The Kansas City Star/Tribune News Service via Getty Images) The latestThe Kansas City Chiefs’ offense features the biggest changes the team made this offseason, with a new offensive coaching staff and a new lead running back. However, there is plenty that is brand new on the Chiefs’ defense as well.",
-      "logo": "chiefs.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) Defensive coordinator Steve Spagnuolo is focused on getting his unit in sync and provided an update on how that process is going during his press conference on Tuesday. Steve Spagnuolo admits Chiefs’ new-look defense is moving slower than he’d like The Kansas City StarGetting everybody in sync is taking a little too long. “It’s not as quickly as I’d like to, to be honest with you,” Spagnuolo said. “It’s been a little slow-moving.",
-      "logo": "chiefs.png",
-      "league": "nfl",
-      "logo_recommended": "nfl.png",
+      "title": "Thoughts on a 3-2 Rangers loss",
+      "body": "<<<INDENT>>>Efficiency. Bradford needed just 75 pitches to get through those seven innings. He faced 26 batters in all, which meant he averaged fewer than three pitches per batter. Not surprisingly, given that, he walked only one batter and struck out only one batter. Bradford wasn’t missing bats in this outing — he got just four swings and misses. He also gave up a lot of loud contact, giving up 9 hard hit balls out of the 23 balls in play.",
+      "logo": "rangers.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
       "category": null
     },
     {
@@ -268,9 +284,65 @@
       "category": null
     },
     {
+      "title": "Minor league update for 8/11/26",
+      "body": "<<<INDENT>>>An aerial view of Anglian Water's Rutland Water reservoir shows the remains of buildings in the former hamlet of Middle Hambleton, revealed in the bed of the reservoir by the receding water -- a reservoir created by the flooding of hamlets Lower and Middle Hambleton -- due to the persistent hot weather and drought, in Upper Hambleton, central England on August 12, 2026. England and Wales experienced their driest July on record this year,",
+      "logo": null,
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) with high temperatures and low rainfall across swathes of the country having plunged almost three-quarters of England and all of Wales into drought. Aneudis Mejia struck out three in 1.1 scoreless innings. Michael Trausch struck out one and walked one in a shutout inning. Marco Argudin homered. Noah Franklin had a hit and a walk. Hickory box scoreHub City’s game got suspended in the third inning with Hub City down 5-0. Joey Danielson struck out the side in an inning for Frisco.",
+      "logo": null,
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "Cubs 8, Nationals 6: Pete Crow-Armstrong smashes a monster home run",
+      "body": "<<<INDENT>>>The Cubs fell behind — again. And came from behind — again. This game was the sixth of the team’s last seven wins in which the opponent scored first. It is, I suppose, not the recommended way to win games, but the Cubs wound up on top, defeating the Nationals 8-6 in the first of a three-game series, and in the end, isn’t that what matters?Here’s how it all went down. Shōta Imanaga served up a two-run homer to CJ Abrams in the first inning. No shame in that,",
+      "logo": "cubs.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "",
+      "body": "<<<INDENT>>>(cont) really; it was Abrams’ 29th homer of the year and while he’s not going to win the MVP award, he’ll get a lot of downballot votes. The Cubs cut one run off that deficit in the top of the second. Alex Bregman led off with a walk and went to third on a single by Ian Happ. Nico Hoerner’s sac fly scored Bregman [VIDEO].",
+      "logo": "cubs.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "Cam Sanders looks to build on a strong first impression",
+      "body": "<<<INDENT>>>There are only a few good teams in the American League, and they all happen to play baseball in the AL East. The Orioles are not one of those teams. The Orioles ended last night four games below .500 and no less than three games back from the third Wild Card. It’s difficult to believe that this team is even somewhat close to .500. It feels like they lose almost every night.",
+      "logo": "orioles.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "Will a .500 or worse team make the playoffs this year?",
+      "body": "<<<INDENT>>>Looking at the standings right now, the Yankees and Red Sox have fine enough, playoff team-worthy records. And then, you have five teams separated by 2.5 games for the last AL playoff spot… with the 60-60 Rangers leading the pack. Woof. Projections-wise, it might seem fairly close. The Rangers are projected to be the sixth-best team in the AL in terms of finishing record, with 82ish wins. But, even with about seven weeks of regular season play remaining, <<<INDENT>>>(cont) the actual playoff entrant isn’t going to be the team that rolls their expected value, but probably the team that hits a higher-percentile outcome.",
+      "logo": "yankees.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
       "title": "In the lab: An alternative look at offensive efficiency",
       "body": "<<<INDENT>>>One of the more fascinating parts of statistics is that they give us the opportunity to prove or disprove the veracity of what we are seeing and experiencing. Games like last night come immediately to the forefront. The Astros load the bases twice in the first two innings with a combined one out and come up with only one run. It often feels like the Astros leave a small village on base. That speaks to offensive efficiency and we have covered that ground before. <<<INDENT>>>(cont) It wouldn’t surprise anyone to see that the Astros efficiency rating has gone up this year as they have scored more runs and generally had more offensive success.",
       "logo": "astros.png",
+      "league": "mlb",
+      "logo_recommended": "mlb.png",
+      "category": null
+    },
+    {
+      "title": "What’s your favorite baseball movie?",
+      "body": "<<<INDENT>>>Paul Saints and the Iowa Cubs at MLB Field at Field of Dreams on Tuesday, August 11, 2026 in Dyersville, Iowa. If you build it, they will come (and if you make it available via streaming, they will watch). But tonight, there’s no Phillies baseball to watch; their game is an afternoon affair. That gives you some free time. And what better way to use it than to watch a baseball movie?",
+      "logo": "saints.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null
@@ -317,7 +389,7 @@
     },
     {
       "title": "Cal Raleigh gives blunt assessment of his performance with Mariners mired in losing streak: 'I'm awful'",
-      "body": "<<<INDENT>>>One could argue Cal Raleigh was the story of the 2025 MLB season. Sure, Aaron Judge walked away with the American League MVP, but Raleigh was the breakout superstar. He clubbed 60 home runs, made his first All-Star team and won the Home Run Derby. A year later, though, Raleigh is literally one of the worst hitters in the game. With the Mariners quickly falling out of the playoff hunt after losing their fifth-straight game, <<<INDENT>>>(cont) Raleigh surprised reporters by inviting an impromptu Q&A after Tuesday’s 4-1 loss to the New York Yankees.",
+      "body": "<<<INDENT>>>One could argue Cal Raleigh was the story of the 2025 MLB season. Sure, Aaron Judge walked away with the American League MVP, but Raleigh was the breakout superstar. He clubbed 60 home runs, made his first All-Star team and won the Home Run Derby. A year later, though, Raleigh is literally one of the worst hitters in the game. With the Mariners quickly falling out of the playoff hunt after losing their fifth straight game, <<<INDENT>>>(cont) Raleigh surprised reporters by inviting an impromptu Q&A after Tuesday's 4-1 loss to the New York Yankees.",
       "logo": "mariners.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
@@ -351,70 +423,6 @@
       "title": "Wednesday Rockpile: Jake McCarthy has stabilized the Rockies’ leadoff spot",
       "body": "<<<INDENT>>>“I got to meet him. I played against him, obviously, over the last few years in Arizona here,” McCarthy said. “I mean, obviously a great player. I understand. He batted leadoff for these guys for a long time.",
       "logo": "rockies.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "SF Giants Videos: Reminisce with the Wall of Fame inductees",
-      "body": "<<<INDENT>>>The team has not yet released the full video of the event, but our friends over at NBC Sports Bay Area interviewed the inductees: Brandon Belt, Brandon Crawford, Joe Panik, Buster Posey and Pablo Sandoval. So I thought that we could take a look at that today and have some fond memories of folks we don’t see too often anymore (or in Posey’s case, remember that we did, in fact, used to love the guy when he was a player and not running the entire organization).",
-      "logo": "mlb_giants.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) The video is roughly 15 minutes, so grab your coffee, settle in, and enjoy!What time do the Giants play today?The Giants conclude this three-game series against the Houston Astros this afternoon at 12:45 p. m. PT.",
-      "logo": "mlb_giants.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "Erik Miller could be a weapon in the Red Sox Bullpen",
-      "body": "<<<INDENT>>>Getty Images Erik Miller was acquired in exchange for Marcelo Mayer to bolster the Red Sox bullpen. He’s exactly Craig Breslow’s type: 6’5” and left-handed. He has above-average extension at almost seven feet. He even has the same defect as many Red Sox reliever acquisitions: he struggles to find the zone at times. Against right-handed hitters in particular, he came to the Red Sox with a walk rate over 20%.",
-      "logo": null,
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "How To Order the St Louis Cardinals Lineup? Optimize it",
-      "body": "<<<INDENT>>>I’m not expert on much of anything, but here I am trying to optimize an MLB lineup, even though I don’t know how much the lineup order really matters, and I have little idea of what I am doing, but I’m going to try to get this offense going. Optimizing Lineup by Best wRC Hitter at that Spot In The LineupSo just for fun, let’s construct a lineup using the player with the best stats in each position of the lineup, as a starting point.",
-      "logo": "mlb_cardinals.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) If you set fangraphs splits at each lineup position 1-9, it will tell you who has had the best hitting at each spot in the lineup so far in 2026. I am going to do that now, starting with the best leadoff hitter! Marmol has been experimenting with lineup order lately, so let’s take a look. This is a bat first lineup that still retains Masyn Winn defense. JJ Wetherholt – really no competition here, Lars was ok at leadoff for a couple games but wasn’t as good.",
-      "logo": "mlb_cardinals.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "Tigers seek series-clinching win over Guardians on Wednesday night",
-      "body": "<<<INDENT>>>The Detroit Tigers took the first game of a critical home series against the Cleveland Guardians on Tuesday night with a narrow 6-4 victory. The good guys got their first win against Tanner Bibee since July 2024 thanks to some well-timed offense, and somehow, Kenley Jansen did not blow the save despite feeding the batters meatballs in the ninth. Taking the mound for the Motor City Kitties in Game 2 is left-hander Framber Valdez, who is coming off two straight seven-",
-      "logo": "tigers.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "",
-      "body": "<<<INDENT>>>(cont) inning quality starts. Across those 14 frames of work, the 32-year-old veteran posted a 1.29 ERA and 2.38 FIP on 14 hits and four walks — good for a 1.29 WHIP — while striking out 11 en route to a pair of wins. Valdez faced Cleveland once before this season on May 18 in Detroit, and it was not pretty, serving up four runs on five hits and four walks while striking out three over five innings of work to take the L in an 8-2 loss.",
-      "logo": "tigers.png",
-      "league": "mlb",
-      "logo_recommended": "mlb.png",
-      "category": null
-    },
-    {
-      "title": "Orioles news: Alonso, Henderson power O’s to big win",
-      "body": "<<<INDENT>>>For whatever reason, the O’s bats are able to provide run support when Young is on the mound, and they did so again on Tuesday night. Three home runs in the first three innings gave the O’s an early 5-2 lead, and that is exactly where the score would remain for the rest of the game. Scoring five times in three innings is good! Getting shut out for the final six innings is bad. That is the 2026 Orioles experience in a nutshell. But on this night, <<<INDENT>>>(cont) it was good enough for the win.",
-      "logo": "orioles.png",
       "league": "mlb",
       "logo_recommended": "mlb.png",
       "category": null

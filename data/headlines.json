@@ -1,6 +1,10 @@
 {
-  "generated_at": "2026-08-12T13:14:45.349103Z",
+  "generated_at": "2026-08-12T13:29:35.431897Z",
   "headlines": [
+    {
+      "title": "Thoughts on a 3-2 Rangers loss",
+      "league": "mlb"
+    },
     {
       "title": "SF Giants ride quality pitching, Bryce Eldridge homer to 4-1 victory over Astros",
       "league": "mlb"
@@ -18,7 +22,27 @@
       "league": "mlb"
     },
     {
+      "title": "Minor league update for 8/11/26",
+      "league": "mlb"
+    },
+    {
+      "title": "Cubs 8, Nationals 6: Pete Crow-Armstrong smashes a monster home run",
+      "league": "mlb"
+    },
+    {
+      "title": "Cam Sanders looks to build on a strong first impression",
+      "league": "mlb"
+    },
+    {
+      "title": "Will a .500 or worse team make the playoffs this year?",
+      "league": "mlb"
+    },
+    {
       "title": "In the lab: An alternative look at offensive efficiency",
+      "league": "mlb"
+    },
+    {
+      "title": "What’s your favorite baseball movie?",
       "league": "mlb"
     },
     {
@@ -58,27 +82,19 @@
       "league": "mlb"
     },
     {
-      "title": "SF Giants Videos: Reminisce with the Wall of Fame inductees",
-      "league": "mlb"
-    },
-    {
-      "title": "Erik Miller could be a weapon in the Red Sox Bullpen",
-      "league": "mlb"
-    },
-    {
-      "title": "How To Order the St Louis Cardinals Lineup? Optimize it",
-      "league": "mlb"
-    },
-    {
-      "title": "Tigers seek series-clinching win over Guardians on Wednesday night",
-      "league": "mlb"
-    },
-    {
-      "title": "Orioles news: Alonso, Henderson power O’s to big win",
-      "league": "mlb"
+      "title": "Will Chauncey Gardner-Johnson be able to contain himself vs. Texans?",
+      "league": "nfl"
     },
     {
       "title": "Pre-Snap Reads: Robbie Ouzts placed on IR; out for the 2026 season",
+      "league": "nfl"
+    },
+    {
+      "title": "NY Giants training camp, practice No. 13: Discussion, news, updates",
+      "league": "nfl"
+    },
+    {
+      "title": "Puka Nacua left Rams-Cowboys practice with groin injury",
       "league": "nfl"
     },
     {
@@ -135,18 +151,6 @@
     },
     {
       "title": "Ranking the Titans’ projected 53-man roster tight ends from best to worst",
-      "league": "nfl"
-    },
-    {
-      "title": "2026 TCU Countdown to Kickoff: 17 Days Until Horned Frog Football",
-      "league": "nfl"
-    },
-    {
-      "title": "Browns sign TE Dae’Quan Wright from Eagles, place DB on IR",
-      "league": "nfl"
-    },
-    {
-      "title": "Chiefs News: Defense getting synced up has ‘been a little slow-moving’",
       "league": "nfl"
     }
   ]

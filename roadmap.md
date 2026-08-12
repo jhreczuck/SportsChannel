@@ -337,6 +337,28 @@ start of the whole rotation.
       the Headlines board's ".. headline" bullets, different prefix). No side logo — full-width
       layout, distinct from the other general cards' left-column-logo treatment.
       `buildSectionIntroPage` / `drawSectionIntroBoard` in `app.js`.
+- [x] Follow-up: added a horizontal separator rule above and below the sport-name title.
+
+## Feature: Consistent line-by-line reveal across all board types
+- [x] Story slides always had a "typewriter" reveal (one line every `LINE_DELAY`); every other
+      board type (probables, standings, latest line, on this day, birthdays, trivia, quote,
+      section intro, headlines) drew its full content immediately every frame. Made consistent
+      throughout the app.
+- [x] Added `makeWriter(linesToShow)` — a shared `write(text, x, y)` closure that only actually
+      calls `ctx.fillText` for the first `linesToShow` calls made against it, used wherever one
+      `fillText` call == one visual line. Added `makeLineGate(linesToShow)` as a variant for rows
+      that span several `fillText` calls on one line (e.g. a standings row's Name/W/L/PCT
+      columns) — caller checks `shouldShow()` once per row and draws all of that row's columns
+      itself, so the row reveals as a single step instead of its columns revealing one at a time.
+- [x] Trivia's answer reveal now has its **own** independent line-by-line pace, timed from the
+      reveal moment (not overall elapsed) — the question fully reveals first, then a fresh
+      typewriter effect plays for the answer once it appears.
+- [x] Decorative/structural elements (table row background highlights, logos, the section intro's
+      separator rules, the headlines box border) stay immediately visible — only the *text*
+      reveals progressively, keeping the layout's shape visible right away while content types in.
+- [x] Verified via direct pixel-count checks (not just "no errors"): probables/standings/trivia
+      all show a strictly increasing amount of rendered text as `linesToShow` increases from 0 to
+      full, confirming the reveal actually works rather than silently no-op'ing.
 
 ## Feature: Game-recap prioritization (news_feed.py)
 - [x] Bubble game-recap-style stories ("X beat Y 5-2") to the front of each league's feed before
@@ -406,6 +428,11 @@ start of the whole rotation.
 - [ ] If wanted later, publish the same static `public/` output to a `gh-pages` branch via a
       GitHub Action. Lower priority than the Linux server target since Pages can't run the
       refresh job itself — it would need to pull already-generated JSON from somewhere.
+
+## Minor: Ticker separator fix
+- [x] Ticker text now leads with a `"   |   "` separator before the "LIVE SCORES BROUGHT TO YOU
+      BY ESPN" credits line, so the loop (the ticker draws the same text twice back-to-back for a
+      seamless scroll) has proper spacing where the last item wraps back around to the credits.
 
 ## Phase 9 — Desktop executable
 - [ ] Package `main.py` + deps with PyInstaller into a standalone Windows `.exe`.

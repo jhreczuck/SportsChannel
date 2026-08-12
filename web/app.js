@@ -411,6 +411,36 @@ function drawTicker(tickerText, tickerWidth, tickerX) {
   ctx.restore();
 }
 
+// Shared line-by-line reveal: every board type uses this so the "typewriter"
+// pacing is consistent throughout the app, not just on story slides.
+// Returns a `write(text, x, y)` function -- draws (using whatever ctx.font/
+// fillStyle is currently set) only if this is one of the first `linesToShow`
+// calls made against it; returns whether it actually drew, so callers can
+// gate a line's associated background (e.g. a table row highlight) on the
+// same reveal step.
+function makeWriter(linesToShow) {
+  let i = 0;
+  return function write(text, x, y) {
+    const shouldDraw = i < linesToShow;
+    i += 1;
+    if (shouldDraw) ctx.fillText(text, x, y);
+    return shouldDraw;
+  };
+}
+
+// Same reveal counter as makeWriter, but for a "line" that's actually
+// several draw calls (e.g. a table row's Name/W/L/PCT columns) -- caller
+// checks shouldShow() once per row and draws all of that row's columns
+// itself if it returns true, so the whole row reveals as a single step.
+function makeLineGate(linesToShow) {
+  let i = 0;
+  return function shouldShow() {
+    const result = i < linesToShow;
+    i += 1;
+    return result;
+  };
+}
+
 function drawSlideText(wrappedLines, linesToShow, logo) {
   let lineY = inner.y + TEXT_PADDING;
   const maxY = inner.bottom - TEXT_PADDING;
@@ -521,7 +551,8 @@ function wrapHeadline(text, prefix, contIndent, maxWidth, ctxRef) {
   return lines;
 }
 
-function drawHeadlinesBoard(page) {
+function drawHeadlinesBoard(page, linesToShow) {
+  const write = makeWriter(linesToShow);
   const titleY = inner.y + TEXT_PADDING;
 
   ctx.font = BODY_FONT;
@@ -530,7 +561,7 @@ function drawHeadlinesBoard(page) {
   ctx.textAlign = "left";
   let title = "TODAY'S HEADLINES";
   if (page.totalPages > 1) title += ` (${page.page}/${page.totalPages})`;
-  ctx.fillText(title, inner.x + TEXT_PADDING, titleY);
+  write(title, inner.x + TEXT_PADDING, titleY);
 
   const boxX = inner.x + TEXT_PADDING;
   const boxY = titleY + BODY_FONT_PX + 20;
@@ -549,7 +580,7 @@ function drawHeadlinesBoard(page) {
   for (const headline of page.headlines) {
     const lines = wrapHeadline(headline.title, "..", "  ", textMaxWidth, ctx);
     for (const line of lines) {
-      ctx.fillText(line, boxX + 14, y);
+      write(line, boxX + 14, y);
       y += lineHeight;
     }
     y += 10; // gap between headlines
@@ -559,7 +590,8 @@ function drawHeadlinesBoard(page) {
 // ---------------------------
 // Probables board
 // ---------------------------
-function drawProbablesBoard(page, probableLogo) {
+function drawProbablesBoard(page, probableLogo, linesToShow) {
+  const write = makeWriter(linesToShow);
   const titleY = inner.y + TEXT_PADDING;
   const rowHeight = BODY_FONT_PX + 4;
   const rowBlockHeight = rowHeight * 2 + 18; // two lines per game + gap
@@ -570,7 +602,7 @@ function drawProbablesBoard(page, probableLogo) {
   ctx.textAlign = "left";
   let title = `${page.dateLabel} ${page.league} Games`;
   if (page.totalPages > 1) title += ` (${page.page}/${page.totalPages})`;
-  ctx.fillText(title, inner.x + TEXT_PADDING, titleY);
+  write(title, inner.x + TEXT_PADDING, titleY);
 
   // Full-size badge in the standard logo column, same as story slides.
   // Rows only occupy the left column, so the pitcher badge can use the full
@@ -591,8 +623,8 @@ function drawProbablesBoard(page, probableLogo) {
     ctx.fillRect(rowX - 8, rowY - 4, rowW, rowBlockHeight - 10);
 
     ctx.fillStyle = TEXT_COLOR;
-    ctx.fillText(`${game.away}  (${game.away_pitcher})`, rowX, rowY);
-    ctx.fillText(`at ${game.home}  (${game.home_pitcher})`, rowX, rowY + rowHeight);
+    write(`${game.away}  (${game.away_pitcher})`, rowX, rowY);
+    write(`at ${game.home}  (${game.home_pitcher})`, rowX, rowY + rowHeight);
 
     rowY += rowBlockHeight;
   }
@@ -616,7 +648,8 @@ function drawTitleCard(image) {
 // ---------------------------
 // Standings board
 // ---------------------------
-function drawStandingsBoard(page, logos) {
+function drawStandingsBoard(page, logos, linesToShow) {
+  const shouldShow = makeLineGate(linesToShow);
   const division = page.division;
   const isNFL = page.sport === "nfl";
   const titleY = inner.y + TEXT_PADDING;
@@ -625,7 +658,7 @@ function drawStandingsBoard(page, logos) {
   ctx.fillStyle = TEXT_COLOR;
   ctx.textBaseline = "top";
   ctx.textAlign = "left";
-  ctx.fillText(division.name, inner.x + TEXT_PADDING, titleY);
+  if (shouldShow()) ctx.fillText(division.name, inner.x + TEXT_PADDING, titleY);
 
   ctx.font = BODY_FONT;
   const rowHeight = BODY_FONT_PX + 12;
@@ -639,25 +672,28 @@ function drawStandingsBoard(page, logos) {
   const colGbX = nameX + colW * 0.90; // MLB only -- NFL has no games-behind column
 
   // Column headers
-  ctx.fillStyle = "rgb(200,180,120)";
-  ctx.fillText("W", colWX, rowY);
-  ctx.fillText("L", colLX, rowY);
-  if (isNFL) ctx.fillText("T", colTX, rowY);
-  ctx.fillText("PCT", colPctX, rowY);
-  if (!isNFL) ctx.fillText("GB", colGbX, rowY);
+  if (shouldShow()) {
+    ctx.fillStyle = "rgb(200,180,120)";
+    ctx.fillText("W", colWX, rowY);
+    ctx.fillText("L", colLX, rowY);
+    if (isNFL) ctx.fillText("T", colTX, rowY);
+    ctx.fillText("PCT", colPctX, rowY);
+    if (!isNFL) ctx.fillText("GB", colGbX, rowY);
+  }
   rowY += rowHeight;
 
-  ctx.fillStyle = TEXT_COLOR;
   for (const team of division.teams) {
-    ctx.fillStyle = BOARD_ROW_BG;
-    ctx.fillRect(nameX - 8, rowY - 4, colW, rowHeight - 6);
-    ctx.fillStyle = TEXT_COLOR;
-    ctx.fillText(team.name, nameX, rowY);
-    ctx.fillText(team.w, colWX, rowY);
-    ctx.fillText(team.l, colLX, rowY);
-    if (isNFL) ctx.fillText(team.t || "0", colTX, rowY);
-    ctx.fillText(team.pct, colPctX, rowY);
-    if (!isNFL) ctx.fillText(team.gb || "--", colGbX, rowY);
+    if (shouldShow()) {
+      ctx.fillStyle = BOARD_ROW_BG;
+      ctx.fillRect(nameX - 8, rowY - 4, colW, rowHeight - 6);
+      ctx.fillStyle = TEXT_COLOR;
+      ctx.fillText(team.name, nameX, rowY);
+      ctx.fillText(team.w, colWX, rowY);
+      ctx.fillText(team.l, colLX, rowY);
+      if (isNFL) ctx.fillText(team.t || "0", colTX, rowY);
+      ctx.fillText(team.pct, colPctX, rowY);
+      if (!isNFL) ctx.fillText(team.gb || "--", colGbX, rowY);
+    }
     rowY += rowHeight;
   }
 
@@ -673,18 +709,19 @@ function drawStandingsBoard(page, logos) {
 // ---------------------------
 // Latest Line board (NFL betting lines)
 // ---------------------------
-function drawLatestLineBoard(page, nflLogo) {
+function drawLatestLineBoard(page, nflLogo, linesToShow) {
+  const shouldShow = makeLineGate(linesToShow);
   const titleY = inner.y + TEXT_PADDING;
 
   ctx.font = BOARD_TITLE_FONT;
   ctx.fillStyle = "rgb(235,150,60)"; // same warm accent as the headlines title
   ctx.textBaseline = "top";
   ctx.textAlign = "left";
-  ctx.fillText("LATEST LINE", inner.x + TEXT_PADDING, titleY);
+  if (shouldShow()) ctx.fillText("LATEST LINE", inner.x + TEXT_PADDING, titleY);
 
   ctx.font = BODY_FONT;
   ctx.fillStyle = TEXT_COLOR;
-  ctx.fillText("NFL GAMES", inner.x + TEXT_PADDING, titleY + BOARD_TITLE_FONT_PX + 16);
+  if (shouldShow()) ctx.fillText("NFL GAMES", inner.x + TEXT_PADDING, titleY + BOARD_TITLE_FONT_PX + 16);
 
   // Everything below here (headers, day label, rows) starts below the
   // logo's bottom edge and uses the full panel width -- no need to stay
@@ -700,14 +737,18 @@ function drawLatestLineBoard(page, nflLogo) {
   const colUnderdogX = nameX + colW * 0.65;
 
   // Column headers
-  ctx.fillStyle = "rgb(200,180,120)";
-  ctx.fillText("FAVORITE", nameX, subY);
-  ctx.fillText("Pts", colPointsX, subY);
-  ctx.fillText("UNDERDOG", colUnderdogX, subY);
+  if (shouldShow()) {
+    ctx.fillStyle = "rgb(200,180,120)";
+    ctx.fillText("FAVORITE", nameX, subY);
+    ctx.fillText("Pts", colPointsX, subY);
+    ctx.fillText("UNDERDOG", colUnderdogX, subY);
+  }
   subY += BODY_FONT_PX + 8;
 
-  ctx.fillStyle = TEXT_COLOR;
-  ctx.fillText(dayLabel, nameX, subY);
+  if (shouldShow()) {
+    ctx.fillStyle = TEXT_COLOR;
+    ctx.fillText(dayLabel, nameX, subY);
+  }
   subY += BODY_FONT_PX + 12;
 
   const rowHeight = BODY_FONT_PX + 12;
@@ -716,19 +757,21 @@ function drawLatestLineBoard(page, nflLogo) {
     const favoriteLabel = favoriteIsHome ? game.home.toUpperCase() : game.away;
     const underdogLabel = favoriteIsHome ? game.away : game.home.toUpperCase();
 
-    ctx.fillStyle = BOARD_ROW_BG;
-    ctx.fillRect(nameX - 8, subY - 4, colW, rowHeight - 6);
-    ctx.fillStyle = TEXT_COLOR;
-    ctx.fillText(favoriteLabel, nameX, subY);
-    ctx.fillText(String(game.points), colPointsX, subY);
-    ctx.fillText(underdogLabel, colUnderdogX, subY);
+    if (shouldShow()) {
+      ctx.fillStyle = BOARD_ROW_BG;
+      ctx.fillRect(nameX - 8, subY - 4, colW, rowHeight - 6);
+      ctx.fillStyle = TEXT_COLOR;
+      ctx.fillText(favoriteLabel, nameX, subY);
+      ctx.fillText(String(game.points), colPointsX, subY);
+      ctx.fillText(underdogLabel, colUnderdogX, subY);
+    }
     subY += rowHeight;
   }
 
   subY += 10;
   ctx.font = SMALL_FONT;
   ctx.fillStyle = "rgb(180,180,200)";
-  ctx.fillText("Home Team in CAPS", nameX, subY);
+  if (shouldShow()) ctx.fillText("Home Team in CAPS", nameX, subY);
 
   if (nflLogo) drawLogoInBox(nflLogo, rightRect);
 }
@@ -769,7 +812,8 @@ function leftColumnTextStartX(hasLogo) {
 const HISTORY_LOGO_PIXELATE_RESOLUTION = 200; // higher than PIXELATE_RESOLUTION -- only slightly blocky
 const BIRTHDAY_LOGO_PIXELATE_RESOLUTION = 160; // double the default -- ~50% less blocky
 
-function drawHistoryBoard(page, historyLogo) {
+function drawHistoryBoard(page, historyLogo, linesToShow) {
+  const write = makeWriter(linesToShow);
   const titleY = inner.y + TEXT_PADDING;
   const textStartX = leftColumnTextStartX(!!historyLogo);
   const textWidth = Math.max(40, inner.right - TEXT_PADDING - textStartX);
@@ -778,7 +822,7 @@ function drawHistoryBoard(page, historyLogo) {
   ctx.fillStyle = "rgb(180,210,120)"; // yellow-green accent, distinct from the other board titles
   ctx.textBaseline = "top";
   ctx.textAlign = "left";
-  ctx.fillText(page.dateLabel, textStartX, titleY);
+  write(page.dateLabel, textStartX, titleY);
 
   const bodyY = titleY + BOARD_TITLE_FONT_PX + 20;
   const yearPrefix = page.fact.year ? `In ${page.fact.year}, ` : "";
@@ -789,7 +833,7 @@ function drawHistoryBoard(page, historyLogo) {
   const lineHeight = BODY_FONT_PX + 4;
   let lineY = bodyY;
   for (const line of wrapped) {
-    ctx.fillText(line, textStartX, lineY);
+    write(line, textStartX, lineY);
     lineY += lineHeight;
   }
 
@@ -799,7 +843,8 @@ function drawHistoryBoard(page, historyLogo) {
 // ---------------------------
 // Today's Sports Birthdays
 // ---------------------------
-function drawBirthdaysBoard(page, birthdayLogo) {
+function drawBirthdaysBoard(page, birthdayLogo, linesToShow) {
+  const write = makeWriter(linesToShow);
   const titleY = inner.y + TEXT_PADDING;
   const textStartX = leftColumnTextStartX(!!birthdayLogo);
   const textWidth = Math.max(40, inner.right - TEXT_PADDING - textStartX);
@@ -808,25 +853,25 @@ function drawBirthdaysBoard(page, birthdayLogo) {
   ctx.fillStyle = "rgb(235,150,60)"; // same warm accent as headlines/latest line
   ctx.textBaseline = "top";
   ctx.textAlign = "left";
-  ctx.fillText("TODAY'S SPORTS", textStartX, titleY);
-  ctx.fillText("BIRTHDAYS", textStartX, titleY + BOARD_TITLE_FONT_PX + 4);
+  write("TODAY'S SPORTS", textStartX, titleY);
+  write("BIRTHDAYS", textStartX, titleY + BOARD_TITLE_FONT_PX + 4);
 
   ctx.font = BODY_FONT;
   ctx.fillStyle = TEXT_COLOR;
   let y = titleY + (BOARD_TITLE_FONT_PX + 4) * 2 + 16;
-  ctx.fillText(page.dateLabel, textStartX, y);
+  write(page.dateLabel, textStartX, y);
   y += BODY_FONT_PX + 24;
 
   const lineHeight = BODY_FONT_PX + 4;
   for (const person of page.people) {
     if (person.desc) {
       for (const line of wrapTextToWidth(person.desc, textWidth, ctx)) {
-        ctx.fillText(line, textStartX, y);
+        write(line, textStartX, y);
         y += lineHeight;
       }
     }
     for (const line of wrapTextToWidth(`${person.name} turns ${person.age}.`, textWidth, ctx)) {
-      ctx.fillText(line, textStartX, y);
+      write(line, textStartX, y);
       y += lineHeight;
     }
     y += 20;
@@ -838,7 +883,11 @@ function drawBirthdaysBoard(page, birthdayLogo) {
 // ---------------------------
 // Sports Trivia
 // ---------------------------
-function drawTriviaBoard(page, questionLogo, answerLogo, revealed) {
+// questionLinesToShow paces the question's own reveal; answerLinesToShow
+// (computed from time since the reveal moment, not overall elapsed) paces
+// the answer's reveal starting fresh once it appears.
+function drawTriviaBoard(page, questionLogo, answerLogo, revealed, questionLinesToShow, answerLinesToShow) {
+  const write = makeWriter(questionLinesToShow);
   const logo = revealed ? answerLogo : questionLogo;
   const titleY = inner.y + TEXT_PADDING;
   const textStartX = leftColumnTextStartX(!!logo);
@@ -848,25 +897,26 @@ function drawTriviaBoard(page, questionLogo, answerLogo, revealed) {
   ctx.fillStyle = "rgb(235,150,60)"; // same warm accent as headlines/latest line/birthdays
   ctx.textBaseline = "top";
   ctx.textAlign = "left";
-  ctx.fillText("SPORTS TRIVIA", textStartX, titleY);
+  write("SPORTS TRIVIA", textStartX, titleY);
 
   ctx.font = BODY_FONT;
   ctx.fillStyle = TEXT_COLOR;
   const lineHeight = BODY_FONT_PX + 4;
   let y = titleY + BOARD_TITLE_FONT_PX + 20;
   for (const line of wrapTextToWidth(page.trivia.question, textWidth, ctx)) {
-    ctx.fillText(line, textStartX, y);
+    write(line, textStartX, y);
     y += lineHeight;
   }
 
   if (revealed) {
+    const writeAnswer = makeWriter(answerLinesToShow);
     y += 20;
     ctx.fillStyle = "rgb(200,180,120)";
-    ctx.fillText("ANSWER:", textStartX, y);
+    writeAnswer("ANSWER:", textStartX, y);
     y += lineHeight;
     ctx.fillStyle = TEXT_COLOR;
     for (const line of wrapTextToWidth(page.trivia.answer, textWidth, ctx)) {
-      ctx.fillText(line, textStartX, y);
+      writeAnswer(line, textStartX, y);
       y += lineHeight;
     }
   }
@@ -877,7 +927,8 @@ function drawTriviaBoard(page, questionLogo, answerLogo, revealed) {
 // ---------------------------
 // League Quote (shown once after each league's block)
 // ---------------------------
-function drawQuoteBoard(page, quoteLogo) {
+function drawQuoteBoard(page, quoteLogo, linesToShow) {
+  const write = makeWriter(linesToShow);
   const titleY = inner.y + TEXT_PADDING;
   const textStartX = leftColumnTextStartX(!!quoteLogo);
   const textWidth = Math.max(40, inner.right - TEXT_PADDING - textStartX);
@@ -886,21 +937,21 @@ function drawQuoteBoard(page, quoteLogo) {
   ctx.fillStyle = "rgb(180,210,120)"; // same yellow-green accent as On This Day
   ctx.textBaseline = "top";
   ctx.textAlign = "left";
-  ctx.fillText(`${page.league.toUpperCase()} QUOTE`, textStartX, titleY);
-  ctx.fillText("OF THE DAY", textStartX, titleY + BOARD_TITLE_FONT_PX + 4);
+  write(`${page.league.toUpperCase()} QUOTE`, textStartX, titleY);
+  write("OF THE DAY", textStartX, titleY + BOARD_TITLE_FONT_PX + 4);
 
   ctx.font = BODY_FONT;
   ctx.fillStyle = TEXT_COLOR;
   const lineHeight = BODY_FONT_PX + 4;
   let y = titleY + (BOARD_TITLE_FONT_PX + 4) * 2 + 20;
   for (const line of wrapTextToWidth(`"${page.quote}"`, textWidth, ctx)) {
-    ctx.fillText(line, textStartX, y);
+    write(line, textStartX, y);
     y += lineHeight;
   }
 
   y += 16;
   ctx.fillStyle = "rgb(200,180,120)";
-  ctx.fillText(`- ${page.author.toUpperCase()}`, textStartX, y);
+  write(`- ${page.author.toUpperCase()}`, textStartX, y);
 
   drawLeftColumnLogo(quoteLogo, BIRTHDAY_LOGO_PIXELATE_RESOLUTION);
 }
@@ -908,20 +959,31 @@ function drawQuoteBoard(page, quoteLogo) {
 // ---------------------------
 // Section Intro ("FOOTBALL" / "COMING UP: ...")
 // ---------------------------
-function drawSectionIntroBoard(page) {
+function drawSectionIntroBoard(page, linesToShow) {
+  const write = makeWriter(linesToShow);
   const centerX = inner.x + inner.w / 2;
+  const ruleX = inner.x + TEXT_PADDING;
+  const ruleW = inner.w - TEXT_PADDING * 2;
   let y = inner.y + TEXT_PADDING + 10;
+
+  ctx.fillStyle = "rgba(235,150,60,0.55)"; // matches the title's warm accent
+  ctx.fillRect(ruleX, y, ruleW, 3);
+  y += 3 + 12;
 
   ctx.font = `${BOARD_TITLE_FONT_PX + 12}px PxPlusIBMVGA8, monospace`;
   ctx.fillStyle = "rgb(235,150,60)"; // same warm accent as the other board titles
   ctx.textBaseline = "top";
   ctx.textAlign = "center";
-  ctx.fillText(page.sportName, centerX, y);
-  y += BOARD_TITLE_FONT_PX + 12 + 16;
+  write(page.sportName, centerX, y);
+  y += BOARD_TITLE_FONT_PX + 12 + 12;
+
+  ctx.fillStyle = "rgba(235,150,60,0.55)";
+  ctx.fillRect(ruleX, y, ruleW, 3);
+  y += 3 + 20;
 
   ctx.font = BODY_FONT;
   ctx.fillStyle = TEXT_COLOR;
-  ctx.fillText("COMING UP:", centerX, y);
+  write("COMING UP:", centerX, y);
   y += BODY_FONT_PX + 30;
 
   ctx.textAlign = "left";
@@ -930,7 +992,7 @@ function drawSectionIntroBoard(page) {
   const lineHeight = BODY_FONT_PX + 4;
   for (const headline of page.headlines) {
     for (const line of wrapHeadline(headline, "- ", "  ", listWidth, ctx)) {
-      ctx.fillText(line, listX, y);
+      write(line, listX, y);
       y += lineHeight;
     }
     y += 10;
@@ -1100,7 +1162,7 @@ async function main() {
   try {
     const tickerData = await loadJSON("../data/ticker.json");
     if (tickerData.items && tickerData.items.length) {
-      tickerText = tickerData.items.join("   |   ");
+      tickerText = "   |   " + tickerData.items.join("   |   ");
     }
   } catch (e) {
     console.warn("[ticker] load failed:", e);
@@ -1205,27 +1267,33 @@ async function main() {
     ctx.fillStyle = INNER_FILL;
     ctx.fillRect(inner.x, inner.y, inner.w, inner.h);
 
+    // Shared typewriter pacing for every board type -- consistent
+    // line-by-line reveal throughout the app, not just on story slides.
+    const boardLinesToShow = Math.floor(elapsed / LINE_DELAY);
+
     if (item.type === "story") {
-      const linesToShow = Math.min(wrappedLines.length, Math.floor(elapsed / LINE_DELAY));
+      const linesToShow = Math.min(wrappedLines.length, boardLinesToShow);
       drawSlideText(wrappedLines, linesToShow, currentLogo);
     } else if (item.type === "headlines") {
-      drawHeadlinesBoard(item);
+      drawHeadlinesBoard(item, boardLinesToShow);
     } else if (item.type === "probables") {
-      drawProbablesBoard(item, probableLogo);
+      drawProbablesBoard(item, probableLogo, boardLinesToShow);
     } else if (item.type === "standings") {
-      drawStandingsBoard(item, standingsLogos);
+      drawStandingsBoard(item, standingsLogos, boardLinesToShow);
     } else if (item.type === "latest_line") {
-      drawLatestLineBoard(item, nflLogo);
+      drawLatestLineBoard(item, nflLogo, boardLinesToShow);
     } else if (item.type === "history_fact") {
-      drawHistoryBoard(item, historyLogo);
+      drawHistoryBoard(item, historyLogo, boardLinesToShow);
     } else if (item.type === "birthdays") {
-      drawBirthdaysBoard(item, birthdayLogo);
+      drawBirthdaysBoard(item, birthdayLogo, boardLinesToShow);
     } else if (item.type === "trivia") {
-      drawTriviaBoard(item, questionLogo, answerLogo, elapsed >= TRIVIA_REVEAL_DELAY);
+      const revealed = elapsed >= TRIVIA_REVEAL_DELAY;
+      const answerLinesToShow = Math.floor((elapsed - TRIVIA_REVEAL_DELAY) / LINE_DELAY);
+      drawTriviaBoard(item, questionLogo, answerLogo, revealed, boardLinesToShow, answerLinesToShow);
     } else if (item.type === "quote") {
-      drawQuoteBoard(item, quoteLogo);
+      drawQuoteBoard(item, quoteLogo, boardLinesToShow);
     } else if (item.type === "section_intro") {
-      drawSectionIntroBoard(item);
+      drawSectionIntroBoard(item, boardLinesToShow);
     }
 
     drawTicker(tickerText, tickerWidth, tickerX);

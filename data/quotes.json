@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-08-12T12:48:52.692528+00:00",
+  "generated_at": "2026-08-12T13:31:51.296328+00:00",
   "quotes": {
     "mlb": {
-      "author": "Babe Ruth",
-      "quote": "It’s hard to beat a person who never gives up."
+      "author": "Hank Aaron",
+      "quote": "It took me seventeen years to get three thousand hits in baseball. It took one afternoon on the golf course."
     },
     "nfl": {
-      "author": "Lou Holtz",
-      "quote": "Ability is what you're capable of doing. Motivation determines what you do. Attitude determines how well you do it."
+      "author": "Vince Lombardi",
+      "quote": "Once you learn to quit, it becomes a habit."
     }
   }
 }
