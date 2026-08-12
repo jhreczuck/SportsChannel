@@ -112,11 +112,15 @@ Open `http://192.168.0.219:8080/` in a browser (redirects to
 
 ## Updating later
 
-Code changes: `git pull` in `/opt/sportschannel`, no restart needed (nginx
-serves static files directly, no running app process to restart) — the
-browser just needs a reload.
+Code + dependency changes: automatic — `sportschannel-refresh.service` now
+does `git pull` and `pip install -r requirements-server.txt` as its first
+two steps, before running the data refresh, every day at 8am. No manual
+`git pull` needed for routine updates; nginx serves static files directly
+so there's nothing to restart either — the browser just needs a reload
+once the timer's run.
 
-Media changes: re-run the rsync command from step 4.
+Want it sooner than the next 8am? `systemctl start sportschannel-refresh.service`
+runs the whole pull+refresh sequence immediately.
 
-Dependency changes: `./venv/bin/pip install -r requirements-server.txt`
-again after a `git pull` that touched `requirements-server.txt`.
+Media changes: re-run the transfer from step 4 (media isn't in git, so
+`git pull` never touches it).

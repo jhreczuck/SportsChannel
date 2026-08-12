@@ -1,5 +1,5 @@
 [Unit]
-Description=SportsChannel data refresh (stories, scores, standings, etc.)
+Description=SportsChannel git pull + data refresh (stories, scores, standings, etc.)
 After=network-online.target
 Wants=network-online.target
 
