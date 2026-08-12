@@ -1019,7 +1019,7 @@ function shuffle(arr) {
 function playCurrentTrack() {
   if (!musicQueue.length) return;
   const track = musicQueue[musicIndex];
-  audioEl.src = `../media/music/${encodeURIComponent(track)}`;
+  audioEl.src = `../media/music_normalized/${encodeURIComponent(track)}`;
   audioEl.play().catch((e) => console.warn("[music] play blocked:", e.message));
 }
 

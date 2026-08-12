@@ -360,6 +360,36 @@ start of the whole rotation.
       all show a strictly increasing amount of rendered text as `linesToShow` increases from 0 to
       full, confirming the reveal actually works rather than silently no-op'ing.
 
+## Fix: MLB Probables showing yesterday's finished games
+- [x] Root cause: `refresh_probables.py` called ESPN's scoreboard with no `dates` param, relying
+      on ESPN's own ambiguous "current day" rollover, which lags behind the real calendar date for
+      a while after midnight. Confirmed live: ESPN's default response was still serving Aug 11's
+      `STATUS_FINAL` games well into Aug 12, and those exact matchups matched what was stuck in
+      `probables.json`.
+- [x] Fixed by requesting today's date explicitly (`dates=YYYYMMDD`) and filtering to
+      `STATUS_SCHEDULED` games only (a second latent bug — there was no status filter at all
+      before, so even a correctly-dated response could include already-finished games).
+      `refresh_latest_line.py` already pinned an explicit date range and was unaffected;
+      `ticker.py` doesn't pin one either but that's reasonable for a ticker (recent scores are
+      still relevant content), so left as-is.
+
+## Fix: Web music volume normalization never actually applied
+- [x] The pygame desktop app already had two-pass ffmpeg loudnorm normalization
+      (`normalize_track_lufs` in `main.py`), but the web player was just playing the raw
+      `media/music/` files directly — never wired up.
+- [x] While building the fix, found the normalization code had **always been silently broken**,
+      even in the desktop app: it read `stats['measured_I']`/`measured_TP`/etc. from ffmpeg's
+      loudnorm measure-pass JSON, but this ffmpeg build (9.0) actually reports
+      `input_i`/`input_tp`/`input_lra`/`input_thresh`/`target_offset` — the wrong keys raised a
+      `KeyError` caught by a bare `except`, which silently fell back to the un-normalized file
+      every time. Fixed in both `main.py` and the new batch script below.
+- [x] Added `src/normalize_music.py` — batch-normalizes every track in `media/music/` into
+      `media/music_normalized/` (content-hash-keyed filenames, skips already-normalized files on
+      re-run) and writes `web/music_manifest.json` pointing at the normalized names.
+      `app.js`'s `playCurrentTrack()` updated to load from `music_normalized/`. Ran successfully:
+      21/21 tracks normalized, 0 failures. Verified a normalized track actually loads and plays
+      in-browser (175.7s duration).
+
 ## Feature: Game-recap prioritization (news_feed.py)
 - [x] Bubble game-recap-style stories ("X beat Y 5-2") to the front of each league's feed before
       truncating to `max_per_sport`, so recaps aren't crowded out by analysis/opinion/preview

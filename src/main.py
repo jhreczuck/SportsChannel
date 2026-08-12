@@ -174,17 +174,22 @@ def normalize_track_lufs(
         return src  # fail safely
 
     # ---------- PASS 2: APPLY ----------
+    # ffmpeg's loudnorm measure pass reports input_i/input_tp/input_lra/
+    # input_thresh/target_offset, not measured_I/measured_TP/etc -- the old
+    # key names here raised a KeyError every time this ran, silently caught
+    # by the bare except below, which is why normalization always fell back
+    # to the raw (un-normalized) file.
     cmd_pass2 = [
         "ffmpeg", "-y",
         "-i", str(src),
         "-af",
         (
             f"loudnorm=I={target_i}:TP={true_peak}:LRA={lra}:"
-            f"measured_I={stats['measured_I']}:"
-            f"measured_TP={stats['measured_TP']}:"
-            f"measured_LRA={stats['measured_LRA']}:"
-            f"measured_thresh={stats['measured_thresh']}:"
-            f"offset={stats['offset']}:linear=true"
+            f"measured_I={stats['input_i']}:"
+            f"measured_TP={stats['input_tp']}:"
+            f"measured_LRA={stats['input_lra']}:"
+            f"measured_thresh={stats['input_thresh']}:"
+            f"offset={stats['target_offset']}:linear=true"
         ),
         str(dst)
     ]

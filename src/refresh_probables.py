@@ -47,13 +47,24 @@ def fetch_probables() -> Dict[str, List[Dict[str, Any]]]:
     away/home team + probable pitcher strings."""
     leagues: Dict[str, List[Dict[str, Any]]] = {"AL": [], "NL": []}
 
-    resp = requests.get(SCOREBOARD_URL, timeout=10)
+    # ESPN's scoreboard with no "dates" param uses its own ambiguous "current
+    # day" rollover logic, which can lag behind the real calendar date for a
+    # while after midnight -- it was observed returning yesterday's already
+    # -FINAL games well into the next day. Requesting today's date explicitly
+    # avoids that.
+    today_str = datetime.now().strftime("%Y%m%d")
+    resp = requests.get(SCOREBOARD_URL, params={"dates": today_str}, timeout=10)
     resp.raise_for_status()
     data = resp.json()
 
     for event in data.get("events", []):
         try:
             comp = event["competitions"][0]
+            # Only upcoming games have real "probable" starters -- a FINAL
+            # game's probables field (if still present at all) reflects who
+            # started, not who's about to.
+            if comp["status"]["type"]["name"] != "STATUS_SCHEDULED":
+                continue
             competitors = comp["competitors"]
             home = next(c for c in competitors if c.get("homeAway") == "home")
             away = next(c for c in competitors if c.get("homeAway") == "away")

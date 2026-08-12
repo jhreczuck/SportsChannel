@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-12T13:31:39.951631+00:00",
+  "generated_at": "2026-08-12T13:36:43.961082+00:00",
   "in_season": true,
   "date_label": "Wednesday's",
   "leagues": [
@@ -7,40 +7,40 @@
       "name": "AL",
       "games": [
         {
-          "away": "Cleveland",
-          "away_pitcher": "T. Bibee 4-12",
-          "home": "Detroit",
-          "home_pitcher": "D. Anderson 4-4"
-        },
-        {
-          "away": "Seattle",
-          "away_pitcher": "B. Woo 8-8",
-          "home": "New York",
-          "home_pitcher": "R. Weathers 5-7"
-        },
-        {
-          "away": "Boston",
-          "away_pitcher": "P. Sandoval 1-1",
-          "home": "Toronto",
-          "home_pitcher": "D. Cease 7-5"
-        },
-        {
           "away": "Baltimore",
-          "away_pitcher": "B. Young 9-3",
+          "away_pitcher": "S. Baz 4-11",
           "home": "Minnesota",
-          "home_pitcher": "B. Ober 7-4"
-        },
-        {
-          "away": "Texas",
-          "away_pitcher": "C. Bradford 0-1",
-          "home": "Los Angeles",
-          "home_pitcher": "R. Johnson 2-6"
+          "home_pitcher": "Z. Matthews 5-8"
         },
         {
           "away": "Tampa Bay",
-          "away_pitcher": "N. Martinez 12-3",
+          "away_pitcher": "D. Rasmussen 11-5",
           "home": "Athletics",
-          "home_pitcher": "M. Barnett 1-3"
+          "home_pitcher": "J. Perkins 2-8"
+        },
+        {
+          "away": "Cleveland",
+          "away_pitcher": "F. Griffin 12-4",
+          "home": "Detroit",
+          "home_pitcher": "F. Valdez 7-7"
+        },
+        {
+          "away": "Seattle",
+          "away_pitcher": "B. Miller 4-6",
+          "home": "New York",
+          "home_pitcher": "W. Warren 8-6"
+        },
+        {
+          "away": "Boston",
+          "away_pitcher": "R. Suarez 4-3",
+          "home": "Toronto",
+          "home_pitcher": "J. Soriano 9-6"
+        },
+        {
+          "away": "Texas",
+          "away_pitcher": "C. Quantrill 4-4",
+          "home": "Los Angeles",
+          "home_pitcher": "G. Klassen 0-1"
         }
       ]
     },
@@ -48,52 +48,52 @@
       "name": "NL",
       "games": [
         {
-          "away": "Pittsburgh",
-          "away_pitcher": "P. Skenes 9-11",
-          "home": "Miami",
-          "home_pitcher": "E. Perez 6-9"
-        },
-        {
-          "away": "Chicago",
-          "away_pitcher": "S. Imanaga 8-9",
-          "home": "Washington",
-          "home_pitcher": "J. Irvin 2-6"
-        },
-        {
-          "away": "New York",
-          "away_pitcher": "N. McLean 8-8",
-          "home": "Atlanta",
-          "home_pitcher": "M. Perez 8-6"
-        },
-        {
           "away": "Philadelphia",
-          "away_pitcher": "C. Sanchez 15-4",
+          "away_pitcher": "Z. Wheeler 10-3",
           "home": "St. Louis",
-          "home_pitcher": "A. Pallante 12-6"
+          "home_pitcher": "K. Leahy 8-4"
         },
         {
           "away": "Colorado",
-          "away_pitcher": "T. Sugano 12-5",
+          "away_pitcher": "R. Feltner 4-6",
           "home": "Arizona",
-          "home_pitcher": "M. Bratt 1-1"
-        },
-        {
-          "away": "Milwaukee",
-          "away_pitcher": "K. Harrison 9-3",
-          "home": "San Diego",
-          "home_pitcher": "W. Buehler 7-5"
+          "home_pitcher": "M. Kelly 8-9"
         },
         {
           "away": "Houston",
-          "away_pitcher": "H. Brown 3-2",
+          "away_pitcher": "B. King 2-3",
           "home": "San Francisco",
-          "home_pitcher": "C. Whisenhunt 3-3"
+          "home_pitcher": "TBD"
+        },
+        {
+          "away": "Milwaukee",
+          "away_pitcher": "D. May 6-7",
+          "home": "San Diego",
+          "home_pitcher": "R. Ray 10-7"
+        },
+        {
+          "away": "Pittsburgh",
+          "away_pitcher": "C. Mlodzinski 6-4",
+          "home": "Miami",
+          "home_pitcher": "J. Junk 5-7"
+        },
+        {
+          "away": "Chicago",
+          "away_pitcher": "D. Peterson 6-7",
+          "home": "Washington",
+          "home_pitcher": "J. Kent"
+        },
+        {
+          "away": "New York",
+          "away_pitcher": "Z. Thornton 3-2",
+          "home": "Atlanta",
+          "home_pitcher": "T. Mahle 3-9"
         },
         {
           "away": "Kansas City",
-          "away_pitcher": "M. Wacha 5-8",
+          "away_pitcher": "D. Lynch IV 4-3",
           "home": "Los Angeles",
-          "home_pitcher": "B. Snell 0-1"
+          "home_pitcher": "E. Lauer 6-6"
         }
       ]
     }
