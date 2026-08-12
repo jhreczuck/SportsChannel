@@ -485,6 +485,57 @@ start of the whole rotation.
       `media/` folder alongside it (keeps `.exe` size down).
 - [ ] Attach as a GitHub Release artifact.
 
+## Idea: Reduce OpenAI API cost for article cleaning (not started)
+Currently `gpt_cleaner.py` calls the OpenAI chat completions API (`gpt-4.1-mini`) once per
+article, every time `refresh_stories.py` runs — now daily via the 8am systemd timer (see
+`deploy/refresh_all.sh`), so cost is bounded today, but would scale linearly if refresh cadence
+is ever increased (Phase 5's "1-2 hours" idea) or more leagues/articles are added. Flagged by the
+user as worth addressing before that happens, not urgent yet.
+
+- [ ] Investigate whether a subscription-based ChatGPT CLI/tool (flat monthly cost) could replace
+      pay-per-token API calls for this specific use case — needs research into what's actually
+      available/supported for programmatic use (most consumer ChatGPT subscriptions don't offer
+      a sanctioned CLI/API path; may end up ruled out).
+- [ ] Cache cleaned output keyed by article content hash, so unchanged articles aren't re-sent to
+      GPT on every refresh — likely the highest-value, lowest-risk fix regardless of the above,
+      since most articles are probably unchanged between consecutive refreshes.
+- [ ] Consider a cheaper/smaller model tier if quality holds up (`gpt-4.1-mini` is already the
+      "mini" tier — check if `gpt-4.1-nano` or similar is viable).
+- [ ] Consider batching multiple articles into one API call instead of one call per article, to
+      cut fixed per-request overhead.
+
+## Idea: Better text layout on cards, drop the `<<<INDENT>>>` markers (not started)
+Currently `gpt_cleaner.py`'s system prompt has GPT emit literal `\n` for paragraph breaks and a
+literal `<<<INDENT>>>` token at the start of each paragraph's first line (see the "Formatting
+preservation" rules in the prompt), which `app.js` presumably parses back out at render time.
+Flagged by the user as fragile/"crazy" — asking GPT to hand-encode layout in text is exactly the
+kind of thing that silently breaks (already happened once with the `\n\n` → `\n` rule per the
+prompt's own workaround comment).
+
+- [ ] Move paragraph/indentation handling into the renderer (`app.js`) instead of asking GPT to
+      encode it in the text: have GPT return plain paragraphs (blank line between them, no
+      special tokens) and let the canvas text-layout code handle indentation, spacing, and
+      wrapping itself — same place `wrapHeadline`/two-zone story wrapping already live.
+- [ ] Once layout is card-side, simplify `_SYSTEM_PROMPT` to drop the `<<<INDENT>>>` /
+      formatting-preservation rules entirely — fewer instructions for GPT to get wrong, and no
+      custom token to fail to strip if a response deviates.
+- [ ] Revisit general text layout quality on the cards while in there (open-ended — spacing,
+      line balance, paragraph breaks reading naturally) now that layout isn't constrained by
+      what GPT chose to emit.
+
+## Idea: Better news source than Yahoo RSS (not started)
+`news_feed.py` currently pulls from Yahoo Sports RSS feeds. User reports a lot of junk still
+getting through despite the existing filters (dateline/caption regexes, fantasy-promo stripping,
+game-recap heuristics — see Phase 3 and the Game-recap prioritization feature above), suggesting
+the feed itself is noisy at the source rather than just needing more filtering downstream.
+
+- [ ] Research alternative sports news sources/APIs (ESPN's own news endpoints? another sports
+      RSS feed? a dedicated news API?) and compare actual junk rate against Yahoo's before
+      committing to a switch — same "verify against live data" approach used for every other
+      data source in this project, not a guess.
+- [ ] Decide whether to replace Yahoo outright or add a second source and merge, once a
+      candidate is identified.
+
 ---
 
 ## Open questions
