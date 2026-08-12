@@ -63,6 +63,12 @@ resume/delta support, but works with zero extra setup:
 Re-run the same `rsync` command any time you add/change logos or music —
 it only transfers what's changed.
 
+Files copied in as root (via `scp`/`rsync` over an SSH root login) land
+mode `700` — unreadable by nginx's unprivileged worker process. Run
+`chmod -R o+rX,g+rX /opt/sportschannel` (see step 7) after any such
+transfer, or new/updated assets will 404 even though they're clearly on
+disk.
+
 ## 5. Do a manual refresh once, to confirm everything works
 
 ```bash
@@ -111,6 +117,13 @@ cp deploy/nginx-sportschannel.conf /etc/nginx/conf.d/sportschannel.conf
 dnf install -y policycoreutils-python-utils
 semanage fcontext -a -t httpd_sys_content_t "/opt/sportschannel(/.*)?"
 restorecon -Rv /opt/sportschannel
+
+# Unix permissions: files transferred in as root via scp (e.g. media/, step
+# 4) land mode 700 -- readable/traversable by root only. nginx runs as the
+# unprivileged `nginx` user, so without this every asset 404s even though
+# the file is clearly sitting right there. Re-run this after any manual
+# scp/rsync of new files into /opt/sportschannel as root.
+chmod -R o+rX,g+rX /opt/sportschannel
 
 # firewalld: open the port for external access.
 firewall-cmd --permanent --add-port=8080/tcp
