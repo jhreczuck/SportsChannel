@@ -22,17 +22,26 @@ python3 -m venv venv
 
 ## 3. Create `.env`
 
-Not in git (secrets). Create `/opt/sportschannel/.env` with the same values
-as your Windows `.env` — see `.env.example` in the repo for the expected
-keys (`SPORTSDATAIO_API_KEY`, `OPENAI_API_KEY`, `SPORTSDATAIO_LEAGUE`,
-`MAX_PER_SPORT`). Copy the actual values over securely yourself (don't paste
-secrets into a chat/AI session) — e.g. `scp` the file directly, or type them
-in over SSH.
+Not in git (secrets). `/opt/sportschannel/.env` needs the same values as
+your Windows `.env` (`SPORTSDATAIO_API_KEY`, `OPENAI_API_KEY`,
+`SPORTSDATAIO_LEAGUE`, `MAX_PER_SPORT` — see `.env.example` in the repo).
+
+Preferred: `scp` the actual file over directly (avoids retyping a long API
+key by hand). Run **on the Windows machine**:
 
 ```bash
-nano /opt/sportschannel/.env   # paste in real values, save
+scp "/c/Users/Admin/Documents/APIs/SportsChannel/Sportschannel/.env" root@192.168.0.219:/opt/sportschannel/.env
+```
+
+Then lock down the permissions on the server:
+
+```bash
 chmod 600 /opt/sportschannel/.env
 ```
+
+(If `scp` isn't convenient, `nano /opt/sportschannel/.env` and paste the
+values in by hand works too — just don't paste secrets into a chat/AI
+session.)
 
 ## 4. Sync media/ from Windows (run this ON THE WINDOWS MACHINE, not the server)
 
