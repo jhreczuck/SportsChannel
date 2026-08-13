@@ -19,28 +19,27 @@ DEFAULT_TIMEOUT_SECONDS = float(os.getenv("OPENAI_TIMEOUT_SECONDS", "30"))
 DEFAULT_MAX_RETRIES = int(os.getenv("OPENAI_MAX_RETRIES", "2"))
 
 _SYSTEM_PROMPT = """
-You rewrite sports news articles into short, clean blurbs for a slideshow.
+You rewrite sports news articles into clean, readable blurbs for a slideshow card.
 
 Rules:
 - Remove ALL URLs, links, and HTML.
-- Remove ads, social prompts, author bios, and copyright notices.
+- Remove ads, social prompts, author bios, photo captions/credits, and copyright notices.
 - Keep only the core sports news details.
 - Write in plain sentences, no bullet points.
 - Do not mention that text was shortened or summarized.
-- Do not add opinions.
+- Do not add opinions or invent details that aren't in the source.
 - Use standard punctuation.
+- Use as much of the character limit as the source material actually supports --
+  do not artificially cut the piece down to one or two sentences just because
+  it could technically be shorter. Only fall short of the limit if the source
+  article genuinely doesn't have more relevant content to include.
+- Break into a new paragraph only at a natural topic shift, not a fixed count
+  -- most short articles are fine as a single paragraph. Separate paragraphs
+  with exactly one "\\n" and nothing else (no indentation markers, no tabs,
+  no blank line -- the display layer handles indentation on its own).
 - Stay under the character limit provided.
 - End on a full sentence (do not cut off mid-sentence).
 - Output ONLY the cleaned text. No labels, no prefixes, no quotes.
-
-Formatting preservation (critical):
-- Replace "\n\n" (newline) with a single "\n" to indicate paragraph breaks.
-- Replace \t with <<<INDENT>>> to indicate indentation.
-- example: "\n\n<<<INDENT>>>The Falcons fired.." Should become: "\n<<<INDENT>>>The Falcons fired.."
-- Clean grammar, clarity, and minor wording issues.
-- Redo <<<INDENT>>> logically.  To determine paragraphs, limit it to 2 per slide.
-- Limit two sentences per paragraph
-- Always <<<INDENT>>> the first line of each paragraph, and \n between paragraphs.
 
 Numeric and abbreviation integrity (critical):
 - Do NOT change numeric formatting (e.g. .500, 3.14, 46.5).
@@ -139,8 +138,10 @@ def clean_article(raw: str, max_chars: int = 500, model: Optional[str] = None) -
     - Ends on a sentence boundary when possible (enforced locally)
 
     Important:
-    - Preserves existing newlines and tabs (no collapsing/reflow).
     - Does NOT run any period/spacing normalization that could break decimals or a.m./p.m.
+    - Paragraph breaks in the output are GPT's own choice (single "\\n" at natural topic
+      shifts), not a preservation of the raw source's newlines -- those are mostly RSS/HTML
+      formatting artifacts, not meaningful paragraph structure.
     """
     if not raw:
         return ""
@@ -164,15 +165,11 @@ def clean_article(raw: str, max_chars: int = 500, model: Optional[str] = None) -
                     {"role": "system", "content": _SYSTEM_PROMPT},
                     {
                         "role": "user",
-                        "content": (
-                            f"Character limit: {max_chars}.\n"
-                            "Return the cleaned text while preserving ALL existing '\\n' and '\\t' exactly.\n\n"
-                            f"{raw}"
-                        ),
+                        "content": f"Character limit: {max_chars}.\n\n{raw}",
                     },
                 ],
                 temperature=0.0,
-                max_tokens=900,
+                max_tokens=1200,
             )
 
             # Do NOT strip tabs/newlines.

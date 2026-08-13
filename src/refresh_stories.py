@@ -65,8 +65,29 @@ LEAGUE_PRIORITY = ["mlb", "nfl", "nba", "nhl"]
 # Logos live here (used to validate inferred logo filenames)
 MEDIA_LOGOS_DIR = BASE_DIR / "media" / "logos"
 
-# If a story "item" is very short and looks like a continuation, merge it into the previous slide.
-MERGE_CONTINUATION_MAX_LEN = 200
+# True display capacity of one card: measured empirically in-browser at the
+# real 36px body font against the actual panel width/height (13 lines fit;
+# the first ~5 sit beside the logo column at the narrower width, the rest use
+# the full panel width) -- came out to ~477 chars for realistic article
+# prose. Kept a small safety margin under that. This replaced the previous
+# MAX_LEN=480, which wasn't actually wrong as a capacity number, but was
+# being applied at the wrong pipeline stage (see clean_slides_with_gpt).
+PANEL_CHAR_CAPACITY = 460
+
+# Budget handed to GPT for the *initial* cleaning pass -- generous enough to
+# cover a two-card story (primary + one continuation) so GPT compresses the
+# source article to how much substance it actually has, rather than being
+# capped at a single card's worth before we've even decided whether the
+# story needs two cards. Split into primary/continuation happens *after*
+# cleaning, based on the cleaned length -- see clean_slides_with_gpt.
+CLEAN_MAX_CHARS = PANEL_CHAR_CAPACITY * 2
+
+# If splitting a cleaned story leaves only a modest bit of leftover text, a
+# whole separate "(cont)" card for it would sit mostly empty -- not worth a
+# full second card. Only split into a continuation when the leftover is
+# substantial enough to reasonably fill a chunk of the panel on its own;
+# otherwise just drop the excess and let the primary card end at capacity.
+MIN_CONTINUATION_LEN = 200
 
 # Off-season story cap: a league that's out of season (per league_seasons.py's
 # ACTIVE_MONTHS windows) still gets *some* news coverage rather than being cut
@@ -120,46 +141,9 @@ def infer_logo(title: str, body: str, league: str | None = None) -> str | None:
     """
     return infer_logo_from_text(title, league) or infer_logo_from_text(body, league)
 
-def indent_paragraphs(text: str) -> str:
-    """
-    No-op: preserve original paragraph boundaries and do NOT insert tabs/newlines.
-    Previously this function prefixed tabs to paragraphs; per request we must
-    preserve only original newlines from the source. Return the input unchanged.
-    """
-    return text
-
-
-def pick_trim_length(raw_len: int) -> int:
-    """
-    Cleaning length rules (target sized to the web panel's ~480-char capacity
-    at the current 36px body font):
-    - >1000 chars -> 1000
-    - 480-750 chars -> 480
-    - otherwise -> keep as-is (GPT still cleans)
-    """
-    if raw_len > 1000:
-        return 1000
-    if 480 <= raw_len <= 750:
-        return 480
-    return raw_len
-
-
-def add_paragraph_breaks(text: str) -> str:
-    """
-    No-op: do not insert paragraph breaks. Preserve original newlines from source.
-    """
-    return text
-
-
-def linefeed_and_indent_after_first_sentence(text: str) -> str:
-    """
-    No-op: do not insert a linefeed after the first sentence. Preserve original text.
-    """
-    return text
-
 def style_body_text(text: str) -> str:
     """
-    Apply final body styling rules and return cleaned text WITHOUT <<<INDENT>>> markers.
+    Apply minimal styling to raw source text before it's sent to GPT.
     """
     if not text:
         return ""
@@ -186,60 +170,50 @@ def collapse_newlines(s: str) -> str:
     t = s.replace("\r\n", "\n").replace("\r", "\n")
     return re.sub(r"\n{2,}", "\n", t)
 
-def mark_first_line(s: str) -> str:
+def split_at_natural_break(text: str, max_len: int) -> tuple[str, str]:
     """
-    Prefix the first non-blank line of s with the <<<INDENT>>> marker (if not already).
-    Preserves blank lines and other content.
+    Split text into (first_part, rest) at the last sentence/clause break
+    (., ,, or -) at or before max_len, so a card doesn't cut off mid-word or
+    mid-sentence. Falls back to the earliest break shortly after max_len (a
+    small tolerance, not unbounded -- text with no punctuation at all nearby
+    hard-cuts at max_len rather than searching arbitrarily far ahead).
     """
-    if not s:
-        return s
-    lines = s.splitlines()
-    for i, l in enumerate(lines):
-        if l.strip():
-            if not l.startswith("<<<INDENT>>>"):
-                lines[i] = "<<<INDENT>>>" + l
-            break
-    return "\n".join(lines)
+    if len(text) <= max_len:
+        return text, ""
 
+    # Small forward tolerance for the "no punctuation before max_len" case --
+    # covers a slightly-too-long sentence without risking an unbounded
+    # search into content far past the actual capacity.
+    FORWARD_TOLERANCE = 60
 
+    candidates = [".", ",", "-"]
+    split_idx = -1
+    for ch in candidates:
+        i = text.rfind(ch, 0, max_len)
+        if i > split_idx:
+            split_idx = i
 
+    if split_idx == -1:
+        earliest = None
+        for ch in candidates:
+            i = text.find(ch, max_len, max_len + FORWARD_TOLERANCE)
+            if i != -1 and (earliest is None or i < earliest):
+                earliest = i
+        split_idx = earliest if earliest is not None else max_len - 1
 
-def _maybe_merge_or_append(slides: List[Dict[str, Any]], slide: Dict[str, Any]) -> None:
-    """
-    Merge short "continuation fragments" into the previous slide when:
-    - same league
-    - same inferred logo
-    - current body is short (<= MERGE_CONTINUATION_MAX_LEN)
-    - neither body starts with "(cont)"
-    """
-    if not slides:
-        slides.append(slide)
-        return
-
-    cur_body = (slide.get("body") or "").strip()
-    prev_body = (slides[-1].get("body") or "").strip()
-
-    if (
-        cur_body
-        and len(cur_body) <= MERGE_CONTINUATION_MAX_LEN
-        and slides[-1].get("league") == slide.get("league")
-        and slides[-1].get("logo") == slide.get("logo")
-        and not prev_body.lstrip().startswith("(cont)")
-        and not cur_body.lstrip().startswith("(cont)")
-    ):
-        # Merge with a single space separator; strip leading whitespace/tabs from current.
-        merged = (prev_body.rstrip() + " " + cur_body.lstrip()).strip()
-        # Collapse accidental double spaces
-        merged = re.sub(r"\s{2,}", " ", merged)
-        slides[-1]["body"] = merged
-    else:
-        slides.append(slide)
+    split_idx += 1
+    return text[:split_idx].strip(), text[split_idx:].strip()
 
 
 def build_slides_from_news(max_per_sport: int = 40) -> Dict[str, Any]:
     """
     Fetch latest news via news_feed.fetch_sport_news() and convert to the
     stories.json structure your main app expects, with extra metadata.
+
+    One slide per fetched item at this stage -- splitting into a primary
+    card plus an optional "(cont)" card happens later, in
+    clean_slides_with_gpt, based on the actual *cleaned* length rather than
+    the raw source length (see that function's docstring for why).
     """
     slides: List[Dict[str, Any]] = []
     per_sport_order = ["nfl", "mlb", "nba", "nhl"]
@@ -255,8 +229,10 @@ def build_slides_from_news(max_per_sport: int = 40) -> Dict[str, Any]:
             print(f"[refresh_stories] Warning: failed to fetch {s}: {e}")
             continue
 
-    MAX_LEN = 480  # matches the web panel's ~480-char capacity at the current 36px body font
-    MAX_EXCLUDE_LEN = 1000
+    # Generous guard against pathologically long raw dumps (not real articles)
+    # rather than a tight cap -- GPT compresses arbitrary-length input down to
+    # CLEAN_MAX_CHARS on its own, so there's no need to pre-truncate here.
+    MAX_EXCLUDE_LEN = 6000
 
     for item in items:
         raw_text = (getattr(item, "text", None) or "")
@@ -287,72 +263,14 @@ def build_slides_from_news(max_per_sport: int = 40) -> Dict[str, Any]:
             )
             continue
 
-        if len(text) > MAX_LEN:
-            # Split at the last natural break before MAX_LEN
-            candidates = [".", ",", "-"]
-            split_idx = -1
-            for ch in candidates:
-                i = text.rfind(ch, 0, MAX_LEN)
-                if i > split_idx:
-                    split_idx = i
-
-            if split_idx == -1:
-                # try earliest break after MAX_LEN
-                earliest = None
-                for ch in candidates:
-                    i = text.find(ch, MAX_LEN)
-                    if i != -1 and (earliest is None or i < earliest):
-                        earliest = i
-                if earliest is not None:
-                    split_idx = earliest
-
-            if split_idx == -1:
-                split_idx = MAX_LEN
-            else:
-                split_idx += 1
-
-            first_part = text[:split_idx].strip()
-            rest = text[split_idx:].strip()
-
-            # Normalize consecutive newlines so there is only one blank line between paragraphs.
-            first_part = collapse_newlines(first_part)
-            rest = collapse_newlines(rest)
-
-            # DON'T call style_body_text again - it's already styled!
-            # Mark only the first visible line with <<<INDENT>>> and append slides.
-            first_slide = {
-                "title": item_title,
-                "body": mark_first_line(first_part),
-                "logo": inferred_logo,
-                "league": league,
-                "logo_recommended": logo_recommended,
-                "category": category,
-            }
-            _maybe_merge_or_append(slides, first_slide)
-
-            if rest:
-                cont_body = mark_first_line("(cont) " + rest)
-                second_slide = {
-                    "title": "",  # continuation of the slide above; headline already shown there
-                    "body": cont_body,
-                    "logo": inferred_logo,
-                    "league": league,
-                    "logo_recommended": logo_recommended,
-                    "category": category,
-                }
-                _maybe_merge_or_append(slides, second_slide)
-        else:
-            # Collapse multiple consecutive newlines to a single newline
-            text = collapse_newlines(text)
-            slide = {
-                "title": item_title,
-                "body": mark_first_line(text),
-                "logo": inferred_logo,
-                "league": league,
-                "logo_recommended": logo_recommended,
-                "category": category,
-            }
-            _maybe_merge_or_append(slides, slide)
+        slides.append({
+            "title": item_title,
+            "body": text,
+            "logo": inferred_logo,
+            "league": league,
+            "logo_recommended": logo_recommended,
+            "category": category,
+        })
 
     return {"slides": slides}
 
@@ -380,6 +298,17 @@ def clean_slides_with_gpt(wrapper: Dict[str, Any]) -> Dict[str, Any]:
     """
     Reads the full stories.json-style wrapper, cleans slide bodies with GPT,
     and returns a new wrapper suitable for stories_cleaned.json.
+
+    GPT is given CLEAN_MAX_CHARS (two cards' worth) up front, so it compresses
+    each article down to how much substance it actually has rather than being
+    pre-capped at one card's budget before we know whether it needs a second
+    card. The cleaned result is then split into a primary card (up to
+    PANEL_CHAR_CAPACITY) plus an optional "(cont)" card for real leftover
+    content -- deciding the split on the cleaned text, not the raw source,
+    is what actually fixes two problems: cards that used to look emptier than
+    they needed to (GPT was never given room to fill them), and "(cont)"
+    cards that used to appear even when GPT's own compression would have
+    fit everything on one card if only it had been allowed to try.
     """
     slides = wrapper.get("slides", [])
     cleaned_slides: List[Dict[str, Any]] = []
@@ -387,42 +316,59 @@ def clean_slides_with_gpt(wrapper: Dict[str, Any]) -> Dict[str, Any]:
     for idx, slide in enumerate(slides):
         body = (slide.get("body") or "")
         raw_len = len(body)
-        target_len = pick_trim_length(raw_len)
 
         if not body.strip():
             cleaned_slides.append(slide)
             continue
 
         try:
-            cleaned_body = clean_article(body, max_chars=target_len)
-            # Collapse any consecutive newlines that may have been introduced by the cleaner
+            cleaned_body = clean_article(body, max_chars=CLEAN_MAX_CHARS)
             cleaned_body = collapse_newlines(cleaned_body)
-            print(
-                f"[refresh_stories] GPT cleaned slide {idx + 1}: "
-                f"{raw_len} -> {len(cleaned_body)} (limit {target_len})"
-            )
         except Exception as e:
             print(f"[refresh_stories] GPT failed on slide {idx + 1}: {e}")
-            # Ensure fallback also has normalized newlines
-            cleaned_body = collapse_newlines(body)
+            cleaned_body = collapse_newlines(body)[:CLEAN_MAX_CHARS]
 
-        # Re-infer the logo from the text that will actually be displayed,
-        # not the raw pre-GPT body: GPT often drops trailing sentences that
-        # only mentioned a team in passing (e.g. a source article's closing
-        # line naming "the Bruins' offensive staff" for a UCLA football
-        # story), so inferring from the raw body could pick a team logo for
-        # a team that never appears in what the viewer actually sees.
-        #
-        # Continuation slides (empty title, "(cont)" body -- see
-        # _maybe_merge_or_append) share their parent slide's logo rather
-        # than being independently recomputed from their own fragment: they
-        # split from the same source article, and re-inferring per-fragment
-        # would let a two-part story's logo flip between its own two cards.
-        if (slide.get("title") or "").strip():
-            recomputed_logo = infer_logo(slide.get("title", ""), cleaned_body, slide.get("league"))
-        else:
-            recomputed_logo = cleaned_slides[-1]["logo"] if cleaned_slides else slide.get("logo")
-        cleaned_slides.append({**slide, "body": cleaned_body, "logo": recomputed_logo})
+        title = slide.get("title", "")
+        league = slide.get("league")
+
+        primary_body, rest = split_at_natural_break(cleaned_body, PANEL_CHAR_CAPACITY)
+        # The continuation card has the same capacity as the primary one --
+        # if there's enough leftover to need a third card's worth, trim it
+        # to fit rather than overflowing the (single) continuation card.
+        # CLEAN_MAX_CHARS is 2x PANEL_CHAR_CAPACITY, so this is rare (only
+        # when the primary split landed well under capacity).
+        if len(rest) > PANEL_CHAR_CAPACITY:
+            rest, _ = split_at_natural_break(rest, PANEL_CHAR_CAPACITY)
+        make_continuation = len(rest) >= MIN_CONTINUATION_LEN
+
+        # Re-infer the logo from the text that will actually be displayed on
+        # the primary card, not the raw pre-GPT body: GPT can drop sentences
+        # that only mentioned a team in passing (e.g. a source article's
+        # closing line naming "the Bruins' offensive staff" for a UCLA
+        # football story), so inferring from the raw body risks picking a
+        # team logo for a team that never appears in what's shown.
+        recomputed_logo = infer_logo(title, primary_body, league)
+
+        cleaned_slides.append({**slide, "body": primary_body, "logo": recomputed_logo})
+        print(
+            f"[refresh_stories] GPT cleaned slide {idx + 1}: "
+            f"{raw_len} -> {len(cleaned_body)} (limit {CLEAN_MAX_CHARS}), "
+            f"primary {len(primary_body)} chars"
+            + (f", +continuation {len(rest)} chars" if make_continuation else
+               (f", dropped {len(rest)} leftover chars (below {MIN_CONTINUATION_LEN})" if rest else ""))
+        )
+
+        if make_continuation:
+            cleaned_slides.append({
+                **slide,
+                "title": "",  # continuation of the slide above; headline already shown there
+                "body": "(cont) " + rest,
+                # Shares the primary card's logo rather than being independently
+                # re-inferred from its own fragment -- both split from the same
+                # source article, and re-inferring per-fragment would let a
+                # two-part story's logo flip between its own two cards.
+                "logo": recomputed_logo,
+            })
 
     return {**wrapper, "slides": cleaned_slides}
 

@@ -545,24 +545,68 @@ user as worth addressing before that happens, not urgent yet.
 - [ ] Consider batching multiple articles into one API call instead of one call per article, to
       cut fixed per-request overhead.
 
-## Idea: Better text layout on cards, drop the `<<<INDENT>>>` markers (not started)
-Currently `gpt_cleaner.py`'s system prompt has GPT emit literal `\n` for paragraph breaks and a
-literal `<<<INDENT>>>` token at the start of each paragraph's first line (see the "Formatting
-preservation" rules in the prompt), which `app.js` presumably parses back out at render time.
-Flagged by the user as fragile/"crazy" — asking GPT to hand-encode layout in text is exactly the
-kind of thing that silently breaks (already happened once with the `\n\n` → `\n` rule per the
-prompt's own workaround comment).
+## Feature: Text fitting revamp — capacity, `(cont)` placement, drop `<<<INDENT>>>` markers ✅ done
+Triggered by two live screenshots: one showing a card using only 9 of the panel's ~13 lines
+(obvious wasted space), another showing a literal `<<<INDENT>>>` token leaked into the displayed
+text ("series.<<<INDENT>>>My Mariners vs. Yankees predictions...") — the fragile hand-encoding
+scheme finally breaking in practice, not just in theory, exactly as an earlier roadmap note
+predicted ("already happened once with the `\n\n` → `\n` rule").
 
-- [ ] Move paragraph/indentation handling into the renderer (`app.js`) instead of asking GPT to
-      encode it in the text: have GPT return plain paragraphs (blank line between them, no
-      special tokens) and let the canvas text-layout code handle indentation, spacing, and
-      wrapping itself — same place `wrapHeadline`/two-zone story wrapping already live.
-- [ ] Once layout is card-side, simplify `_SYSTEM_PROMPT` to drop the `<<<INDENT>>>` /
-      formatting-preservation rules entirely — fewer instructions for GPT to get wrong, and no
-      custom token to fail to strip if a response deviates.
-- [ ] Revisit general text layout quality on the cards while in there (open-ended — spacing,
-      line balance, paragraph breaks reading naturally) now that layout isn't constrained by
-      what GPT chose to emit.
+**Root cause of the wasted space:** the old pipeline pre-split raw article text at a fixed
+480-char threshold *before* GPT ever cleaned it, then told GPT to clean each already-shrunk
+fragment while staying at-or-under its own (already small) length — GPT was structurally never
+given room to use the panel's real capacity, and a hard "2 paragraphs / 2 sentences" cap in the
+system prompt throttled output further regardless of the character limit passed in.
+
+- [x] Measured the panel's true capacity empirically in-browser (not guessed from pixel math):
+      ~477 chars for realistic article prose at the current 36px font (13 lines: ~5 narrow lines
+      beside the logo, the rest full-width). `PANEL_CHAR_CAPACITY = 460` in `refresh_stories.py`
+      (small safety margin under the measured max).
+- [x] Reordered the pipeline: `build_slides_from_news` no longer pre-splits raw text at all (one
+      slide per fetched item, raw body kept whole). `clean_slides_with_gpt` now cleans the *full*
+      article with a generous `CLEAN_MAX_CHARS` budget (2x `PANEL_CHAR_CAPACITY`) so GPT compresses
+      to how much substance the source actually has, then splits the *cleaned* result into a
+      primary card (≤`PANEL_CHAR_CAPACITY`) plus an optional "(cont)" card only if the leftover is
+      substantial (`MIN_CONTINUATION_LEN = 200`, raised from an initial 40 after the user flagged
+      that a `(cont)` card shouldn't exist just because a *little* text was left over — small
+      leftovers are dropped, not spun into a near-empty second card).
+      Verified live: primary cards now land mostly in the 400-460 range (vs. previously being
+      capped well below capacity by construction), continuations only appear with 280-500+ chars
+      of real leftover content, and small excess (45-198 chars) is correctly dropped rather than
+      creating a sparse `(cont)` card.
+- [x] Found and fixed a related bug during this work: the continuation card's length wasn't itself
+      bounded by `PANEL_CHAR_CAPACITY` (only the primary card's split was capped), so a
+      continuation could in rare cases overflow its own panel. Now re-split to fit if needed.
+      Also hardened `split_at_natural_break`'s fallback (no punctuation found before the cap) to a
+      bounded forward search instead of an unbounded one, closing a latent edge case inherited
+      from the original splitting logic.
+- [x] Dropped the `<<<INDENT>>>` marker scheme entirely, per the user's follow-up ("those indents
+      need to go too") once the leak was visible. `gpt_cleaner.py`'s system prompt no longer asks
+      GPT to hand-encode indentation or cap paragraphs at a fixed count — it separates paragraphs
+      with a plain `\n` at natural topic shifts and is told to use the full character budget the
+      source supports. `app.js`'s `wrapTextAroundOverlay` now derives indentation purely from real
+      paragraph boundaries (every paragraph's first rendered line is indented, no marker needed)
+      and returns `{text, indent}` objects instead of marker-prefixed strings; `drawSlideText`
+      updated to match. Verified across all 55 slides in a live test refresh: zero indent-marker
+      leaks, max line count 12 (within the 13-line panel), zero overflow.
+- [x] Removed now-dead code as part of the rewrite: `pick_trim_length`, `mark_first_line`,
+      `_maybe_merge_or_append`, `MERGE_CONTINUATION_MAX_LEN`, and three pre-existing no-op
+      functions (`indent_paragraphs`, `add_paragraph_breaks`,
+      `linefeed_and_indent_after_first_sentence`) that were leftover cruft from an earlier version
+      of the formatting scheme.
+
+## Fix: Standings board GB/PTS value overflowing the row highlight
+- [x] Spotted via a live screenshot: NL Central's Pirates row showed "16.5" (games behind) with
+      its last digit rendered past the blue row-highlight background, onto the plain panel
+      background. Root cause: the GB/PTS column sat at a fixed 0.90 fraction of the row width,
+      leaving only ~57px before the row rectangle's right edge -- too little for a 4-character
+      value like "16.5" (measured 72px at this font).
+- [x] Rebuilt all `drawStandingsBoard` column positions from actual measured glyph widths
+      (monospace, 18px/char at 36px font) instead of the original eyeballed fractions -- name
+      column narrowed (0.50 → 0.44), remaining columns shifted to give the last column real
+      breathing room (0.90 → 0.79). Verified the longest realistic team name ("Golden Knights",
+      NHL) still clears the name column with margin, and the widest real values (".612", "16.5")
+      now render with 50+ px of clearance inside the row highlight.
 
 ## Idea: Better news source than Yahoo RSS (not started)
 `news_feed.py` currently pulls from Yahoo Sports RSS feeds. User reports a lot of junk still

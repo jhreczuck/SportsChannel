@@ -138,6 +138,14 @@ function wrapTextToWidth(text, maxWidth, ctxRef) {
 // Lines that fall beside the logo (rightRect) use the narrower leftRect
 // width; once a line is below the logo's bottom edge, it widens to use the
 // full inner content width, since nothing occupies that space anymore.
+//
+// Paragraph indentation is derived purely from real "\n" boundaries in the
+// source text (paragraph breaks) -- every paragraph's first rendered line is
+// indented, no special marker needed. GPT previously had to hand-encode this
+// with a literal "<<<INDENT>>>" token, which occasionally leaked into the
+// displayed text verbatim when GPT's output didn't come back exactly as
+// instructed (a real, observed failure, not just a theoretical risk).
+// Returns an array of {text, indent} objects rather than plain strings.
 function wrapTextAroundOverlay(bodyText, ctxRef, hasLogo) {
   const lines = [];
   ctxRef.font = BODY_FONT;
@@ -152,14 +160,11 @@ function wrapTextAroundOverlay(bodyText, ctxRef, hasLogo) {
   const logoEndLine = logoStartLine + logoLineCount;
 
   for (const para of bodyText.split("\n")) {
-    if (!para.trim()) {
-      lines.push("");
+    const text = para.trim();
+    if (!text) {
+      lines.push({ text: "", indent: false });
       continue;
     }
-
-    const hasIndent = para.startsWith("<<<INDENT>>>");
-    const text = para.replace("<<<INDENT>>>", "").trim();
-    if (!text) continue;
 
     const words = text.split(/\s+/);
     let firstLine = true;
@@ -167,7 +172,7 @@ function wrapTextAroundOverlay(bodyText, ctxRef, hasLogo) {
     while (words.length) {
       const lineIdx = lines.length;
       const fullWidth = (lineIdx >= logoStartLine && lineIdx < logoEndLine) ? narrowWidth : wideWidth;
-      const availableWidth = (firstLine && hasIndent) ? fullWidth - FIRST_LINE_INDENT : fullWidth;
+      const availableWidth = firstLine ? fullWidth - FIRST_LINE_INDENT : fullWidth;
 
       const line = [];
       while (words.length) {
@@ -180,13 +185,8 @@ function wrapTextAroundOverlay(bodyText, ctxRef, hasLogo) {
         }
       }
 
-      const result = line.join(" ");
-      if (firstLine && hasIndent) {
-        lines.push("<<<INDENT>>>" + result);
-        firstLine = false;
-      } else {
-        lines.push(result);
-      }
+      lines.push({ text: line.join(" "), indent: firstLine });
+      firstLine = false;
     }
   }
 
@@ -483,16 +483,12 @@ function drawSlideText(wrappedLines, linesToShow, logo) {
   for (let i = 0; i < linesToShow && i < wrappedLines.length; i++) {
     if (lineY > maxY) break;
     const line = wrappedLines[i];
-    if (!line.trim()) {
+    if (!line.text.trim()) {
       lineY += lineHeight;
       continue;
     }
-    let text = line, xPos = inner.x + TEXT_PADDING;
-    if (line.startsWith("<<<INDENT>>>")) {
-      text = line.replace("<<<INDENT>>>", "");
-      xPos = inner.x + TEXT_PADDING + FIRST_LINE_INDENT;
-    }
-    ctx.fillText(text, xPos, lineY);
+    const xPos = inner.x + TEXT_PADDING + (line.indent ? FIRST_LINE_INDENT : 0);
+    ctx.fillText(line.text, xPos, lineY);
     lineY += lineHeight;
   }
 
@@ -695,11 +691,18 @@ function drawStandingsBoard(page, logos, linesToShow) {
   let rowY = titleY + BODY_FONT_PX + 30;
   const nameX = inner.x + TEXT_PADDING;
   const colW = Math.max(100, leftRect.w - TEXT_PADDING * 2);
-  const colWX = nameX + colW * 0.50;
-  const colLX = nameX + colW * 0.60;
-  const colTX = nameX + colW * 0.68; // NFL only (ties)
-  const col4X = nameX + colW * (isNFL ? 0.78 : 0.74); // NHL: OTL, others: PCT
-  const col5X = nameX + colW * 0.90; // NHL: PTS, MLB/NBA: GB -- NFL has neither
+  // Column positions sized from actual measured glyph widths at this font
+  // (monospace, 18px/char), not eyeballed fractions -- the previous 0.90
+  // GB/PTS position left only ~57px of room before the row highlight's
+  // right edge, too little for a 4-char value like "16.5" (72px), so it
+  // rendered past the blue background. Name column narrowed to free up
+  // that room; still comfortably fits the longest real team name ("Golden
+  // Knights", ~252px) with margin to spare.
+  const colWX = nameX + colW * 0.44;
+  const colLX = nameX + colW * 0.55;
+  const colTX = nameX + colW * 0.65; // NFL only (ties)
+  const col4X = nameX + colW * (isNFL ? 0.69 : 0.65); // NHL: OTL, others: PCT
+  const col5X = nameX + colW * 0.79; // NHL: PTS, MLB/NBA: GB -- NFL has neither
 
   // Column headers
   if (shouldShow()) {
