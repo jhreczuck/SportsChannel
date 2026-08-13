@@ -44,6 +44,8 @@ from datetime import datetime
 import re
 import unicodedata
 
+import requests
+
 from gpt_cleaner import clean_article
 import news_feed  # must live in the same src/ folder as this script
 import league_seasons
@@ -95,6 +97,17 @@ CLEAN_MAX_CHARS = PANEL_CHAR_CAPACITY * 2
 # substantial enough to reasonably fill a chunk of the panel on its own;
 # otherwise just drop the excess and let the primary card end at capacity.
 MIN_CONTINUATION_LEN = 200
+
+# Player headshots: for stories about a specific named player where no team
+# logo could be inferred (see infer_logo) -- e.g. a feature/analysis piece,
+# injury update, or transaction story that isn't really "about" a team --
+# use the player's real ESPN headshot instead of falling back to a generic
+# league logo. Capped low per league since this is meant as a occasional
+# accent, not the default treatment for most cards, and each lookup is a
+# live API call.
+PLAYER_HEADSHOTS_DIR = MEDIA_LOGOS_DIR / "players"
+ESPN_PLAYER_SEARCH_URL = "https://site.web.api.espn.com/apis/search/v2"
+MAX_PLAYER_PHOTOS_PER_LEAGUE = 2
 
 # Off-season story cap: a league that's out of season (per league_seasons.py's
 # ACTIVE_MONTHS windows) still gets *some* news coverage rather than being cut
@@ -185,6 +198,80 @@ def infer_logo(title: str, body: str, league: str | None = None) -> str | None:
     wrong one. Falls back to scanning the body if the title has no match.
     """
     return infer_logo_from_text(title, league) or infer_logo_from_text(body, league)
+
+
+def _name_candidates(text: str) -> List[str]:
+    """
+    Ordered (by position) list of "Firstname Lastname" candidate phrases --
+    same overlapping-pair technique as infer_logo_from_text's two-word team
+    matching, reused here to find candidate *person* names instead. Not
+    validated against anything here; find_player_headshot tries each one
+    against ESPN's search API and only trusts a confirmed player match.
+    """
+    if not text:
+        return []
+    seen = set()
+    out = []
+    for m in re.finditer(r"\b([A-Z][a-z]+)\s+(?=([A-Z][a-z]+)\b)", text):
+        phrase = f"{m.group(1)} {m.group(2)}"
+        if phrase not in seen:
+            seen.add(phrase)
+            out.append(phrase)
+    return out
+
+
+def find_player_headshot(name_candidates: List[str], league: str | None) -> str | None:
+    """
+    Tries each candidate name against ESPN's player search API in order,
+    accepting the first result that's actually typed "player" (excludes
+    coaches, teams, articles, etc. -- confirmed live that a real coach name
+    like "Bob Chesney" correctly returns no player result) AND whose league
+    matches the story's own league (excludes same-named athletes in other
+    sports, e.g. a search for "New York" alone matching an unrelated MMA
+    fighter with no league tag).
+
+    Downloads and caches the headshot locally under
+    media/logos/players/{athlete_id}.png (by ESPN's own numeric athlete ID,
+    parsed from the image URL) so repeat mentions of the same player across
+    refreshes don't re-download. Returns the logo path relative to
+    media/logos/ (e.g. "players/4432762.png"), or None if no candidate
+    resolved to a real player in the right league.
+    """
+    if not league:
+        return None
+    for name in name_candidates:
+        try:
+            resp = requests.get(
+                ESPN_PLAYER_SEARCH_URL,
+                params={"query": name, "limit": 3, "type": "player"},
+                timeout=10,
+            )
+            resp.raise_for_status()
+            data = resp.json()
+        except Exception:
+            continue
+
+        for group in data.get("results", []):
+            if group.get("type") != "player":
+                continue
+            for content in group.get("contents", []):
+                if content.get("defaultLeagueSlug") != league:
+                    continue
+                img_url = (content.get("image") or {}).get("default")
+                if not img_url:
+                    continue
+                athlete_id = img_url.rstrip("/").rsplit("/", 1)[-1]  # e.g. "4432762.png"
+                dest = PLAYER_HEADSHOTS_DIR / athlete_id
+                if not dest.exists():
+                    try:
+                        img_resp = requests.get(img_url, timeout=10)
+                        img_resp.raise_for_status()
+                        PLAYER_HEADSHOTS_DIR.mkdir(parents=True, exist_ok=True)
+                        dest.write_bytes(img_resp.content)
+                    except Exception:
+                        continue
+                return f"players/{athlete_id}"
+    return None
 
 def style_body_text(text: str) -> str:
     """
@@ -365,6 +452,7 @@ def clean_slides_with_gpt(wrapper: Dict[str, Any]) -> Dict[str, Any]:
     """
     slides = wrapper.get("slides", [])
     cleaned_slides: List[Dict[str, Any]] = []
+    player_photo_counts: Dict[str, int] = {}
 
     for idx, slide in enumerate(slides):
         body = (slide.get("body") or "")
@@ -400,7 +488,30 @@ def clean_slides_with_gpt(wrapper: Dict[str, Any]) -> Dict[str, Any]:
         # closing line naming "the Bruins' offensive staff" for a UCLA
         # football story), so inferring from the raw body risks picking a
         # team logo for a team that never appears in what's shown.
-        recomputed_logo = infer_logo(title, primary_body, league)
+        #
+        # Priority order matters here, not just "team, else player": a title
+        # naming a specific person (e.g. "Remembering Don Nelson") is a
+        # stronger signal of the real subject than a team name that only
+        # shows up in the body -- confirmed live with exactly that example,
+        # where the body's opening photo caption mentioned "Boston Celtics"
+        # and would have won the team logo despite the title being clearly
+        # about Don Nelson specifically. So: team-in-title, then
+        # player-in-title, then team-in-body, then player-in-body.
+        def _try_player(text: str) -> str | None:
+            if not league or player_photo_counts.get(league, 0) >= MAX_PLAYER_PHOTOS_PER_LEAGUE:
+                return None
+            logo = find_player_headshot(_name_candidates(text), league)
+            if logo:
+                player_photo_counts[league] = player_photo_counts.get(league, 0) + 1
+                print(f"[refresh_stories] Slide {idx + 1}: using player headshot {logo}")
+            return logo
+
+        recomputed_logo = (
+            infer_logo_from_text(title, league)
+            or _try_player(title)
+            or infer_logo_from_text(primary_body, league)
+            or _try_player(primary_body)
+        )
 
         cleaned_slides.append({**slide, "body": primary_body, "logo": recomputed_logo})
         print(

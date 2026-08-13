@@ -599,6 +599,39 @@ system prompt throttled output further regardless of the character limit passed 
       `linefeed_and_indent_after_first_sentence`) that were leftover cruft from an earlier version
       of the formatting scheme.
 
+## Feature: Player headshots for player-focused stories ✅ done
+For stories about a specific individual rather than a team (feature pieces, injury updates,
+transactions), use the player's real ESPN headshot instead of a generic league logo. Scoped
+deliberately small per the user's request ("only need this for a few cards each section").
+
+- [x] `find_player_headshot()` in `refresh_stories.py` queries ESPN's public search API
+      (`site.web.api.espn.com/apis/search/v2?type=player`), which returns a direct headshot image
+      URL for a confirmed player match — verified live it correctly excludes non-players (a real
+      coach name, "Bob Chesney", returns no player result) and cross-sport false positives (a
+      search for "New York" alone matched an unrelated MMA fighter with no league tag, filtered
+      out by requiring `defaultLeagueSlug` to match the story's own league).
+- [x] Candidate names are extracted from the title/body using the same overlapping-pair regex
+      technique as the two-word team-nickname fix above, reused for "Firstname Lastname" person
+      names instead. Downloaded headshots cache locally under `media/logos/players/{athlete_id}.png`
+      (gitignored like all other media) so repeat mentions of the same player don't re-download.
+- [x] Capped at `MAX_PLAYER_PHOTOS_PER_LEAGUE = 2` per refresh — resets each run, not persisted,
+      naturally keeping this to "a few cards per section" and bounding live API calls.
+- [x] **Priority ordering fix found via a live screenshot**: an article titled "Remembering Don
+      Nelson" showed the Celtics team logo instead, because the body's opening photo caption
+      mentioned "Boston Celtics" and the original logic only tried a player photo when *no* team
+      matched anywhere (title or body). Reordered to: team-in-title → player-in-title →
+      team-in-body → player-in-body, so a title that clearly names a person as the subject wins
+      over a team only mentioned in passing in the body. Verified live with a case where a
+      headshot was actually available (title names a current player, body opens with an unrelated
+      team mention) that the reordering does change the outcome correctly.
+- [x] That specific Don Nelson example still can't show his actual face even with the fix, though
+      — checked ESPN's data directly: his player record exists (NBA, Milwaukee Bucks) but has no
+      headshot image at all, since he played in the 1960s-70s, before ESPN's photo coverage. Falls
+      back to the team logo in that case, which is the correct graceful degradation for a missing
+      photo, just not literally his face.
+- [x] No `app.js` changes needed at all -- `getLogo()` already loads whatever relative path is in
+      the `logo` field, so `"players/<id>.png"` just works like any other logo.
+
 ## Follow-up: text-fitting refinements (same session)
 - [x] **Quote board character art bumped ~15% bigger** (`drawLeftColumnLogo` gained an optional
       `boost` param, same overscale-past-the-box pattern `drawLogoInBox` already used elsewhere) —
