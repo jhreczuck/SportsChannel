@@ -518,6 +518,12 @@ start of the whole rotation.
       ticker.json every `TICKER_REFRESH_EVERY_N_LAPS` (2) laps via a `loadTicker()` helper shared
       with the initial load. Async, non-blocking — the ticker keeps scrolling its current text
       until the refetch resolves.
+- [x] That client-side refetch only surfaces genuinely new data if the *server-side* copy has also
+      changed — which it wasn't doing more than once a day (the full `refresh_all.sh` timer). Added
+      a second, separate systemd timer (`deploy/sportschannel-ticker-refresh.service`/`.timer`)
+      that runs *only* `refresh_ticker.py` every 15 minutes — no `git pull`, no dependency install,
+      no GPT calls, just an unauthenticated ESPN scoreboard fetch, so it's cheap enough to run that
+      often without piling onto the daily job. See DEPLOY.md step 6b.
 
 ## Phase 9 — Desktop executable
 - [ ] Package `main.py` + deps with PyInstaller into a standalone Windows `.exe`.

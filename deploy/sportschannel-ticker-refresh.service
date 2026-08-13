@@ -1,0 +1,13 @@
+[Unit]
+Description=SportsChannel ticker-only refresh (live scores)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/sportschannel/src
+ExecStart=/opt/sportschannel/venv/bin/python /opt/sportschannel/src/refresh_ticker.py
+# Same env the full refresh service uses -- refresh_ticker.py doesn't need
+# OPENAI_API_KEY, but SPORTSDATAIO_* isn't needed either (ESPN's ticker
+# endpoint is unauthenticated); harmless to load anyway for consistency.
+EnvironmentFile=-/opt/sportschannel/.env

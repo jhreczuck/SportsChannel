@@ -98,6 +98,33 @@ systemctl start sportschannel-refresh.service
 journalctl -u sportschannel-refresh.service -n 50 --no-pager
 ```
 
+## 6b. Install the ticker-only refresh timer (every 15 minutes)
+
+Live scores go stale fast; the daily refresh above is fine for headlines/
+standings/etc. but too slow for the ticker. This is a second, separate
+timer that runs *only* `refresh_ticker.py` (no `git pull`, no dependency
+install, no GPT calls -- just an unauthenticated ESPN scoreboard fetch),
+so it stays fast and cheap enough to run every 15 minutes.
+
+```bash
+cp deploy/sportschannel-ticker-refresh.service /etc/systemd/system/
+cp deploy/sportschannel-ticker-refresh.timer /etc/systemd/system/
+
+systemctl daemon-reload
+systemctl enable --now sportschannel-ticker-refresh.timer
+
+# Confirm it's scheduled:
+systemctl list-timers sportschannel-ticker-refresh.timer
+
+# Trigger a manual run to confirm the unit itself works:
+systemctl start sportschannel-ticker-refresh.service
+journalctl -u sportschannel-ticker-refresh.service -n 20 --no-pager
+```
+
+Combined with `app.js`'s client-side ticker refetch (every 2nd lap through
+the on-screen rotation), the browser will pick up these 15-minute-fresh
+scores without needing a manual page reload.
+
 ## 7. Install nginx and the config (Rocky Linux 9 / RHEL-family)
 
 Rocky doesn't ship nginx by default, and uses `conf.d/` rather than the
