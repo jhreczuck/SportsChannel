@@ -107,6 +107,15 @@ OFFSEASON_MAX_PER_SPORT = 10
 EXCLUDED_CATEGORIES = {"fantasyfootball"}
 
 
+def _logo_for_word(word: str, league: str | None) -> str | None:
+    if league and (MEDIA_LOGOS_DIR / f"{league}_{word}.png").exists():
+        return f"{league}_{word}.png"
+    logo_name = f"{word}.png"
+    if (MEDIA_LOGOS_DIR / logo_name).exists():
+        return logo_name
+    return None
+
+
 def infer_logo_from_text(text: str, league: str | None = None) -> str | None:
     """
     Infer a team logo filename from the first team name that actually
@@ -114,6 +123,16 @@ def infer_logo_from_text(text: str, league: str | None = None) -> str | None:
     'Cowboys' -> 'cowboys.png'. Also matches digit-prefixed nicknames like
     '49ers', which have no uppercase letter at all ("49ers", not "49Ers")
     and would otherwise never match the capitalized-word pattern.
+
+    Two-word nicknames (e.g. "Red Sox" -> redsox.png, "Blue Jays" ->
+    bluejays.png, "Trail Blazers", "Maple Leafs", "Golden Knights", "Blue
+    Jackets") are checked as a pair, not word-by-word -- checking only
+    single words would never match "Red" or "Sox" individually against
+    "redsox.png", silently skipping straight past the team actually being
+    written about to whatever single-word team name happened to appear
+    later in the text (confirmed live: a Red Sox story's first sentence
+    named the Red Sox, but since neither "Red" nor "Sox" alone matched a
+    logo file, it fell through to "Yankees" -- mentioned second -- instead).
 
     A few nicknames exist in both NFL and MLB (currently "Giants" and
     "Cardinals" -- see fetch_team_logos.py), so if `league` is known, the
@@ -125,16 +144,35 @@ def infer_logo_from_text(text: str, league: str | None = None) -> str | None:
     if not text:
         return None
 
-    matches = list(re.finditer(r"\b[A-Z][a-z]+\b", text)) + list(re.finditer(r"\b\d+[a-z]+\b", text))
-    matches.sort(key=lambda m: m.start())
-    for m in matches:
-        word = m.group().lower()
-        if league and (MEDIA_LOGOS_DIR / f"{league}_{word}.png").exists():
-            return f"{league}_{word}.png"
-        logo_name = f"{word}.png"
-        if (MEDIA_LOGOS_DIR / logo_name).exists():
-            return logo_name
-    return None
+    candidates: list[tuple[int, str]] = []  # (start_pos, logo_filename)
+
+    # Two-word candidates first so a tie at the same start position (the
+    # two-word match's first word also matching alone, e.g. "Blue" vs "Blue
+    # Jays") prefers the more specific full name -- stable sort keeps
+    # insertion order for ties. Uses a lookahead for the second word so
+    # matches can overlap -- a plain "word word" pattern consumes both words
+    # per match, so in "The Blue Jays swept...", "The Blue" would consume
+    # "Blue" and "Blue Jays" itself would never be tried at all.
+    for m in re.finditer(r"\b([A-Z][a-z]+)\s+(?=([A-Z][a-z]+)\b)", text):
+        logo = _logo_for_word((m.group(1) + m.group(2)).lower(), league)
+        if logo:
+            candidates.append((m.start(), logo))
+
+    for m in re.finditer(r"\b[A-Z][a-z]+\b", text):
+        logo = _logo_for_word(m.group().lower(), league)
+        if logo:
+            candidates.append((m.start(), logo))
+
+    for m in re.finditer(r"\b\d+[a-z]+\b", text):
+        logo = _logo_for_word(m.group().lower(), league)
+        if logo:
+            candidates.append((m.start(), logo))
+
+    if not candidates:
+        return None
+
+    candidates.sort(key=lambda c: c[0])
+    return candidates[0][1]
 
 
 def infer_logo(title: str, body: str, league: str | None = None) -> str | None:
