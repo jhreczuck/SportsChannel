@@ -663,6 +663,13 @@ deliberately small per the user's request ("only need this for a few cards each 
       through the whole `clean_slides_with_gpt` refresh run -- an already-claimed athlete is
       skipped (falls through to the next name candidate, or ultimately a generic logo) rather than
       reused. Verified live: every player photo now maps to exactly one story.
+- [x] **Mid-word hyphen cuts fixed**: `split_at_natural_break` treated a bare "-" as a valid clause
+      break, which also matched a hyphen glued inside a compound word like "hardest-throwing" or
+      "two-time" (no space on either side, not a real boundary). Spotted live: a card ended
+      "...one of the hardest-" mid-word. Break patterns now require a trailing space (". ", ", ",
+      " - "), so only a genuine standalone dash used as punctuation counts, not a compound-word
+      hyphen. Verified against the exact failing text (splits at the next comma instead) and
+      confirmed zero mid-word hyphen cuts across a full fresh 58-slide dataset.
 
 ## Follow-up: text-fitting refinements (same session)
 - [x] **Quote board character art bumped ~15% bigger** (`drawLeftColumnLogo` gained an optional

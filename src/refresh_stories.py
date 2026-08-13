@@ -368,8 +368,16 @@ def collapse_newlines(s: str) -> str:
 
 def split_at_natural_break(text: str, max_len: int) -> tuple[str, str]:
     """
-    Split text into (first_part, rest) at a sentence/clause break (., ,, or
-    -) near max_len, so a card doesn't cut off mid-word or mid-sentence.
+    Split text into (first_part, rest) at a sentence/clause break near
+    max_len, so a card doesn't cut off mid-word or mid-sentence.
+
+    Break patterns require a trailing space (". ", ", ", " - ") rather than
+    a bare character -- a bare "-" would also match a hyphen glued inside a
+    compound word like "hardest-throwing" or "two-time", which has no space
+    on either side and isn't a real clause boundary. Splitting there produces
+    a nonsensical mid-word cut (confirmed live: a card ending "...one of the
+    hardest-" from "hardest-throwing pitchers"). " - " (spaces both sides)
+    only matches a genuine standalone dash used as punctuation.
 
     Prefers a break slightly *past* max_len over settling for one well
     before it: e.g. if the last sentence ending at or before max_len is at
@@ -384,31 +392,41 @@ def split_at_natural_break(text: str, max_len: int) -> tuple[str, str]:
         return text, ""
 
     FORWARD_TOLERANCE = 60
-    candidates = [".", ",", "-"]
+    patterns = [". ", ", ", " - "]
 
-    split_idx = -1
-    for ch in candidates:
-        i = text.rfind(ch, 0, max_len)
-        if i > split_idx:
-            split_idx = i
+    def _last_break_end(search_end: int) -> int | None:
+        best = None
+        for p in patterns:
+            i = text.rfind(p, 0, search_end)
+            if i != -1:
+                end = i + len(p)
+                if best is None or end > best:
+                    best = end
+        return best
+
+    def _first_break_end(search_start: int, search_end: int) -> int | None:
+        best = None
+        for p in patterns:
+            i = text.find(p, search_start, search_end)
+            if i != -1:
+                end = i + len(p)
+                if best is None or end < best:
+                    best = end
+        return best
+
+    split_idx = _last_break_end(max_len)
 
     # Look for the next break shortly after wherever we landed (or after
     # max_len itself, if nothing was found before it) -- if it's within
     # tolerance, prefer it over the earlier (possibly much shorter) split.
-    search_from = split_idx + 1 if split_idx != -1 else max_len
-    forward_limit = max_len + FORWARD_TOLERANCE
-    earliest_forward = None
-    for ch in candidates:
-        i = text.find(ch, search_from, forward_limit)
-        if i != -1 and (earliest_forward is None or i < earliest_forward):
-            earliest_forward = i
-    if earliest_forward is not None:
-        split_idx = earliest_forward
+    search_from = split_idx if split_idx is not None else max_len
+    forward = _first_break_end(search_from, max_len + FORWARD_TOLERANCE)
+    if forward is not None:
+        split_idx = forward
 
-    if split_idx == -1:
-        split_idx = max_len - 1
+    if split_idx is None:
+        split_idx = max_len
 
-    split_idx += 1
     return text[:split_idx].strip(), text[split_idx:].strip()
 
 
