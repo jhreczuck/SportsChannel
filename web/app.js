@@ -29,6 +29,7 @@ const BOARD_DURATION = 12.0;  // seconds per probables/standings board screen
 const TITLECARD_DURATION = 6.0; // seconds the title card shows at the start of each loop
 const TRIVIA_DURATION = 16.0;   // seconds the trivia card shows total
 const TRIVIA_REVEAL_DELAY = 7.0; // seconds before the answer appears
+const REFRESH_CARD_DURATION = 2.5; // seconds the blank end-of-lap refresh card shows
 
 const PROBABLES_GAMES_PER_SCREEN = 5; // full-width rows, no reserved logo column
 const BOARD_ROW_BG = "rgba(25,25,112,0.55)"; // navy row highlight, matches ticker separator color
@@ -1166,15 +1167,12 @@ async function setupMusic() {
 // ---------------------------
 // Main
 // ---------------------------
-async function main() {
-  await Promise.all([
-    document.fonts.load(BODY_FONT),
-    document.fonts.load(HEADER_FONT),
-    document.fonts.load(SMALL_FONT),
-    document.fonts.load(TICKER_FONT),
-    document.fonts.load(BOARD_TITLE_FONT),
-  ]);
-
+// Builds the full rotation array from scratch by re-fetching every data/*.json
+// file -- used both for the initial load and for the periodic full refresh
+// (see the "refresh" card appended at the end, below). Doesn't touch logos/
+// images: those are cached separately by filename and rarely change, so
+// there's no need to re-fetch them just because the data behind a card did.
+async function buildRotation() {
   let storySlides = [{ title: "", body: "Loading stories...", logo: null }];
   try {
     const storyData = await loadJSON("../data/stories_cleaned.json");
@@ -1329,6 +1327,28 @@ async function main() {
   ];
   if (items.length === 1) items.push({ type: "story", slide: { title: "", body: "No content available.", logo: null } });
 
+  // Short blank card at the very end of every lap -- gives a fixed, known
+  // point to kick off the next full data refresh in the background (see
+  // prepareItem/frame below) without risking a mid-frame swap of the live
+  // rotation array. No dedicated render branch needed: nothing in frame()'s
+  // dispatch matches "refresh", so the panel just stays on its plain
+  // background for the card's short duration.
+  items.push({ type: "refresh" });
+
+  return items;
+}
+
+async function main() {
+  await Promise.all([
+    document.fonts.load(BODY_FONT),
+    document.fonts.load(HEADER_FONT),
+    document.fonts.load(SMALL_FONT),
+    document.fonts.load(TICKER_FONT),
+    document.fonts.load(BOARD_TITLE_FONT),
+  ]);
+
+  let items = await buildRotation();
+
   let tickerText = "SPORTS PLUS NETWORK • AUTOMATED SPORTS NEWS FEED •";
   let tickerWidth = 0;
   async function loadTicker() {
@@ -1368,15 +1388,23 @@ async function main() {
   let currentIndex = 0;
   let slideStartTime = performance.now() / 1000;
   let wrappedLines = [];
-  // Refetch the ticker every 2nd full lap through the rotation, so long-
-  // running pages eventually pick up newer scores/data without a manual
-  // reload -- doesn't require re-loading anything else, just the ticker.
-  let lapCount = 0;
-  const TICKER_REFRESH_EVERY_N_LAPS = 2;
   let currentLogo = null;
+
+  // Set when we land on the end-of-lap "refresh" card; holds the in-flight
+  // rebuild so frame() can pick it up once we're ready to leave that card.
+  let pendingRefresh = null;
 
   async function prepareItem(idx) {
     const item = items[idx];
+    if (item.type === "refresh") {
+      // Kick off in the background -- don't await here, so the blank card
+      // still shows immediately and the frame loop keeps running normally
+      // while the new data loads (ticker included, so this supersedes the
+      // ticker's own separate refresh cadence).
+      pendingRefresh = Promise.all([buildRotation(), loadTicker()]).then(([newItems]) => newItems);
+      pendingRefresh.catch((e) => console.warn("[refresh] failed:", e));
+      return;
+    }
     if (item.type !== "story") return; // boards need no async prep
     const slide = item.slide;
     let body = slide.body || "";
@@ -1413,14 +1441,25 @@ async function main() {
     const duration = item.type === "story" ? SLIDE_DURATION
       : item.type === "titlecard" ? TITLECARD_DURATION
       : item.type === "trivia" ? TRIVIA_DURATION
+      : item.type === "refresh" ? REFRESH_CARD_DURATION
       : BOARD_DURATION;
 
     if (elapsed >= duration) {
-      const nextIndex = (currentIndex + 1) % items.length;
-      if (nextIndex === 0) {
-        lapCount += 1;
-        if (lapCount % TICKER_REFRESH_EVERY_N_LAPS === 0) loadTicker(); // async; ticker keeps scrolling with old text until it resolves
+      // Leaving the end-of-lap "refresh" card: apply the rebuilt rotation
+      // if it's ready by now (it almost always will be -- these are small
+      // local JSON fetches, well within the card's short display time). If
+      // it's somehow not ready yet, just keep the current data and try
+      // again next lap; nothing breaks either way since index 0 (title
+      // card) is valid in both the old and new arrays.
+      if (item.type === "refresh" && pendingRefresh) {
+        const refreshResult = pendingRefresh;
+        pendingRefresh = null;
+        refreshResult.then((newItems) => {
+          if (newItems && newItems.length) items = newItems;
+        });
       }
+
+      const nextIndex = (currentIndex + 1) % items.length;
       currentIndex = nextIndex;
       slideStartTime = now;
       prepareItem(currentIndex); // async; frame keeps going with previous content until it resolves

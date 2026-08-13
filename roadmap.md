@@ -671,6 +671,30 @@ deliberately small per the user's request ("only need this for a few cards each 
       hyphen. Verified against the exact failing text (splits at the next comma instead) and
       confirmed zero mid-word hyphen cuts across a full fresh 58-slide dataset.
 
+## Feature: Full data auto-refresh every lap (not just the ticker)
+Previously only the ticker refreshed periodically (every 2 laps, see below) -- everything else
+(stories, standings, quotes, headlines) was loaded once at page load and held for the life of the
+browser tab, requiring a manual reload to see anything new. Requested so a long-running display
+doesn't need a manual reload at all.
+
+- [x] Considered swapping the rotation array at the exact title-card boundary, but the user
+      suggested a simpler, safer alternative: a short blank card at the very end of every lap,
+      used as a fixed point to kick off the refresh. Implemented that way instead.
+- [x] `buildRotation()` -- the full data-loading + rotation-array-construction logic, extracted out
+      of `main()` into its own reusable async function -- gets called again each time the rotation
+      reaches a new `{ type: "refresh" }` card appended at the end of every built rotation.
+      `prepareItem()` kicks off the rebuild in the background (and reloads the ticker in the same
+      pass, which supersedes the ticker's old separate every-2-laps cadence -- removed the
+      now-redundant `lapCount`/`TICKER_REFRESH_EVERY_N_LAPS` logic). `frame()` applies the result
+      only when actually leaving the refresh card, so the live `items` array is never swapped
+      mid-frame -- if the fetch somehow isn't done by then, it just tries again next lap rather
+      than blocking.
+- [x] No re-fetching of logos/images -- those are cached by filename and rarely change, so only
+      the JSON data files reload, keeping each cycle cheap (small local fetches).
+- [x] Verified live: cycled through 250+ auto-advances and confirmed `stories_cleaned.json` (and
+      the rest of the data set) fetched well beyond the two initial page-load calls, with zero new
+      console errors introduced.
+
 ## Follow-up: text-fitting refinements (same session)
 - [x] **Quote board character art bumped ~15% bigger** (`drawLeftColumnLogo` gained an optional
       `boost` param, same overscale-past-the-box pattern `drawLogoInBox` already used elsewhere) —
