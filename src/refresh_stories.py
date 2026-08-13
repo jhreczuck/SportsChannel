@@ -45,6 +45,8 @@ import re
 import unicodedata
 
 import requests
+from PIL import Image
+import io
 
 from gpt_cleaner import clean_article
 import news_feed  # must live in the same src/ folder as this script
@@ -267,11 +269,39 @@ def find_player_headshot(name_candidates: List[str], league: str | None) -> str 
                         img_resp = requests.get(img_url, timeout=10)
                         img_resp.raise_for_status()
                         PLAYER_HEADSHOTS_DIR.mkdir(parents=True, exist_ok=True)
-                        dest.write_bytes(img_resp.content)
+                        dest.write_bytes(_crop_to_head(img_resp.content))
                     except Exception:
                         continue
                 return f"players/{athlete_id}"
     return None
+
+
+# ESPN's headshot photos are consistently framed as head-and-shoulders
+# portraits with the face centered in the upper-middle of the image and the
+# shoulders/jersey filling the bottom -- cropping to the top portion and
+# trimming the sides gets a genuine close-up of just the head/face without
+# needing real face detection. Verified visually against a live sample.
+HEAD_CROP_TOP_FRACTION = 0.62  # keep top 62% of the image height
+HEAD_CROP_SIDE_TRIM_FRACTION = 0.12  # trim 12% off each side
+
+
+def _crop_to_head(image_bytes: bytes) -> bytes:
+    """Crops a downloaded headshot to a tighter close-up of the head, per
+    HEAD_CROP_TOP_FRACTION/HEAD_CROP_SIDE_TRIM_FRACTION. Returns the original
+    bytes unchanged if cropping fails for any reason (e.g. unexpected image
+    format) rather than losing the photo entirely."""
+    try:
+        img = Image.open(io.BytesIO(image_bytes))
+        w, h = img.size
+        side_trim = int(w * HEAD_CROP_SIDE_TRIM_FRACTION)
+        crop_h = int(h * HEAD_CROP_TOP_FRACTION)
+        cropped = img.crop((side_trim, 0, w - side_trim, crop_h))
+        out = io.BytesIO()
+        cropped.save(out, format="PNG")
+        return out.getvalue()
+    except Exception:
+        return image_bytes
+
 
 def style_body_text(text: str) -> str:
     """

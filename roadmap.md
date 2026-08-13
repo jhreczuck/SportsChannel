@@ -631,6 +631,15 @@ deliberately small per the user's request ("only need this for a few cards each 
       photo, just not literally his face.
 - [x] No `app.js` changes needed at all -- `getLogo()` already loads whatever relative path is in
       the `logo` field, so `"players/<id>.png"` just works like any other logo.
+- [x] **Cropped to a head close-up per the user's follow-up request** ("any way to get only a head
+      shot?"). ESPN's headshots are consistently framed as head-and-shoulders portraits with the
+      face centered in the upper-middle of the image, so a fixed-ratio crop (keep the top 62% of
+      the height, trim 12% off each side) gets a genuine close-up of just the head/face without
+      needing real face detection -- verified visually against two different real downloaded
+      photos, both cropped cleanly with no shoulders/jersey visible. `_crop_to_head()` in
+      `refresh_stories.py`, applied once at download time (cached cropped, not re-cropped on every
+      run). Added `Pillow` to both `requirements.txt` (was already commented out as "optional,
+      enable later") and `requirements-server.txt`.
 
 ## Follow-up: text-fitting refinements (same session)
 - [x] **Quote board character art bumped ~15% bigger** (`drawLeftColumnLogo` gained an optional
