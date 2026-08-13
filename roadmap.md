@@ -473,37 +473,32 @@ start of the whole rotation.
       `refresh_stories.py` drives the headlines ordering; `app.js`'s `items` array construction
       mirrors the same MLB-block-then-NFL-block order.
 
-## Phase 4 — Static asset pipeline
-- [ ] Pre-normalized `.mp3`s committed/synced to the server (not regenerated per request).
-- [ ] Logos + fonts copied into a `public/media/` folder served by nginx.
-- [ ] Decide on a `public/` (or `web/`) directory convention separate from the pygame `src/`
-      tree, so the two builds (desktop vs web) don't collide.
+## Phases 4–7 — Deployment ✅ done (superseded this plan)
+The original plan below assumed a `public/` build directory and a bare cron job. What actually
+shipped (2026-08-12) differs in the details but accomplishes the same goal — full step-by-step
+instructions live in `deploy/DEPLOY.md`, not repeated here:
+- No `public/` directory — the repo root deploys directly to `/opt/sportschannel` on the server
+  (Rocky Linux 9.8, `192.168.0.219`), with `web/`/`data/`/`media/` served in place by nginx
+  (port 8080, no domain yet) rather than being copied into a separate build output folder.
+- Two systemd timers instead of one cron job: `sportschannel-refresh.timer` (daily 8am — git
+  pull, dependency install, all refresh scripts) and `sportschannel-ticker-refresh.timer` (every
+  15 minutes, ticker only — see the Ticker feature entry below).
+- `OPENAI_API_KEY`/`SPORTSDATAIO_API_KEY` live in a server-side `.env` (not in git), loaded via
+  each systemd service's `EnvironmentFile=`.
+- Refresh runs are inspectable via `journalctl -u sportschannel-refresh.service` /
+  `journalctl -u sportschannel-ticker-refresh.service`, rather than a custom log file.
+- Same push-then-pull workflow as boston311, confirmed working end-to-end.
+- Real deployment-specific bugs hit and fixed along the way: Python 3.10+ syntax breaking on the
+  server's older Python (missing `from __future__ import annotations` in `ticker.py`), a missing
+  `openai` dependency, Rocky/RHEL's `conf.d` nginx layout differing from Debian's
+  `sites-available`, root-owned files from `scp` landing unreadable by nginx's worker process,
+  and an SELinux mislabel that blocked `venv/bin/python` from executing after a too-broad
+  `httpd_sys_content_t` fix for nginx. All documented in `deploy/DEPLOY.md`.
 
-## Phase 5 — Scheduling on the Linux server
-- [ ] Cron or systemd timer: run refresh job every 1–2 hours (exact cadence TBD — cheap to
-      change later).
-- [ ] Store `OPENAI_API_KEY` / `SPORTSDATAIO_API_KEY` as server-side env vars (or a `.env` not
-      checked into git, same pattern as today).
-- [ ] Log refresh runs somewhere inspectable (even just a rotating log file) so failures are
-      visible.
-
-## Phase 6 — Serving
-- [ ] nginx serves the static `public/` directory (HTML/JS/CSS/fonts/logos/audio/JSON).
-- [ ] No app server needed for the page itself — it's 100% static files regenerated periodically
-      by the cron job.
-- [ ] Confirm domain/subdomain and whether it sits alongside boston311 on the same box or gets
-      its own vhost.
-
-## Phase 7 — Deployment
-- [ ] Same push-then-pull workflow as boston311: push to GitHub, pull on the server.
-- [ ] `.gitignore` already excludes venv/media/secrets from the repo (done during the initial
-      GitHub publish) — extend as needed for any new `public/` build artifacts if they shouldn't
-      be committed either.
-
-## Phase 8 — Optional: GitHub Pages mirror
-- [ ] If wanted later, publish the same static `public/` output to a `gh-pages` branch via a
-      GitHub Action. Lower priority than the Linux server target since Pages can't run the
-      refresh job itself — it would need to pull already-generated JSON from somewhere.
+## Idea: GitHub Pages mirror (not started)
+If wanted later, publish the same static output to a `gh-pages` branch via a GitHub Action. Lower
+priority than the Linux server target since Pages can't run the refresh job itself — it would
+need to pull already-generated JSON from somewhere.
 
 ## Minor: Ticker separator fix
 - [x] Ticker text now leads with a `"   |   "` separator before the "LIVE SCORES BROUGHT TO YOU
