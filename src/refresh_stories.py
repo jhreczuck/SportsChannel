@@ -406,7 +406,23 @@ def clean_slides_with_gpt(wrapper: Dict[str, Any]) -> Dict[str, Any]:
             # Ensure fallback also has normalized newlines
             cleaned_body = collapse_newlines(body)
 
-        cleaned_slides.append({**slide, "body": cleaned_body})
+        # Re-infer the logo from the text that will actually be displayed,
+        # not the raw pre-GPT body: GPT often drops trailing sentences that
+        # only mentioned a team in passing (e.g. a source article's closing
+        # line naming "the Bruins' offensive staff" for a UCLA football
+        # story), so inferring from the raw body could pick a team logo for
+        # a team that never appears in what the viewer actually sees.
+        #
+        # Continuation slides (empty title, "(cont)" body -- see
+        # _maybe_merge_or_append) share their parent slide's logo rather
+        # than being independently recomputed from their own fragment: they
+        # split from the same source article, and re-inferring per-fragment
+        # would let a two-part story's logo flip between its own two cards.
+        if (slide.get("title") or "").strip():
+            recomputed_logo = infer_logo(slide.get("title", ""), cleaned_body, slide.get("league"))
+        else:
+            recomputed_logo = cleaned_slides[-1]["logo"] if cleaned_slides else slide.get("logo")
+        cleaned_slides.append({**slide, "body": cleaned_body, "logo": recomputed_logo})
 
     return {**wrapper, "slides": cleaned_slides}
 

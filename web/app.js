@@ -1323,16 +1323,20 @@ async function main() {
   if (items.length === 1) items.push({ type: "story", slide: { title: "", body: "No content available.", logo: null } });
 
   let tickerText = "SPORTS PLUS NETWORK • AUTOMATED SPORTS NEWS FEED •";
-  try {
-    const tickerData = await loadJSON("../data/ticker.json");
-    if (tickerData.items && tickerData.items.length) {
-      tickerText = "   |   " + tickerData.items.join("   |   ");
+  let tickerWidth = 0;
+  async function loadTicker() {
+    try {
+      const tickerData = await loadJSON("../data/ticker.json");
+      if (tickerData.items && tickerData.items.length) {
+        tickerText = "   |   " + tickerData.items.join("   |   ");
+      }
+    } catch (e) {
+      console.warn("[ticker] load failed:", e);
     }
-  } catch (e) {
-    console.warn("[ticker] load failed:", e);
+    ctx.font = TICKER_FONT;
+    tickerWidth = ctx.measureText(tickerText).width;
   }
-  ctx.font = TICKER_FONT;
-  const tickerWidth = ctx.measureText(tickerText).width;
+  await loadTicker();
 
   const headerLogo = await loadImage("../media/logos/sportschannel.png");
   const mlbLogo = await getLogo("mlb.png");
@@ -1357,6 +1361,11 @@ async function main() {
   let currentIndex = 0;
   let slideStartTime = performance.now() / 1000;
   let wrappedLines = [];
+  // Refetch the ticker every 2nd full lap through the rotation, so long-
+  // running pages eventually pick up newer scores/data without a manual
+  // reload -- doesn't require re-loading anything else, just the ticker.
+  let lapCount = 0;
+  const TICKER_REFRESH_EVERY_N_LAPS = 2;
   let currentLogo = null;
 
   async function prepareItem(idx) {
@@ -1400,7 +1409,12 @@ async function main() {
       : BOARD_DURATION;
 
     if (elapsed >= duration) {
-      currentIndex = (currentIndex + 1) % items.length;
+      const nextIndex = (currentIndex + 1) % items.length;
+      if (nextIndex === 0) {
+        lapCount += 1;
+        if (lapCount % TICKER_REFRESH_EVERY_N_LAPS === 0) loadTicker(); // async; ticker keeps scrolling with old text until it resolves
+      }
+      currentIndex = nextIndex;
       slideStartTime = now;
       prepareItem(currentIndex); // async; frame keeps going with previous content until it resolves
     }

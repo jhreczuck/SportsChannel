@@ -373,6 +373,24 @@ start of the whole rotation.
       `ticker.py` doesn't pin one either but that's reasonable for a ticker (recent scores are
       still relevant content), so left as-is.
 
+## Fix: Story logo inferred from text GPT later trimmed away
+- [x] Found via a live screenshot: a Derek Carr/UCLA story showed the NHL **Boston Bruins** logo.
+      Root cause: `infer_logo()` ran on the raw pre-GPT article text in `build_slides_from_news()`,
+      but the raw article's closing sentence mentioned "the Bruins' offensive staff" — **UCLA's**
+      own nickname, not the NHL team — and that sentence never survived GPT's cleaning into the
+      actual displayed body. The bug is a pre-existing pipeline-ordering issue (logo inferred
+      before cleaning, not after), only newly *visible* now that `bruins.png` exists as a real
+      logo file from the NHL team-logo download above.
+- [x] Fixed by re-inferring the logo in `clean_slides_with_gpt()` from each slide's final cleaned
+      body (the text actually shown), not the raw pre-GPT text — title-based matching (checked
+      first, unaffected) still takes priority. Continuation slides (empty title, "(cont)" body)
+      inherit their parent slide's logo rather than being independently re-inferred from their own
+      fragment, avoiding a two-part story's logo flipping between its own two cards.
+      Verified: re-running inference against the existing cleaned dataset changed 24 of ~108
+      slides' logos (mostly cases where a body mentioned an opponent/other team in passing that
+      GPT's trim had already dropped); the Derek Carr slide now correctly falls back to no
+      team-specific logo (generic `nfl.png`) since no real team is named in what's displayed.
+
 ## Fix: Web music volume normalization never actually applied
 - [x] The pygame desktop app already had two-pass ffmpeg loudnorm normalization
       (`normalize_track_lufs` in `main.py`), but the web player was just playing the raw
@@ -491,6 +509,15 @@ start of the whole rotation.
 - [x] Ticker text now leads with a `"   |   "` separator before the "LIVE SCORES BROUGHT TO YOU
       BY ESPN" credits line, so the loop (the ticker draws the same text twice back-to-back for a
       seamless scroll) has proper spacing where the last item wraps back around to the credits.
+
+## Feature: Ticker refetches every 2nd lap through the rotation
+- [x] Previously `data/ticker.json` was loaded once at page load and never again for the lifetime
+      of the browser tab — on a long-running display, the ticker would show the same scores
+      forever even after the server-side data refreshed. `app.js` now counts full laps through the
+      `items` rotation (`lapCount`, incremented when `currentIndex` wraps back to 0) and refetches
+      ticker.json every `TICKER_REFRESH_EVERY_N_LAPS` (2) laps via a `loadTicker()` helper shared
+      with the initial load. Async, non-blocking — the ticker keeps scrolling its current text
+      until the refetch resolves.
 
 ## Phase 9 — Desktop executable
 - [ ] Package `main.py` + deps with PyInstaller into a standalone Windows `.exe`.
