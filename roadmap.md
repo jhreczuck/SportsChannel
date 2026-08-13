@@ -544,6 +544,10 @@ user as worth addressing before that happens, not urgent yet.
       "mini" tier — check if `gpt-4.1-nano` or similar is viable).
 - [ ] Consider batching multiple articles into one API call instead of one call per article, to
       cut fixed per-request overhead.
+- [x] Source-pull char cap (done as part of the text-fitting revamp below): raw article text is
+      now trimmed to at most two cards' worth of characters before ever being sent to GPT, instead
+      of sending up to 6000 raw chars for output that could never exceed ~950 anyway. Doesn't
+      reduce call *count*, but cuts input-token cost on longer articles.
 
 ## Feature: Text fitting revamp — capacity, `(cont)` placement, drop `<<<INDENT>>>` markers ✅ done
 Triggered by two live screenshots: one showing a card using only 9 of the panel's ~13 lines
@@ -594,6 +598,30 @@ system prompt throttled output further regardless of the character limit passed 
       functions (`indent_paragraphs`, `add_paragraph_breaks`,
       `linefeed_and_indent_after_first_sentence`) that were leftover cruft from an earlier version
       of the formatting scheme.
+
+## Follow-up: text-fitting refinements (same session)
+- [x] **Quote board character art bumped ~15% bigger** (`drawLeftColumnLogo` gained an optional
+      `boost` param, same overscale-past-the-box pattern `drawLogoInBox` already used elsewhere) —
+      scoped to just the Quote board's call, not the shared `LEFT_LOGO_BOX` used by History/
+      Birthdays/Trivia too.
+- [x] **Split logic was leaving a whole sentence on the table**: spotted via a live screenshot
+      where the primary card stopped at "...against the Bears." even though "Shedeur Sanders is
+      set to..." was right there in the `(cont)` card. Root cause: `split_at_natural_break` only
+      looked *backward* for a break at-or-before the cap, so if the very next sentence crossed the
+      cap by even a few characters, it fell back to a much earlier (and shorter) break instead.
+      Now also looks forward within `FORWARD_TOLERANCE` (60 chars) from wherever it landed and
+      prefers that if found — fits a whole extra sentence instead of leaving ~100+ unused
+      characters over a few-character overrun. `PANEL_CHAR_CAPACITY` nudged 460 → 475 (closer to
+      the true ~477 measured max) since the forward-tolerance mechanism needed the extra headroom
+      to be worth using. Re-verified line-wrap safety after this change: 51/51 slides still fit
+      within 13 lines, max observed exactly 13 (using full capacity, zero overflow).
+- [x] **Source-pull char cap**: raw article text is now trimmed to at most `CLEAN_MAX_CHARS` (two
+      cards' worth, ~950) immediately after fetching, before it's ever sent to GPT — previously raw
+      articles up to `MAX_EXCLUDE_LEN` (6000 chars) were sent to GPT in full even though the output
+      could never exceed ~950 chars regardless, burning extra input tokens on content guaranteed to
+      be discarded. Trimmed at a natural sentence break (reuses `split_at_natural_break`), not a
+      hard cut. Verified live: raw lengths that were previously up to 2313 chars now cap out
+      around 950-1006.
 
 ## Fix: Standings board GB/PTS value overflowing the row highlight
 - [x] Spotted via a live screenshot: NL Central's Pirates row showed "16.5" (games behind) with

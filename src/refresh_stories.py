@@ -69,10 +69,12 @@ MEDIA_LOGOS_DIR = BASE_DIR / "media" / "logos"
 # real 36px body font against the actual panel width/height (13 lines fit;
 # the first ~5 sit beside the logo column at the narrower width, the rest use
 # the full panel width) -- came out to ~477 chars for realistic article
-# prose. Kept a small safety margin under that. This replaced the previous
-# MAX_LEN=480, which wasn't actually wrong as a capacity number, but was
-# being applied at the wrong pipeline stage (see clean_slides_with_gpt).
-PANEL_CHAR_CAPACITY = 460
+# prose. This replaced the previous MAX_LEN=480, which wasn't actually wrong
+# as a capacity number, but was being applied at the wrong pipeline stage
+# (see clean_slides_with_gpt). split_at_natural_break's small forward
+# tolerance (see below) can land a few characters past this, so it's kept
+# just under the true measured max rather than exactly at it.
+PANEL_CHAR_CAPACITY = 475
 
 # Budget handed to GPT for the *initial* cleaning pass -- generous enough to
 # cover a two-card story (primary + one continuation) so GPT compresses the
@@ -80,6 +82,11 @@ PANEL_CHAR_CAPACITY = 460
 # capped at a single card's worth before we've even decided whether the
 # story needs two cards. Split into primary/continuation happens *after*
 # cleaning, based on the cleaned length -- see clean_slides_with_gpt.
+#
+# Also used in build_slides_from_news as the raw-text pull cap: since output
+# can never exceed this regardless of how much raw text GPT is given, there's
+# no reason to send more than this much raw input either -- it would just
+# burn extra input tokens on content that gets discarded either way.
 CLEAN_MAX_CHARS = PANEL_CHAR_CAPACITY * 2
 
 # If splitting a cleaned story leaves only a modest bit of leftover text, a
@@ -172,34 +179,45 @@ def collapse_newlines(s: str) -> str:
 
 def split_at_natural_break(text: str, max_len: int) -> tuple[str, str]:
     """
-    Split text into (first_part, rest) at the last sentence/clause break
-    (., ,, or -) at or before max_len, so a card doesn't cut off mid-word or
-    mid-sentence. Falls back to the earliest break shortly after max_len (a
-    small tolerance, not unbounded -- text with no punctuation at all nearby
-    hard-cuts at max_len rather than searching arbitrarily far ahead).
+    Split text into (first_part, rest) at a sentence/clause break (., ,, or
+    -) near max_len, so a card doesn't cut off mid-word or mid-sentence.
+
+    Prefers a break slightly *past* max_len over settling for one well
+    before it: e.g. if the last sentence ending at or before max_len is at
+    character 365, but the next sentence only overruns max_len by ~20 chars,
+    using that next break fits a whole extra sentence instead of leaving a
+    card with ~100 unused characters just because the runner-up sentence
+    happened to cross the cap by a little. Bounded by FORWARD_TOLERANCE, not
+    unbounded -- text with no punctuation at all nearby hard-cuts at max_len
+    rather than searching arbitrarily far ahead.
     """
     if len(text) <= max_len:
         return text, ""
 
-    # Small forward tolerance for the "no punctuation before max_len" case --
-    # covers a slightly-too-long sentence without risking an unbounded
-    # search into content far past the actual capacity.
     FORWARD_TOLERANCE = 60
-
     candidates = [".", ",", "-"]
+
     split_idx = -1
     for ch in candidates:
         i = text.rfind(ch, 0, max_len)
         if i > split_idx:
             split_idx = i
 
+    # Look for the next break shortly after wherever we landed (or after
+    # max_len itself, if nothing was found before it) -- if it's within
+    # tolerance, prefer it over the earlier (possibly much shorter) split.
+    search_from = split_idx + 1 if split_idx != -1 else max_len
+    forward_limit = max_len + FORWARD_TOLERANCE
+    earliest_forward = None
+    for ch in candidates:
+        i = text.find(ch, search_from, forward_limit)
+        if i != -1 and (earliest_forward is None or i < earliest_forward):
+            earliest_forward = i
+    if earliest_forward is not None:
+        split_idx = earliest_forward
+
     if split_idx == -1:
-        earliest = None
-        for ch in candidates:
-            i = text.find(ch, max_len, max_len + FORWARD_TOLERANCE)
-            if i != -1 and (earliest is None or i < earliest):
-                earliest = i
-        split_idx = earliest if earliest is not None else max_len - 1
+        split_idx = max_len - 1
 
     split_idx += 1
     return text[:split_idx].strip(), text[split_idx:].strip()
@@ -229,11 +247,6 @@ def build_slides_from_news(max_per_sport: int = 40) -> Dict[str, Any]:
             print(f"[refresh_stories] Warning: failed to fetch {s}: {e}")
             continue
 
-    # Generous guard against pathologically long raw dumps (not real articles)
-    # rather than a tight cap -- GPT compresses arbitrary-length input down to
-    # CLEAN_MAX_CHARS on its own, so there's no need to pre-truncate here.
-    MAX_EXCLUDE_LEN = 6000
-
     for item in items:
         raw_text = (getattr(item, "text", None) or "")
         # Convert literal escaped sequences (e.g. "\\n", "\\r\\n", "\\t") into actual characters
@@ -242,6 +255,14 @@ def build_slides_from_news(max_per_sport: int = 40) -> Dict[str, Any]:
         text = style_body_text(raw_text)  # Apply styling once
         # Collapse multiple consecutive newlines into a single newline so slide bodies only have one blank line.
         text = collapse_newlines(text)
+
+        # Trim at the source, before GPT ever sees it, to at most two cards'
+        # worth of characters (CLEAN_MAX_CHARS) -- output is already capped
+        # there regardless (see clean_slides_with_gpt), so sending GPT more
+        # raw input than that just burns extra input tokens for content that
+        # would only get discarded anyway. Trimmed at a natural sentence
+        # break via split_at_natural_break, not a mid-sentence hard cut.
+        text, _ = split_at_natural_break(text, CLEAN_MAX_CHARS)
 
         if not text:
             continue
@@ -255,12 +276,6 @@ def build_slides_from_news(max_per_sport: int = 40) -> Dict[str, Any]:
         # Normalize category for exclusion checks
         norm_cat = re.sub(r"\W+", "", category.lower()) if category else None
         if norm_cat and norm_cat in EXCLUDED_CATEGORIES:
-            continue
-
-        if len(text) > MAX_EXCLUDE_LEN:
-            print(
-                f"[refresh_stories] Skipping story (length {len(text)} > {MAX_EXCLUDE_LEN})"
-            )
             continue
 
         slides.append({

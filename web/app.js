@@ -827,12 +827,16 @@ function drawLatestLineBoard(page, sportLogo, linesToShow) {
 // column. Returns the x where text content should start.
 const LEFT_LOGO_BOX = { w: 338, h: 416 }; // bigger than the standard 200x200 logo box (~30% bigger than the first pass)
 
-function drawLeftColumnLogo(logo, resolution = PIXELATE_RESOLUTION) {
+// `boost` overscales beyond a strict fit to LEFT_LOGO_BOX (same pattern as
+// drawLogoInBox) -- the image can extend past the box's nominal edges when
+// boost > 1, staying centered/flush-bottom, without widening the reserved
+// text column (leftColumnTextStartX still uses the base LEFT_LOGO_BOX.w).
+function drawLeftColumnLogo(logo, resolution = PIXELATE_RESOLUTION, boost = 1) {
   if (!logo) return;
   const x0 = inner.x;
   const y0 = inner.bottom - LEFT_LOGO_BOX.h;
 
-  const scale = Math.min(LEFT_LOGO_BOX.w / logo.width, LEFT_LOGO_BOX.h / logo.height);
+  const scale = Math.min(LEFT_LOGO_BOX.w / logo.width, LEFT_LOGO_BOX.h / logo.height) * boost;
   const w = logo.width * scale;
   const h = logo.height * scale;
   const x = x0 + (LEFT_LOGO_BOX.w - w) / 2; // centered horizontally in its column
@@ -996,7 +1000,7 @@ function drawQuoteBoard(page, quoteLogo, linesToShow) {
   ctx.fillStyle = "rgb(200,180,120)";
   write(`- ${page.author.toUpperCase()}`, textStartX, y);
 
-  drawLeftColumnLogo(quoteLogo, BIRTHDAY_LOGO_PIXELATE_RESOLUTION);
+  drawLeftColumnLogo(quoteLogo, BIRTHDAY_LOGO_PIXELATE_RESOLUTION, 1.15);
 }
 
 // ---------------------------
