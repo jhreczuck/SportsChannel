@@ -648,6 +648,15 @@ deliberately small per the user's request ("only need this for a few cards each 
       player (a distinctive mustache read as "cartoonish" at the small pixelated display size, not
       an actual matching bug). No fix needed; confirms the matching logic was already working
       correctly here.
+- [x] **Real bug found via a third screenshot**: a jersey-number-history story titled "The History
+      Of Jersey #49" showed the On This Day board's `history.png` badge as its "team logo" --
+      several non-team badge/UI files (`history.png`, `birthday.png`, `answer.png`,
+      `question.png`, `probable.png`, `quote.png`, etc.) live in the same `media/logos/` directory
+      as real team logos and are also plain English words, so a story whose title/body happened to
+      contain one of those words would get that board's badge purely by vocabulary coincidence.
+      Added `NON_TEAM_LOGO_FILES` to `_logo_for_word()` to exclude them from word-match lookups.
+      Verified live: the jersey-history story now correctly resolves to `bluejackets.png` (the
+      actual team it's about) instead of the coincidental `history.png` match.
 
 ## Follow-up: text-fitting refinements (same session)
 - [x] **Quote board character art bumped ~15% bigger** (`drawLeftColumnLogo` gained an optional

@@ -121,8 +121,25 @@ OFFSEASON_MAX_PER_SPORT = 10
 # "fantasy-football", "fantasy_football", etc.
 EXCLUDED_CATEGORIES = {"fantasyfootball"}
 
+# Non-team badge/UI files that happen to live in the same media/logos/
+# directory as real team logos -- several of them are also plain English
+# words ("History", "Birthday", "Answer", "Question", "Probable", "Quote"),
+# so without this exclusion a story whose title/body just happens to contain
+# one of these words would get that board's badge as its "team logo" (found
+# live: "The History Of Jersey #49" matched history.png, the On This Day
+# board's badge, purely by coincidence of vocabulary).
+NON_TEAM_LOGO_FILES = {
+    "history.png", "birthday.png", "answer.png", "question.png",
+    "probable.png", "quote.png", "titlecard.png", "titlecardsmall.png",
+    "sportschannel.png", "sportschannel.jpg",
+    "mlb.png", "nfl.png", "nba.png", "nhl.png", "mlb_transp.png",
+    "al.png", "nl.png",
+}
+
 
 def _logo_for_word(word: str, league: str | None) -> str | None:
+    if f"{word}.png" in NON_TEAM_LOGO_FILES:
+        return None
     if league and (MEDIA_LOGOS_DIR / f"{league}_{word}.png").exists():
         return f"{league}_{word}.png"
     logo_name = f"{word}.png"
