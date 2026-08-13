@@ -239,7 +239,9 @@ def _name_candidates(text: str) -> List[str]:
     return out
 
 
-def find_player_headshot(name_candidates: List[str], league: str | None) -> str | None:
+def find_player_headshot(
+    name_candidates: List[str], league: str | None, used_athlete_ids: set[str] | None = None
+) -> str | None:
     """
     Tries each candidate name against ESPN's player search API in order,
     accepting the first result that's actually typed "player" (excludes
@@ -249,12 +251,20 @@ def find_player_headshot(name_candidates: List[str], league: str | None) -> str 
     sports, e.g. a search for "New York" alone matching an unrelated MMA
     fighter with no league tag).
 
+    `used_athlete_ids`, if given, skips any athlete already claimed by
+    another story earlier in the same refresh -- without this, two separate
+    articles that both mention the same notable player (e.g. two different
+    preseason roundups both naming the same rookie QB) would show that
+    player's photo on two unrelated card sets instead of spotlighting two
+    different people (confirmed live: this happened for real with "Fernando
+    Mendoza" appearing on two unrelated NFL story groups).
+
     Downloads and caches the headshot locally under
     media/logos/players/{athlete_id}.png (by ESPN's own numeric athlete ID,
     parsed from the image URL) so repeat mentions of the same player across
     refreshes don't re-download. Returns the logo path relative to
     media/logos/ (e.g. "players/4432762.png"), or None if no candidate
-    resolved to a real player in the right league.
+    resolved to a real, not-yet-used player in the right league.
     """
     if not league:
         return None
@@ -280,6 +290,8 @@ def find_player_headshot(name_candidates: List[str], league: str | None) -> str 
                 if not img_url:
                     continue
                 athlete_id = img_url.rstrip("/").rsplit("/", 1)[-1]  # e.g. "4432762.png"
+                if used_athlete_ids is not None and athlete_id in used_athlete_ids:
+                    continue
                 dest = PLAYER_HEADSHOTS_DIR / athlete_id
                 if not dest.exists():
                     try:
@@ -289,6 +301,8 @@ def find_player_headshot(name_candidates: List[str], league: str | None) -> str 
                         dest.write_bytes(_crop_to_head(img_resp.content))
                     except Exception:
                         continue
+                if used_athlete_ids is not None:
+                    used_athlete_ids.add(athlete_id)
                 return f"players/{athlete_id}"
     return None
 
@@ -503,6 +517,7 @@ def clean_slides_with_gpt(wrapper: Dict[str, Any]) -> Dict[str, Any]:
     slides = wrapper.get("slides", [])
     cleaned_slides: List[Dict[str, Any]] = []
     player_photo_counts: Dict[str, int] = {}
+    used_player_athlete_ids: set[str] = set()
 
     for idx, slide in enumerate(slides):
         body = (slide.get("body") or "")
@@ -550,7 +565,7 @@ def clean_slides_with_gpt(wrapper: Dict[str, Any]) -> Dict[str, Any]:
         def _try_player(text: str) -> str | None:
             if not league or player_photo_counts.get(league, 0) >= MAX_PLAYER_PHOTOS_PER_LEAGUE:
                 return None
-            logo = find_player_headshot(_name_candidates(text), league)
+            logo = find_player_headshot(_name_candidates(text), league, used_player_athlete_ids)
             if logo:
                 player_photo_counts[league] = player_photo_counts.get(league, 0) + 1
                 print(f"[refresh_stories] Slide {idx + 1}: using player headshot {logo}")

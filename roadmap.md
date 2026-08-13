@@ -657,6 +657,12 @@ deliberately small per the user's request ("only need this for a few cards each 
       Added `NON_TEAM_LOGO_FILES` to `_logo_for_word()` to exclude them from word-match lookups.
       Verified live: the jersey-history story now correctly resolves to `bluejackets.png` (the
       actual team it's about) instead of the coincidental `history.png` match.
+- [x] **Dedup across stories**: two separate NFL preseason roundup articles both mentioned the same
+      rookie QB, so his photo ended up on two unrelated card sets instead of spotlighting two
+      different people. `find_player_headshot()` now takes a `used_athlete_ids` set threaded
+      through the whole `clean_slides_with_gpt` refresh run -- an already-claimed athlete is
+      skipped (falls through to the next name candidate, or ultimately a generic logo) rather than
+      reused. Verified live: every player photo now maps to exactly one story.
 
 ## Follow-up: text-fitting refinements (same session)
 - [x] **Quote board character art bumped ~15% bigger** (`drawLeftColumnLogo` gained an optional
