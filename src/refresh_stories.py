@@ -280,9 +280,12 @@ def find_player_headshot(name_candidates: List[str], league: str | None) -> str 
 # portraits with the face centered in the upper-middle of the image and the
 # shoulders/jersey filling the bottom -- cropping to the top portion and
 # trimming the sides gets a genuine close-up of just the head/face without
-# needing real face detection. Verified visually against a live sample.
-HEAD_CROP_TOP_FRACTION = 0.62  # keep top 62% of the image height
-HEAD_CROP_SIDE_TRIM_FRACTION = 0.12  # trim 12% off each side
+# needing real face detection. Verified visually against live samples.
+# Tuned per user feedback on the first pass (0.62/0.12): that cut off the
+# chin on some photos and left too much empty space around the face --
+# widened to keep the full head plus a little shoulder, and zoomed in more.
+HEAD_CROP_TOP_FRACTION = 0.78  # keep top 78% of the image height
+HEAD_CROP_SIDE_TRIM_FRACTION = 0.20  # trim 20% off each side
 
 
 def _crop_to_head(image_bytes: bytes) -> bytes:

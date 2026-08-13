@@ -633,13 +633,21 @@ deliberately small per the user's request ("only need this for a few cards each 
       the `logo` field, so `"players/<id>.png"` just works like any other logo.
 - [x] **Cropped to a head close-up per the user's follow-up request** ("any way to get only a head
       shot?"). ESPN's headshots are consistently framed as head-and-shoulders portraits with the
-      face centered in the upper-middle of the image, so a fixed-ratio crop (keep the top 62% of
-      the height, trim 12% off each side) gets a genuine close-up of just the head/face without
-      needing real face detection -- verified visually against two different real downloaded
-      photos, both cropped cleanly with no shoulders/jersey visible. `_crop_to_head()` in
+      face centered in the upper-middle of the image, so a fixed-ratio crop gets a genuine
+      close-up of just the head/face without needing real face detection. `_crop_to_head()` in
       `refresh_stories.py`, applied once at download time (cached cropped, not re-cropped on every
       run). Added `Pillow` to both `requirements.txt` (was already commented out as "optional,
       enable later") and `requirements-server.txt`.
+- [x] First-pass ratios (top 62% of height, 12% side trim) cut off the chin on some photos and
+      left too much empty space around the face. Tuned per direct feedback ("should be full head a
+      little shoulders is ok, and zoom in a bit") to top 78% / 20% side trim -- verified visually
+      against two different real photos (football, hockey), both showing the full head plus a
+      little cap/shoulder, noticeably more zoomed in than the first pass.
+- [x] Investigated one screenshot that looked like a mismatched cartoon avatar on a multi-player
+      betting-picks story -- turned out to be a real, correctly-matched photo of the actual named
+      player (a distinctive mustache read as "cartoonish" at the small pixelated display size, not
+      an actual matching bug). No fix needed; confirms the matching logic was already working
+      correctly here.
 
 ## Follow-up: text-fitting refinements (same session)
 - [x] **Quote board character art bumped ~15% bigger** (`drawLeftColumnLogo` gained an optional
