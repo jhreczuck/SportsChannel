@@ -146,6 +146,17 @@ function wrapTextToWidth(text, maxWidth, ctxRef) {
 // with a literal "<<<INDENT>>>" token, which occasionally leaked into the
 // displayed text verbatim when GPT's output didn't come back exactly as
 // instructed (a real, observed failure, not just a theoretical risk).
+//
+// Bonus paragraph breaks: within a single GPT-authored paragraph, if a new
+// sentence happens to land right at the start of a wrapped line (pure
+// coincidence of where the word-wrap broke), that line is promoted to an
+// indented paragraph start too -- but only when it still fits inside the
+// narrower indent-adjusted width without shedding a word to the next line.
+// Word-wrap decisions themselves are completely unchanged (non-first lines
+// were already measured at the full width before this check runs), so this
+// can never add a line or push content onto a continuation card -- it only
+// ever adds an indent to a line that was already sitting on its own line.
+//
 // Returns an array of {text, indent} objects rather than plain strings.
 function wrapTextAroundOverlay(bodyText, ctxRef, hasLogo) {
   const lines = [];
@@ -160,6 +171,10 @@ function wrapTextAroundOverlay(bodyText, ctxRef, hasLogo) {
   const logoLineCount = hasLogo ? Math.ceil(rightRect.h / lineHeight) : 0;
   const logoEndLine = logoStartLine + logoLineCount;
 
+  // A line ending in ./!/? (optionally followed by a closing quote/paren)
+  // means the next line, if any, starts a fresh sentence.
+  const SENTENCE_END_RE = /[.!?]["')\]]?$/;
+
   for (const para of bodyText.split("\n")) {
     const text = para.trim();
     if (!text) {
@@ -169,6 +184,7 @@ function wrapTextAroundOverlay(bodyText, ctxRef, hasLogo) {
 
     const words = text.split(/\s+/);
     let firstLine = true;
+    let prevLineEndsSentence = false;
 
     while (words.length) {
       const lineIdx = lines.length;
@@ -186,8 +202,16 @@ function wrapTextAroundOverlay(bodyText, ctxRef, hasLogo) {
         }
       }
 
-      lines.push({ text: line.join(" "), indent: firstLine });
+      const lineText = line.join(" ");
+      let indentThis = firstLine;
+      if (!firstLine && prevLineEndsSentence) {
+        const narrowedWidth = fullWidth - FIRST_LINE_INDENT;
+        if (ctxRef.measureText(lineText).width <= narrowedWidth) indentThis = true;
+      }
+
+      lines.push({ text: lineText, indent: indentThis });
       firstLine = false;
+      prevLineEndsSentence = SENTENCE_END_RE.test(lineText);
     }
   }
 

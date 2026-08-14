@@ -736,6 +736,24 @@ doesn't need a manual reload at all.
       at all, so there was plenty of unused room to give it. Verified ~54px of clearance between
       T's value and PCT's start, with PCT's own value still 76px clear of the row's right edge.
 
+## Feature: Bonus paragraph indents when a sentence lands on its own line ✅ done
+User asked for more paragraph indentation in card text where it's safe -- specifically calling
+out that a sentence which already happens to start at the beginning of a wrapped line should be
+"easy" to indent, and that this should never push text onto a continuation card.
+
+- [x] `wrapTextAroundOverlay` (`app.js`) now does this within each GPT-authored paragraph: after
+      wrapping a line normally (word-wrap decisions completely unchanged), if the *previous* line
+      ended a sentence (`.`/`!`/`?`, optionally followed by a closing quote/paren) and the current
+      line still fits inside the narrower indent-adjusted width without shedding a word, that line
+      is promoted to an indented paragraph start too. If it wouldn't fit narrowed, it's left as a
+      plain continuation line instead -- so this can only ever add an indent to a line that was
+      already sitting on its own line, never change which words are on which line, and therefore
+      never change a card's total line count.
+- [x] Verified directly against all 46 real slides in a live dataset (old-vs-new comparison, not
+      just eyeballed): 15 additional paragraph-style breaks appeared (62 vs. 47 total indents),
+      and **zero slides had any line-count change** -- confirms the "never pushes to another card"
+      guarantee holds in practice, not just in theory.
+
 ## Feature: Better news filtering (stayed on Yahoo RSS) ✅ done
 Researched switching sources to address the "a lot of junk is coming in" complaint. Checked live:
 ESPN's news API (`site.api.espn.com/.../news`), ESPN's legacy RSS, CBS Sports RSS, and Sporting
