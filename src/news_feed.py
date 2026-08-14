@@ -237,6 +237,23 @@ def _is_game_recap(item: "NewsItem") -> bool:
     return any(kw in title_lower for kw in _RECAP_KEYWORDS)
 
 
+# Betting/prediction content -- verified live against 160 real titles across
+# all 4 leagues (zero false positives). Deliberately does NOT match bare
+# "odds" (false-positives on legitimate broadcast-info listings like
+# "Schedule, TV, Radio, Streaming, Odds") or bare "pick(s)" (false-positives
+# on "draft pick", an extremely common unrelated sports term -- caught live:
+# "...for 25th overall pick in declined draft trade" is not betting content).
+_BETTING_RE = re.compile(r"\b(predictions?|best bets?|props?)\b", re.IGNORECASE)
+
+# Rhetorical-question clickbait/opinion framing, not hard news -- e.g. "Will
+# the Avalanche Be Forced to Let Their Stanley Cup Hero Walk?", "Should Jakub
+# Dobes Be In NHL Network's Top 10 Goalies Right Now?". Verified live against
+# 160 real titles with zero false positives.
+_QUESTION_CLICKBAIT_RE = re.compile(
+    r"^(will|could|should|can|is|are|does|did|has|have)\b.*\?\s*$", re.IGNORECASE
+)
+
+
 def _is_caption_sentence(sentence: str) -> bool:
     """
     Heuristic: does this sentence look like a photo caption/dateline rather
@@ -333,12 +350,15 @@ def _parse_rss_items(sport: str, xml_text: str) -> List[NewsItem]:
         category_raw = item.findtext("category")
         category = _clean_html(category_raw).strip() if category_raw else None
 
-        # Title-based exclusion: skip items whose title contains "fantasy" (case-insensitive)
+        # Title-based exclusion: skip items whose title contains "fantasy" (case-insensitive),
+        # betting/prediction content, or rhetorical-question clickbait framing.
         title_raw = item.findtext("title") or ""
         title_display = _clean_html(title_raw).strip()
         if "fantasy" in title_display.lower():
             # quietly skip fantasy-related posts
             #print(f"[news_feed] Skipping item with fantasy in title: {title_raw}", file=sys.stderr)
+            continue
+        if _BETTING_RE.search(title_display) or _QUESTION_CLICKBAIT_RE.search(title_display):
             continue
 
         text = _extract_snippet_from_item(item)

@@ -731,17 +731,41 @@ doesn't need a manual reload at all.
       breathing room (0.90 → 0.79). Verified the longest realistic team name ("Golden Knights",
       NHL) still clears the name column with margin, and the widest real values (".612", "16.5")
       now render with 50+ px of clearance inside the row highlight.
+- [x] Follow-up per a live screenshot: NFL's T (ties) and PCT columns sat almost touching (0.65 /
+      0.69, only ~8px gap). Moved PCT out further (0.69 → 0.76) -- NFL doesn't use the col5X slot
+      at all, so there was plenty of unused room to give it. Verified ~54px of clearance between
+      T's value and PCT's start, with PCT's own value still 76px clear of the row's right edge.
 
-## Idea: Better news source than Yahoo RSS (not started)
-`news_feed.py` currently pulls from Yahoo Sports RSS feeds. User reports a lot of junk still
-getting through despite the existing filters (dateline/caption regexes, fantasy-promo stripping,
-game-recap heuristics — see Phase 3 and the Game-recap prioritization feature above), suggesting
-the feed itself is noisy at the source rather than just needing more filtering downstream.
+## Feature: Better news filtering (stayed on Yahoo RSS) ✅ done
+Researched switching sources to address the "a lot of junk is coming in" complaint. Checked live:
+ESPN's news API (`site.api.espn.com/.../news`), ESPN's legacy RSS, CBS Sports RSS, and Sporting
+News RSS. **All four only expose short teaser-length descriptions (~100-255 chars, confirmed by
+sampling 50+ articles per source) — none give full article bodies like Yahoo's `content:encoded`
+field does.** Switching would trade "junk filtering" for "cards too sparse to fill the panel,"
+which is a worse problem given the effort already spent this session getting cards to use the
+panel's real capacity. ESPN's news API *does* have one genuinely valuable thing Yahoo lacks —
+explicit `categories` tagging the exact team/athlete IDs an article is about, which would have
+solved essentially every logo-matching bug fixed this session at the source instead of by
+guessing — but that's not worth the body-length regression on its own; worth revisiting only if a
+source is ever found that offers both.
 
-- [ ] Research alternative sports news sources/APIs (ESPN's own news endpoints? another sports
-      RSS feed? a dedicated news API?) and compare actual junk rate against Yahoo's before
-      committing to a switch — same "verify against live data" approach used for every other
-      data source in this project, not a guess.
+Stayed on Yahoo RSS and filtered it harder instead. Sampled 60 real titles across all 4 leagues to
+find concrete patterns, then verified both at scale (160 live titles, 40/league):
+- [x] **Betting/prediction content**: titles containing "prediction(s)", "best bets", or "props"
+      (`_BETTING_RE` in `news_feed.py`). Deliberately excludes bare "odds" (false-positived on
+      legitimate broadcast-info listings like "Schedule, TV, Radio, Streaming, Odds") and bare
+      "pick(s)" (false-positived on "draft pick", a common unrelated sports term — caught live:
+      "...for 25th overall pick in declined draft trade" is not betting content).
+- [x] **Rhetorical-question clickbait**: title starts with an interrogative word (will/could/
+      should/can/is/are/does/did/has/have) *and* ends with "?" (`_QUESTION_CLICKBAIT_RE`) — e.g.
+      "Will the Avalanche Be Forced to Let Their Stanley Cup Hero Walk?", opinion-column framing
+      rather than hard news.
+- [x] Verified at scale: 6/160 titles flagged (3.75%), zero false positives after the two
+      exclusions above. Wired in right next to the existing fantasy-title exclusion in
+      `_parse_rss_items`.
+- [x] Considered and rejected a third pattern: excluding "Label:"-prefixed titles (recurring blog
+      column names like "Mets Morning News:", "Friday BP:") — too fragile, since the same shape
+      also matches clearly legitimate content ("Chiefs News: Chiefs to see Stetson Bennett...").
 - [ ] Decide whether to replace Yahoo outright or add a second source and merge, once a
       candidate is identified.
 

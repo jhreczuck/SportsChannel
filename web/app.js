@@ -702,7 +702,10 @@ function drawStandingsBoard(page, logos, linesToShow) {
   const colWX = nameX + colW * 0.44;
   const colLX = nameX + colW * 0.55;
   const colTX = nameX + colW * 0.65; // NFL only (ties)
-  const col4X = nameX + colW * (isNFL ? 0.69 : 0.65); // NHL: OTL, others: PCT
+  // NFL's PCT sat right next to T with barely any gap (0.69, only ~26px past
+  // T's position) -- moved out further since NFL doesn't use col5X at all,
+  // leaving plenty of room to spare before the row's right edge.
+  const col4X = nameX + colW * (isNFL ? 0.76 : 0.65); // NHL: OTL, others: PCT
   const col5X = nameX + colW * 0.79; // NHL: PTS, MLB/NBA: GB -- NFL has neither
 
   // Column headers
