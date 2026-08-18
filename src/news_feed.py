@@ -253,6 +253,17 @@ _QUESTION_CLICKBAIT_RE = re.compile(
     r"^(will|could|should|can|is|are|does|did|has|have)\b.*\?\s*$", re.IGNORECASE
 )
 
+# Minor-league (MiLB) content in the MLB feed -- checked Yahoo's RSS directly
+# for team/level metadata to filter on instead of title text (there isn't
+# any: sampled MiLB items have an empty <category> tag). Verified live
+# against 49 real MLB titles (zero false positives): catches "This week in
+# the Orioles minors: ..." and "2026 Brewers Minor League Roundup: Week 21".
+# Deliberately does NOT match bare prospect-call-up titles with no explicit
+# minors/MiLB wording, since those could be legitimate major-league news.
+_MILB_RE = re.compile(
+    r"\b(MiLB|minor leagues?|minors|Triple-?A|Double-?A|Single-?A)\b", re.IGNORECASE
+)
+
 
 def _is_caption_sentence(sentence: str) -> bool:
     """
@@ -359,6 +370,8 @@ def _parse_rss_items(sport: str, xml_text: str) -> List[NewsItem]:
             #print(f"[news_feed] Skipping item with fantasy in title: {title_raw}", file=sys.stderr)
             continue
         if _BETTING_RE.search(title_display) or _QUESTION_CLICKBAIT_RE.search(title_display):
+            continue
+        if sport == "mlb" and _MILB_RE.search(title_display):
             continue
 
         text = _extract_snippet_from_item(item)

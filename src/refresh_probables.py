@@ -42,6 +42,27 @@ def _probable_str(competitor: Dict[str, Any]) -> str:
     return name
 
 
+def _label_teams(teams: List[Dict[str, Any]]) -> Dict[str, str]:
+    """teams: list of ESPN team dicts appearing on today's board. Returns
+    {team_id: display_label}, using `abbreviation` (e.g. "NYY", "CHC") for
+    any team whose `location` is shared by a *different* team today (e.g.
+    Cubs/White Sox both in Chicago), `location` otherwise -- detected
+    dynamically from today's actual games rather than a hardcoded city list,
+    so it self-maintains through future relocations. Counts distinct team
+    ids per location (not raw occurrences), so a doubleheader -- the same
+    team scheduled twice in one day -- doesn't falsely trigger
+    disambiguation."""
+    ids_by_location: Dict[str, set] = {}
+    for t in teams:
+        ids_by_location.setdefault(t.get("location", ""), set()).add(t.get("id"))
+    labels: Dict[str, str] = {}
+    for t in teams:
+        location = t.get("location", "")
+        team_id = t.get("id")
+        labels[team_id] = t.get("abbreviation", location) if len(ids_by_location[location]) > 1 else location
+    return labels
+
+
 def fetch_probables() -> Dict[str, List[Dict[str, Any]]]:
     """Returns {"AL": [games...], "NL": [games...]}, each game a dict of
     away/home team + probable pitcher strings."""
@@ -57,6 +78,7 @@ def fetch_probables() -> Dict[str, List[Dict[str, Any]]]:
     resp.raise_for_status()
     data = resp.json()
 
+    scheduled_events = []
     for event in data.get("events", []):
         try:
             comp = event["competitions"][0]
@@ -68,9 +90,19 @@ def fetch_probables() -> Dict[str, List[Dict[str, Any]]]:
             competitors = comp["competitors"]
             home = next(c for c in competitors if c.get("homeAway") == "home")
             away = next(c for c in competitors if c.get("homeAway") == "away")
+            scheduled_events.append((home, away))
+        except Exception:
+            continue
 
-            home_abbr = home.get("team", {}).get("abbreviation", "")
-            away_abbr = away.get("team", {}).get("abbreviation", "")
+    teams = [c["team"] for home, away in scheduled_events for c in (home, away)]
+    labels = _label_teams(teams)
+
+    for home, away in scheduled_events:
+        try:
+            home_team = home.get("team", {})
+            away_team = away.get("team", {})
+            home_abbr = home_team.get("abbreviation", "")
+            away_abbr = away_team.get("abbreviation", "")
 
             # Games are cross-league (interleague) sometimes; file under the
             # home team's league, matching how the original broadcast would
@@ -80,9 +112,9 @@ def fetch_probables() -> Dict[str, List[Dict[str, Any]]]:
                 continue
 
             game = {
-                "away": away.get("team", {}).get("location", away_abbr),
+                "away": labels.get(away_team.get("id"), away_abbr),
                 "away_pitcher": _probable_str(away),
-                "home": home.get("team", {}).get("location", home_abbr),
+                "home": labels.get(home_team.get("id"), home_abbr),
                 "home_pitcher": _probable_str(home),
             }
             leagues[league].append(game)

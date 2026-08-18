@@ -78,12 +78,33 @@ def _fetch_pitching_decisions(event_id: str) -> Dict[str, str]:
     return decisions
 
 
+def _label_teams(teams: List[Dict[str, Any]]) -> Dict[str, str]:
+    """teams: list of ESPN team dicts appearing on the same day's board.
+    Returns {team_id: display_label}, using `abbreviation` (e.g. "NYY",
+    "CHC") for any team whose `location` is shared by a *different* team on
+    the same day (e.g. Cubs/White Sox both in Chicago), `location`
+    otherwise -- detected dynamically from that day's actual games rather
+    than a hardcoded city list, so it self-maintains through future
+    relocations. Counts distinct team ids per location (not raw
+    occurrences), so a doubleheader -- the same team appearing twice in one
+    day -- doesn't falsely trigger disambiguation."""
+    ids_by_location: Dict[str, set] = {}
+    for t in teams:
+        ids_by_location.setdefault(t.get("location", ""), set()).add(t.get("id"))
+    labels: Dict[str, str] = {}
+    for t in teams:
+        location = t.get("location", "")
+        team_id = t.get("id")
+        labels[team_id] = t.get("abbreviation", location) if len(ids_by_location[location]) > 1 else location
+    return labels
+
+
 def _final_games(url: str, date_str: str, league: str) -> List[Dict[str, Any]]:
     resp = requests.get(url, params={"dates": date_str}, timeout=10)
     resp.raise_for_status()
     data = resp.json()
 
-    games: List[Dict[str, Any]] = []
+    final_events = []
     for event in data.get("events", []):
         try:
             comp = event["competitions"][0]
@@ -92,10 +113,24 @@ def _final_games(url: str, date_str: str, league: str) -> List[Dict[str, Any]]:
             competitors = comp["competitors"]
             home = next(c for c in competitors if c.get("homeAway") == "home")
             away = next(c for c in competitors if c.get("homeAway") == "away")
+            final_events.append((event, home, away))
+        except Exception:
+            continue
+
+    labels: Dict[str, str] = {}
+    if league == "mlb":
+        teams = [c["team"] for _, home, away in final_events for c in (home, away)]
+        labels = _label_teams(teams)
+
+    games: List[Dict[str, Any]] = []
+    for event, home, away in final_events:
+        try:
+            away_team = away.get("team", {})
+            home_team = home.get("team", {})
             game = {
-                "away": away.get("team", {}).get("location", ""),
+                "away": labels.get(away_team.get("id"), away_team.get("location", "")),
                 "away_score": away.get("score", ""),
-                "home": home.get("team", {}).get("location", ""),
+                "home": labels.get(home_team.get("id"), home_team.get("location", "")),
                 "home_score": home.get("score", ""),
             }
             if league == "mlb":

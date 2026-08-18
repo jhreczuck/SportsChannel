@@ -851,6 +851,47 @@ NHL block** → loop, each league block being Section Intro → (Score Results/L
 
 ---
 
+## Feature: Same-city MLB team disambiguation + minor-league news filter ✅ done
+- [x] Score Results and Probables both used ESPN's `team.location` (city only) with no
+      disambiguation — a live screenshot showed a Score Results card just reading "Chicago 5 -
+      7 Chicago" (Cubs @ White Sox) and a similar risk for New York (Mets/Yankees). Checked
+      ESPN's MLB teams list live for every real same-city collision: Chicago (CHC/CHW), Los
+      Angeles (LAA/LAD), New York (NYM/NYY) — three total, all resolvable via the `abbreviation`
+      field ESPN already provides (unique per team, already used elsewhere in this codebase for
+      `home_abbr`/`away_abbr`).
+- [x] Added `_label_teams()` to both `refresh_score_results.py` and `refresh_probables.py` — for
+      the set of teams appearing on a given day's board, it counts *distinct team ids* per
+      `location` and swaps in `abbreviation` only for teams whose city is shared by a different
+      team that day; everyone else keeps the full city name. Deliberately dynamic (detected from
+      that day's actual games) rather than a hardcoded city list, so it self-maintains through
+      future relocations/realignment. First attempt counted raw location occurrences instead of
+      distinct team ids, which falsely triggered abbreviation on a real live St. Louis/Cincinnati
+      doubleheader (same team playing twice, not a same-city collision) — caught via live testing
+      and fixed to count `set()` of team ids per location instead.
+      Verified live: a same-day CHW @ CHC final correctly abbreviates both sides while an
+      unrelated Los Angeles/Colorado final on the same card keeps full city names; a same-day
+      doubleheader (STL @ CIN x2) correctly keeps full city names; MLB probables correctly
+      showed `NYY @ Baltimore` and `San Diego @ NYM` (both NY teams playing same day) plus
+      `LAA @ Houston` / `LAD @ Colorado` (both LA teams playing same day). Scoped to MLB only per
+      the request — `_final_games()` is shared with NFL, which has its own city collisions
+      (Jets/Giants, Rams/Chargers) already handled separately by `refresh_latest_line.py`'s
+      `_team_label()`, not touched here.
+- [x] Asked directly whether Yahoo's RSS carries metadata (category/tag) that could filter
+      minor-league (MiLB) content more reliably than title text. Checked live: no — inspected the
+      full raw XML tag set on two confirmed MiLB items and found an empty `<category>` element on
+      both, with the only other tags being generic `source`/`dc:publisher` ("SB Nation", not
+      MiLB-specific). Title-text regex is the only viable signal, same as this project's existing
+      fantasy/betting/clickbait filters.
+- [x] Added `_MILB_RE` to `news_feed.py`, same title-prefilter mechanism as `_BETTING_RE`/
+      `_QUESTION_CLICKBAIT_RE`, scoped to `sport == "mlb"` only: matches `MiLB`, `minor league(s)`,
+      bare `minors`, `Triple-A`/`Double-A`/`Single-A` (case-insensitive, word-boundaried).
+      Verified live against 49 real MLB titles (2 correctly flagged, zero false positives) and
+      confirmed a fresh `fetch_sport_news("mlb")` pull has zero minor-league titles remaining.
+      Deliberately does not match bare prospect/call-up titles without an explicit minors word,
+      since those could be legitimate major-league news.
+
+---
+
 ## Open questions
 - Refresh cadence: 1 hour vs 2 hours — any preference, or start at 1 hour and tune later?
 - Ticker leagues: stay NFL-only or expand to NBA/MLB/NHL for the web version?
