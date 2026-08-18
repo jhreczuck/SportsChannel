@@ -18,7 +18,7 @@ TEAM_DIVISIONS: Dict[str, Tuple[str, str]] = {
     "TB": ("AL", "East"),
     "TOR": ("AL", "East"),
     # AL Central
-    "CWS": ("AL", "Central"),
+    "CHW": ("AL", "Central"),
     "CLE": ("AL", "Central"),
     "DET": ("AL", "Central"),
     "KC": ("AL", "Central"),

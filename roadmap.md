@@ -892,6 +892,44 @@ NHL block** → loop, each league block being Section Intro → (Score Results/L
 
 ---
 
+## Feature: MLB League Leaders board ✅ done
+- [x] New board shown right after Standings, split AL/NL like Standings, showing Triple Crown
+      stat leaders (Batting Average, HR, RBI, Wins, ERA, Strikeouts) -- chosen to match this
+      project's 1988-93 retro broadcast style, since Triple Crown stats were literally the on-air
+      standard back then, before OPS/WHIP existed in broadcasts.
+- [x] ESPN's `site.api.espn.com/.../mlb/statistics` endpoint looked like the obvious data source
+      but turned out to be a rolling recent-games window, not season totals -- verified live (its
+      HR "leader" had 7 HR in mid-August; no query param changed this). Real season leaders live
+      on `sports.core.api.espn.com/.../seasons/{year}/types/2/leaders` instead, one call for all
+      categories, `limit=30` per category (verified live: legitimate qualified leaders, e.g. .3206
+      AVG off a 143-446 season line, 37 HR on the year).
+- [x] That endpoint returns athlete/team as `$ref` links rather than embedded objects.
+      `refresh_league_leaders.py` avoids N look-ups by fetching the full 30-team list once
+      (`_team_abbrevs()`) to resolve team ids locally, and only resolves athlete names
+      (`_athlete_short_name()`, cached by athlete id) for the ~10 leaders that actually make each
+      category's final AL/NL top-5 cut -- not all 30 candidates. ~60 requests worst case per
+      refresh, same order of magnitude as `_fetch_pitching_decisions()`'s one-request-per-game
+      precedent in `refresh_score_results.py`. Verified live: full run took ~5 seconds, wrote 60
+      leader rows (6 categories x 2 leagues x 5).
+- [x] Found and fixed a real, pre-existing bug while wiring up AL/NL bucketing: `mlb_divisions.py`
+      mapped the White Sox to `"CWS"`, but ESPN's actual abbreviation is `"CHW"` (confirmed live,
+      same value used by the recent score-results/probables Chicago-collision fix). This silently
+      broke `league_for("CHW")` -> `None`, meaning White Sox games have been getting dropped from
+      the Probables board's league filing. Fixed the one key; verified `league_for("CHW")` now
+      returns `"AL"`, and confirmed live that a White Sox player (M. Vargas, HR leaders) now
+      correctly buckets under AL.
+- [x] Frontend: `buildLeagueLeadersPages`/`drawLeagueLeadersBoard` in `app.js` follow
+      `drawStandingsBoard`'s exact conventions (`makeLineGate` typewriter reveal, `BOARD_ROW_BG`
+      row highlighting, `logos.al`/`logos.nl` badge -- the same `AL.png`/`NL.png` art already used
+      by Standings) -- spliced into the rotation immediately after `mlbStandingsPages`. Verified
+      live in-browser: title/subtitle/rows/badge all render correctly with no layout overflow.
+- [x] Also bumped `index.html`'s `app.js?v=` cache-buster (49 -> 50) -- the browser was silently
+      serving a stale cached copy of `app.js` (and even a stale `index.html`) despite the file on
+      disk being current, until the version query string changed. Worth remembering for any future
+      `app.js`-only change: bump the version even if nothing else in `index.html` changed.
+
+---
+
 ## Open questions
 - Refresh cadence: 1 hour vs 2 hours — any preference, or start at 1 hour and tune later?
 - Ticker leagues: stay NFL-only or expand to NBA/MLB/NHL for the web version?

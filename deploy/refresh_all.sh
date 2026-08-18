@@ -33,6 +33,7 @@ echo "[refresh_all] Starting data refresh at $(date -Iseconds)"
 "$PYTHON" refresh_ticker.py
 "$PYTHON" refresh_probables.py
 "$PYTHON" refresh_standings.py
+"$PYTHON" refresh_league_leaders.py
 "$PYTHON" refresh_nfl_standings.py
 "$PYTHON" refresh_nba_standings.py
 "$PYTHON" refresh_nhl_standings.py

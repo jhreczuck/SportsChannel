@@ -355,6 +355,23 @@ function buildStandingsPages(standingsData) {
 }
 
 // ---------------------------
+// League Leaders board builder (AL/NL Triple Crown stat leaders)
+// ---------------------------
+// One screen per (league, category) -- e.g. "AL Batting Average", "NL ERA".
+function buildLeagueLeadersPages(leadersData) {
+  if (!leadersData || !leadersData.in_season) return [];
+  const sport = leadersData.sport || "mlb";
+  const pages = [];
+  for (const league of leadersData.leagues || []) {
+    for (const category of league.categories || []) {
+      if (!category.leaders || !category.leaders.length) continue;
+      pages.push({ type: "leaders", league: league.name, category, sport });
+    }
+  }
+  return pages;
+}
+
+// ---------------------------
 // Latest Line board builder (NFL betting lines)
 // ---------------------------
 const LATEST_LINE_GAMES_PER_SCREEN = 4; // 5 overflowed past the panel with the taller title/logo layout
@@ -773,6 +790,45 @@ function drawStandingsBoard(page, logos, linesToShow) {
   let badgeLogo = logos[page.sport] || logos.mlb;
   if (division.name.startsWith("American League") && logos.al) badgeLogo = logos.al;
   else if (division.name.startsWith("National League") && logos.nl) badgeLogo = logos.nl;
+  if (badgeLogo) drawLogoInBox(badgeLogo, rightRect);
+}
+
+// ---------------------------
+// League Leaders board (AL/NL Triple Crown stat leaders)
+// ---------------------------
+function drawLeagueLeadersBoard(page, logos, linesToShow) {
+  const shouldShow = makeLineGate(linesToShow);
+  const category = page.category;
+  const titleY = inner.y + TEXT_PADDING;
+
+  ctx.font = BOARD_TITLE_FONT;
+  ctx.fillStyle = "rgb(235,150,60)"; // same warm accent as other board titles
+  ctx.textBaseline = "top";
+  ctx.textAlign = "left";
+  if (shouldShow()) ctx.fillText(`${page.league} LEAGUE LEADERS`, inner.x + TEXT_PADDING, titleY);
+
+  ctx.font = BODY_FONT;
+  ctx.fillStyle = TEXT_COLOR;
+  if (shouldShow()) ctx.fillText(category.displayName, inner.x + TEXT_PADDING, titleY + BOARD_TITLE_FONT_PX + 16);
+
+  const rowHeight = BODY_FONT_PX + 12;
+  let rowY = titleY + BOARD_TITLE_FONT_PX + 16 + BODY_FONT_PX + 30;
+  const nameX = inner.x + TEXT_PADDING;
+  const colW = Math.max(100, leftRect.w - TEXT_PADDING * 2);
+  const valueX = nameX + colW * 0.82; // right-hand stat column, mirrors standings' col5X margin
+
+  for (const leader of category.leaders) {
+    if (shouldShow()) {
+      ctx.fillStyle = BOARD_ROW_BG;
+      ctx.fillRect(nameX - 8, rowY - 4, colW, rowHeight - 6);
+      ctx.fillStyle = TEXT_COLOR;
+      ctx.fillText(`${leader.rank}. ${leader.name} (${leader.team})`, nameX, rowY);
+      ctx.fillText(leader.display, valueX, rowY);
+    }
+    rowY += rowHeight;
+  }
+
+  const badgeLogo = page.league === "AL" ? logos.al : logos.nl;
   if (badgeLogo) drawLogoInBox(badgeLogo, rightRect);
 }
 
@@ -1223,6 +1279,13 @@ async function buildRotation() {
     console.warn("[standings] load failed:", e);
   }
 
+  let mlbLeadersPages = [];
+  try {
+    mlbLeadersPages = buildLeagueLeadersPages(await loadJSON("../data/league_leaders.json"));
+  } catch (e) {
+    console.warn("[league leaders] load failed:", e);
+  }
+
   let nflStandingsPages = [];
   try {
     nflStandingsPages = buildStandingsPages(await loadJSON("../data/nfl_standings.json"));
@@ -1346,7 +1409,7 @@ async function buildRotation() {
     ...historyPages,
     ...birthdaysPages,
     ...triviaPages,
-    ...mlbIntroPages, ...mlbScoreResultsPages, ...probablesPages, ...mlbSlides, ...mlbStandingsPages, ...mlbQuotePages,
+    ...mlbIntroPages, ...mlbScoreResultsPages, ...probablesPages, ...mlbSlides, ...mlbStandingsPages, ...mlbLeadersPages, ...mlbQuotePages,
     ...nflIntroPages, ...nflScoreResultsPages, ...latestLinePages, ...nflSlides, ...nflStandingsPages, ...nflQuotePages,
     ...nbaIntroPages, ...nbaLinePages, ...nbaSlides, ...nbaStandingsPages, ...nbaQuotePages,
     ...nhlIntroPages, ...nhlLinePages, ...nhlSlides, ...nhlStandingsPages, ...nhlQuotePages,
@@ -1534,6 +1597,8 @@ async function main() {
       drawProbablesBoard(item, probableLogo, boardLinesToShow);
     } else if (item.type === "standings") {
       drawStandingsBoard(item, standingsLogos, boardLinesToShow);
+    } else if (item.type === "leaders") {
+      drawLeagueLeadersBoard(item, standingsLogos, boardLinesToShow);
     } else if (item.type === "latest_line") {
       drawLatestLineBoard(item, latestLineLogos[item.sport] || nflLogo, boardLinesToShow);
     } else if (item.type === "history_fact") {
